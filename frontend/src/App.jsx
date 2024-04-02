@@ -33,7 +33,7 @@ const router = createBrowserRouter([
     element: <div><Products /></div>
   },
   {
-    path: '/formulaireproduit',
+    path: '/formulaireproduit/:id?',
     element: <div><FormulaireProduit/></div>
   },
   {
@@ -65,9 +65,10 @@ const router = createBrowserRouter([
     element: <div><Categorie/></div>
   },
   {
-    path: '/subcategorie',
+    path: '/subcategorie/:name?',
     element: <div><SubCategorie/></div>
   }
+  
 ])
 function App() {
   return (

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaTrash, FaEdit, FaPlus, FaSearch } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SidBar from './sidbar';
 import NavAdmin from './navadmin';
 import './products.css';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(''); 
     const [editIdProduit, setEditIdProduit] = useState(-1);
+    const navigate = useNavigate(); 
 
     const handleDelete = (idProduit) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
@@ -24,9 +25,11 @@ const Products = () => {
           console.error('Error deleting product:', error);
         }
       };
+
     const handleEdit = (idProduit) => {
+        setEditIdProduit(idProduit);
         // Rediriger l'utilisateur vers le formulaire avec l'ID du produit à modifier
-        history.push(`/formulaireproduit/${idProduit}`);
+        navigate(`/formulaireproduit/${idProduit}`);
     };
 
     const handleAdd = () => {
@@ -98,7 +101,9 @@ const Products = () => {
                                     <td>{product.reference}</td>
                                     <td>
                                         <FaTrash className='icon' onClick={() => handleDelete(product.idProduit)} />
-                                        <FaEdit  className='icons' onClick={() => handleEdit(product.idProduit)} />
+                                        <Link to={`/formulaireproduit/${product.idProduit}`}>
+                                             <FaEdit className='icons' />
+                                        </Link>
                                     </td>
                                 </tr>
                             ))}

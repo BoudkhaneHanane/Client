@@ -50,12 +50,12 @@ const Categories = () => {
                         </thead>
                         <tbody>
                             {categories.map(categorie => (
-                                <tr key={categorie.idCategorie }>
-                                    <td>{categorie.idCategorie }</td>
-                                    <td>{categorie.name}</td>
+                                <tr key={categorie.idCategorie  }>
+                                    <td>{categorie.idCategorie  }</td>
+                                    <td>{categorie.namecategorie}</td>
                                     <td>
-                                        <FaTrash className='icon' onClick={() => handleDelete(categorie.idCategorie)} />
-                                        <FaEdit  className='icons' onClick={() => handleEdit(categorie.idCategorie)} />
+                                        <FaTrash className='icon' onClick={() => handleDelete(categorie.idCategorie )} />
+                                        <FaEdit  className='icons' onClick={() => handleEdit(categorie.idCategorie )} />
                                     </td>
                                 </tr>
                             ))}
