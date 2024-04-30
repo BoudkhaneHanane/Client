@@ -1,0 +1,189 @@
+.row {
+    margin-top: 25px;
+    display: flex;
+  }
+.sidebarWrapper {
+    flex: 0 0 20%;
+}
+.rightContent {
+    flex: 0 0 80%;
+}
+.rightContent .row {
+    margin-top: 15px;
+    flex: 1; /* Take up remaining space */
+    position: relative; /* Position relative for absolute positioning of features dropdown */
+  }
+.productrow {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 2fr)); /* Adjust grid columns as needed */
+    grid-gap: 15px; /* Add gap between products */
+}
+.sidebarWrapper h4 {
+    font-size: 29px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5%;
+    margin-bottom: 15px;
+}
+.sidebarWrapper h4:after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    background: #f0f0f0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.sidebarWrapper h4:before {
+    content: "";
+    width: 20%;
+    height: 3px;
+    background: #111861;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+.sidebarWrapper .sidebar .card {
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 4px !important;
+    margin: 15px 20px;
+}
+.sidebarWrapper .sidebar .card .catList .catItem {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1.3px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+.sidebarWrapper .sidebar .card .catList .catItem h5 {
+    color: #000;
+    font-size: 17px;
+}
+.sidebarWrapper .sidebar .card .catList .catItem .rounded-circle {
+    background: #111861;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+.sidebarWrapper .sidebar .card .catList .catItem:hover {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #1118613f;
+}
+.sidebarWrapper .sidebar .card .slider{
+    color: #111861;
+    font-size: 17px;
+}
+.priceRange span {
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.priceRange span strong{
+    color: #111861;
+    font-size: 18px;
+}
+.filters {
+    padding: 25px 0px;
+}
+.card h5 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.filters ul {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.filters ul::-webkit-scrollbar {
+    width: 10px !important;
+}
+.filters ul::-webkit-scrollbar-thumb {
+    background: #ccc !important;
+}
+.filters ul li {
+    width: 100%;
+    margin-bottom: 0px;
+    list-style: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+.sidebarWrapper .sidebar .btn {
+    width: 250;
+}
+.sidebarWrapper .sidebar .features {
+    top: 0;
+    right: auto;
+    margin: 20px;
+  }
+.sidebarWrapper .sidebar .features {
+    position: relative; /* Ensure position is relative for absolute positioning of dropdown */
+}
+.features button {
+    width: 220px;
+    color: #777676;
+    font-size: 16px;
+    font-weight: 550;
+    background: #fff;
+    border: 0.5px solid #cccccc79;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+  }
+  
+  .features button:focus {
+    outline: none;
+  }
+  
+  .features svg {
+    margin-right: 5px;
+  }
+  
+  .features ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: calc(100% + 5px); /* Position the dropdown below the button */
+    right: 0; /* Align dropdown to the right */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+  
+  
+ .features ul li {
+   padding: 0px;
+  }
+  
+ .features ul li button {
+    background: none;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+  
+ .features ul li button:hover {
+    background-color: #111861a4;
+    color: #fff;
+}

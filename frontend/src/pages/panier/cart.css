@@ -1,0 +1,76 @@
+/* Container */
+.cart-container {
+    max-width: 800px;
+    margin: 20px auto; /* Added margin to the top and bottom */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  th:first-child, td:first-child {
+    padding-left: 20px;
+  }
+  
+  th:last-child, td:last-child {
+    text-align: center;
+  }
+  
+  .quantity-controls button {
+    background-color: #fff;
+    color: #808080;
+    border-radius: 5%;
+    border: 1px solid #ddd;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .quantity-controls button:hover {
+    background-color: #ffffff6b;
+  }
+  .quantity-controls span{
+    margin: 10px;
+  }
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .buttons-container button {
+    padding: 25px 5px;
+    background-color: transparent;
+    color: #808080;
+    border: none;
+    font-size: 24px;
+    font-weight: 540;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .buttons-container button:hover {
+    color: #111861;
+  }
+  .icon{
+    background-color: transparent;
+    color: #111861;
+  }
+  .icon:hover svg {
+    color: #2433d67e; /* Adjust color as needed */
+  }

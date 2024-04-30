@@ -1,0 +1,116 @@
+.nav {
+    width: 100%;
+    text-align: center;
+    height: 100px;
+    margin: auto;
+    background-color: #111861;
+}
+.nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center; /* Center the list items */
+}
+.nav ul li {
+    display: inline-block;
+    position: relative;
+    /* Add any necessary styling for individual list items */
+}
+.nav ul li button {
+    text-transform: capitalize !important;
+    padding: 15px 10px !important;
+    color: rgba(47, 106, 233, 0.74) !important;
+}
+.nav ul li button a {
+    text-decoration: none !important;
+    color: #fff !important;
+    font-size: 16px !important;
+}
+.nav .dropdown_menu {
+    position: absolute;
+    top: 100%;
+    left: 0px;
+    width: 190px;
+    height: auto;
+    font-size: 5px;
+    background-color: #fff;
+    box-shadow: 5px 5px 15px rgba(0 0 0 / 20%);
+    padding: 0px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.1s ease-in-out;
+    border-radius: 5px;
+}
+.nav .dropdown_menu li {
+    width: 100% !important;
+    list-style: none;
+    margin: 0px !important;
+}
+.nav .dropdown_menu li button {
+    width: 100% !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+    text-transform: capitalize !important;
+    font-size: 5px !important;
+    padding: 6px 18px !important;
+    color: blue !important;
+}
+.nav .dropdown_menu li button:hover {
+    background: #f1f1f1 !important;
+}
+.nav ul li:hover > .dropdown_menu {
+    top: 100%;
+    opacity: 1;
+    visibility: inherit;
+}
+.dropdown_menu ul {
+    padding: 0;
+    position: relative;
+}
+.dropdown_menu ul li {
+    display: block;
+}
+.dropdown_menu ul li:hover > .second_menu {
+    display: block;
+}
+.second_menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 190px;
+    background-color: #fff;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    border-radius: 5px;
+}
+.second_menu ul {
+    padding: 0;
+}
+.second_menu ul li {
+    display: block;
+}
+.second_menu ul li:hover > .third_menu {
+    display: block;
+}
+/* Styles for the third level menu */
+.third_menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 180px;
+    background-color: #fff;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    border-radius: 5px;
+}
+.third_menu ul {
+    padding: 0;
+}
+.third_menu ul li {
+    display: block;
+}
+.nav .dropdown_menu li button a {
+    color: black !important;
+}

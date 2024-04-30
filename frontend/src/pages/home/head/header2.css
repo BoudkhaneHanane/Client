@@ -1,0 +1,142 @@
+header {
+  width: auto;
+  height: auto;
+  padding: 0px 0px;
+  background: #111861;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  padding: 0px 25px;
+}
+
+.headerWrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+}
+
+.headerWrapper .fixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 1000;
+  background-color: #fff;
+}
+
+/* Logo */
+.logo {
+  margin-right: auto; /* Push logo to the left */
+}
+
+.logo img {
+  width: 65px;
+  padding-bottom: 0px;
+}
+
+.nav {
+  margin: 20px auto 0; /* Center the navigation and add space above */
+  padding-top: 20px; /* Add space above the navigation */
+}
+
+.menu {
+  display: flex;
+  justify-content: center; /* Center the navigation */
+}
+
+
+.headerTabs {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  padding-left: 40px; /* Remove padding */
+}
+
+.headerTabs li {
+  margin-left: 10px; /* Add margin between list items */
+  position: relative;
+}
+
+.headerTabs li span {
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.headerTabs li span img {
+  margin-right: 0px;
+  filter: invert(100%); /* Invert the color to white */
+}
+
+.headerTabs li span .badge {
+  width: 18px;
+  height: 18px;
+  line-height: 15px;
+  color: #fff;
+  font-weight: 400;
+  position: absolute;
+  top: 10%;
+  transform: translateY(-80%);
+  left: 13px;
+  background-color: #ff0000cb;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 14px;
+  padding: 1px;
+}
+
+.headerTabs {
+  position: relative; /* Ensure dropdown menu is positioned relative to this container */
+}
+
+.dropDownMenu {
+  position: absolute;
+  top: calc(100% + 10px); /* Position below the headerTabs */
+  right: 0;
+  width: 140px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  padding: 5px 0;
+  z-index: 100; /* Ensure dropdown menu is above other elements */
+}
+
+.dropDownMenu li {
+  list-style: none;
+  margin: 0;
+}
+
+.dropDownMenu li button {
+  width: auto;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.9);
+  text-transform: capitalize;
+  font-size: 16px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.dropDownMenu li button svg {
+  margin-right: 6px;
+}
+
+.dropDownMenu li button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.menu nav ul.list {
+  display: flex;
+  align-items: center;
+}
+
+.menu nav ul.list li {
+  margin-right: 20px;
+}
+
+.menu nav ul.list li:last-child {
+  margin-right: 0;
+}

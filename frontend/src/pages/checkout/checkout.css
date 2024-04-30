@@ -1,0 +1,182 @@
+.checkout-container {
+    margin: 20px 40px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .top {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .left,
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .section {
+    margin-bottom: 25px;
+    padding: 20px 40px;
+  }
+  
+  .billing-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .billing-details label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  
+  .billing-details input,
+  .billing-details select {
+    font-size: 17px;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .additional-information {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .additional-information label {
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  
+  .additional-information textarea {
+    font-size: 17px;
+    margin-bottom: 0px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 300px;
+    height: 150px;
+    max-width: 300px;
+    min-width: 300px;
+  }
+  
+  .delivery-information {
+    margin-top: 0px;
+  }
+  
+  .delivery-option {
+    margin-bottom: 10px;
+  }
+  
+  .delivery-option label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .delivery-information p {
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  
+  .delivery-information p span {
+    color: #111681;
+  }
+  
+  .order-details {
+    padding: 20px;
+    margin-bottom: 0px;
+  }
+  
+  .order-details table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 20px;
+  }
+  
+  .order-details th,
+  .order-details td {
+    border: 1px solid #cccccc17;
+    padding: 10px;
+    text-align: left;
+    color: #0000008f;
+    font-weight: 500;
+  }
+  .order-details .money{
+    color: #111681;
+    font-weight: 500;
+  }
+  .order-details .title {
+    font-size: 17px;
+    font-weight: 550;
+    color: #000000de;
+    background-color: #80808018;
+  }
+  .payment-section {
+    background-color: #f9f9f9; /* Light gray background color */
+    padding: 20px;
+    border-radius: 5px;
+  }
+.payment-method {
+    margin-bottom: 15px; /* Spacing between payment methods */
+  }
+  
+  .payment-method label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+.online-payment-form {
+    margin-top: 15px; /* Spacing above the online payment form */
+  }
+.payment-section label {
+    display: block; /* Each label on a new line */
+    margin-top: 15px; /* Spacing between labels */
+  }
+  .copyRights{
+    margin-bottom: 20px;
+  }
+  .copyRights p , .copyRights label{
+    font-size: 16px;
+  }
+.place-order-button {
+    background-color: #111681;
+    width: 100%;
+    height: 55px;
+    font-size: 17px;
+    font-weight: 550;
+    text-transform: uppercase;
+  }
+  
+  h2 {
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 550;
+    color: #000000de;
+  }
+  
+  a {
+    color: #111681;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  hr {
+    border: none;
+    border-top: 2px solid #080a3db4;
+    margin: 20px 0;
+  }
+  

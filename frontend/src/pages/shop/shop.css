@@ -1,0 +1,193 @@
+.listingPage {
+    width: 100%;
+    height: auto;
+    padding: 45px 0;
+}
+.breadcrumb {
+    width: 100%;
+    height: auto;
+    padding: 35px 30px;
+    background: #4b4baa50;
+    border-radius: 20px;
+}
+.breadcrumb h1 {
+    color: #000;
+    opacity: 0.8;
+    font-size: 40px;
+    font-weight: bold;
+}
+.breadcrumb ul.list-inline li {
+    margin-right: 15px !important;
+}
+.breadcrumb ul.list-inline li a {
+    color: #000;
+    text-decoration: none;
+    font-size: 18px;
+}
+.sidebarWrapper {
+    max-width: 20%;
+    flex: 0 0 20%;
+}
+.rightContent {
+    max-width: 80%;
+    flex: 0 0 80%;
+}
+.sidebarWrapper h4 {
+    font-size: 26px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5%;
+    margin-bottom: 15px;
+}
+.sidebarWrapper h4:after {
+    content: "";
+    width: 100%;
+    height: 3px;
+    background: #f0f0f0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.sidebarWrapper h4:before {
+    content: "";
+    width: 20%;
+    height: 3px;
+    background: #73a4ff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+.sidebarWrapper .sidebar {
+    position: sticky;
+    top: 10px;
+}
+.sidebarWrapper .sidebar .card {
+    padding: 20px;
+    border-radius: 10px !important;
+    margin-bottom: 30px;
+}
+.sidebarWrapper .sidebar .card .catList .catItem {
+    padding: 10px;
+    border: 1.3px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin: 5px 0px;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+}
+.sidebarWrapper .sidebar .card .catList .catItem h5 {
+    color: #000;
+    font-size: 16px;
+}
+.sidebarWrapper .sidebar .card .catList .catItem .rounded-circle {
+    background: #88a7ff;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 600;
+}
+.sidebarWrapper .sidebar .card .catList .catItem:hover {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.priceRange span {
+    font-size: 16px;
+}
+.filters {
+    padding: 25px 0px;
+}
+.filters h5 {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.filters ul {
+    max-height: 200px;
+    overflow-y: scroll;
+    margin-left: -40px;
+}
+.filters ul::-webkit-scrollbar {
+    width: 10px !important;
+}
+.filters ul::-webkit-scrollbar-thumb {
+    background: #ccc !important;
+}
+.filters ul li {
+    width: 100%;
+    margin-bottom: 0px;
+    list-style: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+.sidebarWrapper .sidebar .btn {
+    width: 150px !important;
+}
+.rightContent {
+    width: 100%;
+    padding-top: 0;
+}
+.topStrip {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px; /* Add padding to the right for spacing */
+}
+.tab_ {
+    position: relative; /* Reset position to relative */
+}
+
+.tab_ button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 7px 10px;
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.8);
+    background: #fff;
+    border-radius: 10px;
+    width: 240px;
+    font-size: 17px;
+    padding-left: 0px;
+    cursor: pointer;
+}
+.tab_ button svg {
+    font-size: 20px;
+}
+.dropdownMenu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 2px;
+    width: 240px;
+}
+.dropdownMenu li {
+    list-style: none;
+}
+.dropdownMenu li button {
+    display: block;
+    width: 100%;
+    padding: 5px 15px;
+    margin: auto;
+    background: none;
+    border: none;
+    text-align: left;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+.productrow {
+    padding-left: 40px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.item {
+    flex: 0 0 50%;
+    max-width: 50% !important;
+    padding: 15px;
+    box-sizing: border-box;
+}

@@ -1,136 +1,124 @@
-import Login from './components/login';
-import ForgotPassword from './components/forgotPassword'; 
-import SignRevendeur from './components/signRevendeur'; 
-import Nav from './components/nav';
-import Products from './components/products';
-import FormulaireProduit from './components/formulaireproduit';
-import AdminHome from './components/adminhome';
-import SidBar from './components/sidbar';
-import Account from './components/account';
-import Users from './components/users';
-import ProfilUser from './components/profiluser';
-import Categorie from './components/categorie';
-import SubCategorie from './components/subcategorie';
-import SubSubCategorie from './components/subsubcategorie';
-import CategorieFormu from './components/categorieformu';
-import Promotions from './components/promotions';
-import PromotionFormu  from './components/promotionformu';
-import SubCategorieFormu from './components/subcategorieformu';
-import SubSubCategorieFormu from './components/subsubcategorieformu';
-import Revendeur from './components/revendeur';
-import ListeBloque from './components/listebloque';
-import Admin from './components/admin';
-import Order from './components/order';
-import DetailOrder from './components/detailorder';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./pages/home/head/header";
+import Home from "./pages/home/home";
+import Cart from "./pages/panier/cart";
+import Favoris from "./pages/favoris/favoris";
+import Shop from "./pages/shop/shop";
+import Detail from "./pages/details/productdetail";
+import Checkout from "./pages/checkout/checkout";
+import Footer from "./pages/home/foot/footer";
+import "./App.css";
 
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <div><Login /></div>
-  },
-  {
-    path: '/forgotPassword',
-    element: <div><ForgotPassword /></div>
-  },
-  {
-    path: '/signRevendeur',
-    element: <div><SignRevendeur /></div>
-  },
-  {
-    path: '/products/:id?/:name?',
-    element: <div><Products /></div>
-  },
-  {
-    path: '/formulaireproduit/:id?',
-    element: <div><FormulaireProduit/></div>
-  },
-  {
-    path: '/adminhome',
-    element: <div><AdminHome/></div>
-  },
-  {
-    path: '/sidbar',
-    element: <div><SidBar/></div>
-  },
-  {
-    path: '/account/:id?',
-    element: <div><Account/></div>
-  },
-  {
-    path: '/users',
-    element: <div><Users/></div>
-  },
-  {
-    path: '/profiluser/:userId?', 
-    element: <div><ProfilUser/></div>
-  },
-  {
-    path: '/categorie',
-    element: <div><Categorie/></div>
-  },
-  {
-    path: '/subcategorie/:category?',
-    element: <div><SubCategorie/></div>
-  },
-  {
-    path: '/subsubcategorie/:name?',
-    element: <div><SubSubCategorie/></div>
-  },
-  {
-    path: '/categorieformu/:idCategorie?',
-    element: <div><CategorieFormu/></div>
-  },
-  {
-    path: '/promotions/:id?',
-    element: <div><Promotions/></div>
-  },
-  {
-    path: '/promotionformu/:productName?',
-    element: <div><PromotionFormu/></div>
-  },
-  {
-    path: '/subcategorieformu',
-    element: <div><SubCategorieFormu/></div>
-  },
-  {
-    path: '/subsubcategorieformu',
-    element: <div><SubSubCategorieFormu/></div>
-  },
-  {
-    path: '/revendeur/:idDemande',
-    element: <div><Revendeur/></div>
-  },
-  {
-    path: '/listebloque',
-    element: <div><ListeBloque/></div>
-  },
-  {
-    path: '/admin',
-    element: <div><Admin/></div>
-  },
-  {
-    path: '/nav',
-    element: <div><Nav/></div>
-  },
-  {
-    path: '/order',
-    element: <div><Order/></div>
-  },
-  {
-    path: '/detailorder/:orderId?',
-    element: <div><DetailOrder/></div>
-  },
- 
- 
-])
 function App() {
+  const [cart, setCart] = useState(() => {
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    return savedCart;
+  });
+  const [favorites, setFavorites] = useState(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    return savedFavorites;
+  });
+
+  const [showWarning, setShowWarning] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const handleClick = (product) => {
+    if (!product || typeof product !== "object" || !product.idProduit) {
+      return;
+    }
+
+    const existingProductIndex = cart.findIndex(
+      (item) => item.idProduit === product.idProduit
+    );
+
+    if (existingProductIndex !== -1) {
+      setShowWarning(false);
+      return;
+    }
+
+    setCart([...cart, { ...product, quantity: 1 }]);
+  };
+
+  const addToFavorites = (product) => {
+    if (!product || typeof product !== "object" || !product.idProduit) {
+      return;
+    }
+
+    // Check if the product is already in favorites
+    const isAlreadyFavorite = favorites.some(
+      (item) => item.idProduit === product.idProduit
+    );
+
+    if (!isAlreadyFavorite) {
+      setFavorites([...favorites, { ...product }]);
+    }
+  };
+
   return (
-    <div>
-      <RouterProvider router= {router}/>
-    </div>
+    <BrowserRouter>
+      <Header sizeCart={cart.length} sizeFavoris={favorites.length} />
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={<Home handleClick={handleClick} showWarning={showWarning} />}
+        />
+        <Route
+          exact
+          path="/cart"
+          element={<Cart cart={cart} setCart={setCart} />}
+        />
+        <Route
+          exact
+          path="/favoris"
+          element={
+            <Favoris
+              favorites={favorites}
+              setFavorites={setFavorites}
+              handleClick={handleClick}
+              showWarning={showWarning}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/shop"
+          element={
+            <Shop
+              addToFavorites={addToFavorites}
+              handleClick={handleClick}
+              showWarning={showWarning}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/detail/:id" // Add ":id" to specify that it's a parameter
+          element={
+            <Detail
+              addToFavorites={addToFavorites}
+              handleClick={handleClick}
+              showWarning={showWarning}
+            />
+          }
+        />
+
+        <Route
+          exact
+          path="/checkout"
+          element={<Checkout cart={cart} setCart={setCart} />}
+        />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 }
 

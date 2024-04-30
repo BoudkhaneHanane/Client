@@ -1,0 +1,119 @@
+/* productdetail.css */
+
+.single-product-page {
+    margin: 20px 30px;
+    padding: 30px 35px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+/* Styles for the container of product photos */
+.product-photos {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative; /* Position relative for zoom effect */
+  }
+/* Styles for individual product photos */
+.product-photos img {
+    width: 150px;
+    height: 150px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* Transition for zoom effect */
+  }
+
+  /* Hover effect for zooming */
+.product-photos img:hover {
+    transform: scale(1.2); /* Zoom effect on hover */
+  }
+  
+  /* Styles for grid layout of other images */
+  .product-photos .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns grid */
+    grid-gap: 10px; /* Gap between grid items */
+    position: absolute; /* Position absolute for grid */
+    top: 100%; /* Align grid below the first image */
+    left: 50%; /* Center the grid horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    width: 80%; /* Adjust width as needed */
+    background: #fff; /* Background color for better visibility */
+    padding: 10px; /* Padding for grid */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+  }
+  /* Styles for the container of product details */
+
+/* Styles for the container of product details */
+.product-details {
+    width: 70%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  /* Styles for product title */
+  .product-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for product details like price, description, categories */
+  .product-details p {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  /* Styles for Add to Cart button */
+  .product-details button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Styles for icon inside Add to Cart button */
+  .product-details button svg {
+    margin-right: 5px;
+  }
+/* Styles for Add to Wishlist container */
+.product-details div {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  /* Styles for related products section */
+  .related-products {
+    width: 70%;
+    margin-top: 20px;
+  }
+  
+  /* Styles for related products section title */
+  .related-products h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for the container of related products */
+  .productrow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }

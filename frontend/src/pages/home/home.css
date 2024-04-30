@@ -1,0 +1,98 @@
+/* General Styles */
+.plusBoxes, .homeProducts {
+  padding: 20px 0; /* Add padding as needed */
+}
+
+/* Plus Boxes Section */
+.plusBoxes {
+  background-color: #111861; /* Blue color */
+  color: #fff; /* Text color */
+  padding: 15px; /* Add padding as needed */
+  display: flex;
+  flex-direction: column; /* Arrange items in one column */
+  align-items: center; /* Align items horizontally */
+}
+
+.plusBoxes .row {
+  margin-top: 10px; /* Add margin to separate from other sections */
+}
+
+.plusBoxes .col {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  justify-content: center; /* Center items horizontally */
+  gap: 20px; /* Add space between columns */
+  animation: moveLeftAndBack 35s linear infinite alternate; /* Adjust the duration and timing function as needed */
+}
+
+.plusBoxes .col > div {
+  flex: 1; /* Distribute space evenly among columns */
+  margin-bottom: 10px; /* Add space between divs */
+}
+
+.plusBoxes div {
+  display: flex; /* Ensure images and paragraphs are in a row */
+  align-items: center; /* Align items vertically */
+}
+
+/* Plus Boxes Images */
+.plusBoxes img {
+  filter: brightness(0) invert(1); /* Make images white */
+  width: 40px; /* Adjust icon size as needed */
+  height: 40px;
+  margin-right: 10px; /* Add space between icon and paragraph */
+}
+
+/* Plus Boxes Text */
+.plusBoxes p {
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center; /* Center text */
+  margin: 0px; /* Reset default margin */
+}
+
+/* Keyframes Animation */
+@keyframes moveLeftAndBack {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Home Products Section */
+.homeProducts label {
+  font-size: 1.2em; /* Adjust font size as needed */
+  font-weight: bold;
+}
+
+.productRow {
+  display: flex;
+  flex-wrap: nowrap; /* Prevent items from wrapping to the next line */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  padding-bottom: 20px; /* Add padding at the bottom to prevent items from sticking to the edge */
+  justify-content: space-between; /* Distribute items evenly within the row */
+}
+
+.item {
+  flex: 0 0 calc(25% - 10px); /* Adjust item width and margin as needed */
+  margin-right: 10px; /* Adjust margin between items */
+}
+
+.item:last-child {
+  margin-right: 0; /* Remove margin from the last item */
+}
+
+/* More Link */
+.more {
+  color: #007bff; /* Link color */
+  text-decoration: none;
+}
+
+.more:hover {
+  text-decoration: underline; /* Underline on hover */
+}

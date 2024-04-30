@@ -1,0 +1,176 @@
+footer {
+    padding: 25px 15px;
+    margin: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #111861;
+  }
+  
+  footer .footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  footer .part1 {
+    color: #ffffffec;
+    font-size: 10px;
+    flex: 0 0 30%;
+  }
+  
+  footer .part1 label {
+    display: block;
+    margin: 5px 0;
+    font-weight: 600;
+    font-size: 20px;
+  }
+  
+  footer .part1 svg {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  
+  footer .part1 p {
+    font-size: 15px;
+    margin: 0;
+  }
+  footer .part2{
+    margin-left: 30px;
+  }
+  footer .part2 .pages {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  footer .part2 .col {
+    flex: 0 0 auto;
+    width: 65%; /* Adjust width as needed */
+  }
+  
+  footer .part2 h2 {
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  footer .part2 ul {
+    padding: 0;
+    margin: 0;
+  }
+  
+  footer .part2 ul li {
+    list-style: none;
+    margin-bottom: 15px;
+  }
+  
+  footer .part2 ul li a {
+    font-weight: 500;
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  footer .part2 ul li a:hover {
+    color: #007bff;
+    opacity: 1;
+    padding-left: 5px;
+  }
+  
+  footer .part3 {
+    color: #ffffffe8;
+    flex: 0 0 30%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 300px;
+  }
+  
+  footer .part3 label {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  footer .part3 p {
+    font-weight: 410;
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  footer .part3 .contact,
+  footer .part3 .media,
+  footer .part3 .row {
+    margin-bottom: 15px;
+  }
+  
+  footer .part3 .contact p,
+  footer .part3 .media ul {
+    margin-top: 5px;
+  }
+  
+  footer .part3 ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  footer .part3 ul li {
+    list-style: none;
+    margin-right: 10px;
+  }
+  
+  footer .part3 ul li:last-child {
+    margin-right: 0;
+  }
+  
+  footer .part3 ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: #0c0fcf;
+    border-radius: 50%;
+  }
+  
+  footer .part3 ul li a svg {
+    color: #fff;
+  }
+  
+  .pay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .pay img {
+    width: 40px;
+    height: auto;
+    margin: 0px;
+  }
+  @media screen and (max-width: 768px) {
+    footer .footer {
+      flex-direction: column;
+      align-items: flex-start;
+      overflow-x: hidden; /* Add this line to hide horizontal overflow */
+    }
+    
+    footer .part1 {
+      flex: 0 0 100%; /* Set to full width */
+      margin-bottom: 20px;
+    }
+  
+    footer .part2 {
+      margin-left: 0;
+      flex: 0 0 100%; /* Set to full width */
+    }
+    
+    footer .part3 {
+      margin-left: 0;
+      flex: 0 0 100%; /* Set to full width */
+    }
+  }
+  
