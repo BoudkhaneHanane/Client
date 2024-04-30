@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './forgot.css';
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -15,7 +15,6 @@ const ForgotPassword = () => {
   
       if (response && response.data && response.data.exists) {
         setEmailExists(true);
-        setMessage('Check your email');
       } else {
         setMessage('This email does not exist in our records.');
       }
@@ -26,28 +25,36 @@ const ForgotPassword = () => {
 
   const handleResetPassword = async () => {
     try {
-      const resetResponse = await axios.post('http://localhost:3002/forgot-password', { email, type: 'user' });
-
+      // Vérifier si newPassword est vide
+      if (!newPassword) {
+        setMessage('Veuillez entrer un nouveau mot de passe.');
+        return;
+      }
+  
+      const resetResponse = await axios.post('http://localhost:3002/forgot-password', { email, newPassword, type: 'user' });
+  
       if (resetResponse.data.success) {
         setMessage(resetResponse.data.message);
         setNewPassword('');
       } else {
-        setMessage('An error occurred while resetting the password.');
+        setMessage('Une erreur est survenue lors de la réinitialisation du mot de passe.');
       }
     } catch (error) {
       setMessage(error.response.data.message);
     }
   };
+  
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='formu' onSubmit={handleSubmit}>
+      <h2>Forgot password</h2>
       <label>
         Email:
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
       </label>
       <br />
       {message && <p>{message}</p>}
-      {emailExists && message !== 'Check your email' && (
+      {emailExists  && (
         <>
           <label>
             New Password:

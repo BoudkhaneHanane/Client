@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import './formulaire.css';
+import SidBar from './sidbar';
+import Nav from './nav';
 
 const FormulaireProduit = () => {
   const { id } = useParams();
-  const [image, setImage] = useState('');
+  const [images, setImages] = useState([]);
   const [imageUrl, setImageUrl] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     namecategorie: '', 
     namesubcategorie: '', 
+    namesubsubcategorie:'',
     brand: '',
     price: '',
     reference: '',
@@ -19,6 +22,7 @@ const FormulaireProduit = () => {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [categoriesUpdated, setCategoriesUpdated] = useState(new Date().getTime());
+  const [subSubCategories, setSubSubCategories] = useState([]);
 
   useEffect(() => {
     fetchCategories();
@@ -26,6 +30,10 @@ const FormulaireProduit = () => {
       fetchProductData();
     }
   }, [categoriesUpdated, id]);
+
+  const resetSubSubCategories = () => {
+    setSubSubCategories([]);
+  };
 
   const fetchCategories = async () => {
     try {
@@ -48,8 +56,10 @@ const FormulaireProduit = () => {
     setFormData({
       ...formData,
       namecategorie: categoryName, // Modifier pour correspondre au nouveau nom
-      namesubcategorie: '', // Assurez-vous de vider également la sous-catégorie sélectionnée
+      namesubcategorie: '',
+      namesubsubcategorie: '', // Assurez-vous de vider également la sous-catégorie sélectionnée
     });
+    resetSubSubCategories();
     setCategoriesUpdated(new Date().getTime());
     fetchSubCategories(categoryName);
   };
@@ -68,21 +78,63 @@ const FormulaireProduit = () => {
     }
   };
   
-  const fetchProductData = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3002/produits/${id}`);
-      console.log('Product data fetched:', response.data);
-      setFormData(response.data);
-      setImageUrl(response.data.imageUrl); // Mettre à jour l'URL de l'image
-    } catch (error) {
-      console.error('Error fetching product data:', error);
+// Handler pour la sélection de la sous-catégorie
+const handleSubCategoryChange = async (e) => {
+  const subCategoryName = decodeURIComponent(e.target.value);
+  console.log('Selected subcategory name:', subCategoryName);
+  setFormData({
+    ...formData,
+    namesubcategorie: subCategoryName,
+    namesubsubcategorie: '', // Réinitialiser la sous-sous-catégorie sélectionnée
+  });
+  resetSubSubCategories(); // Réinitialiser les sous-sous-catégories
+  fetchSubSubCategories(formData.namecategorie, subCategoryName); // Appel à fetchSubSubCategories
+};
+
+const fetchSubSubCategories = async (categoryName, subCategoryName) => {
+  try {
+    if (!categoryName || !subCategoryName) {
+      return;
     }
-  };
+    const encodedCategoryName = encodeURIComponent(categoryName);
+    const encodedSubCategoryName = encodeURIComponent(subCategoryName);
+    const response = await axios.get(`http://localhost:3002/categories/${encodedCategoryName}/subcategories/${encodedSubCategoryName}/subsubcategories`);
+    console.log('Subsubcategories fetched:', response.data);
+    setSubSubCategories(response.data);
+  } catch (error) {
+    console.error('Error fetching subsubcategories:', error);
+  }
+};
+
+const fetchProductData = async () => {
+  try {
+    const response = await axios.get(`http://localhost:3002/produits/${id}`);
+    console.log('Product data fetched:', response.data);
+    const { name, namecategorie, namesubcategorie, namesubsubcategorie, brand, price, reference, description } = response.data;
+    setFormData({
+      name,
+      namecategorie,
+      namesubcategorie,
+      namesubsubcategorie,
+      brand,
+      price,
+      reference,
+      description,
+    });
+    setImageUrl(response.data.imageUrl); // Mettre à jour l'URL de l'image
+    fetchSubSubCategories(namecategorie, namesubcategorie, ); // Récupérer les sous-sous-catégories pour les pré-sélectionner
+  } catch (error) {
+    console.error('Error fetching product data:', error);
+  }
+};
   
 
-  const handleImage = (e) => {
-    setImage(e.target.files[0]);
-  };
+const handleImageChange = (e, index) => {
+  const files = e.target.files;
+  const newImages = [...images];
+  newImages[index] = files[0];
+  setImages(newImages);
+};
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -90,21 +142,27 @@ const FormulaireProduit = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+  
+    const formDataWithImage = new FormData();
+  
     if (formData.reference.trim() === '') {
       console.error('Reference field cannot be empty');
       return;
     }
-
-    const formDataWithImage = new FormData();
-    formDataWithImage.append('image', image);
+  
+    images.forEach((image, index) => {
+      formDataWithImage.append(`image${index + 1}`, image);
+    });
+  
     formDataWithImage.append('name', formData.name);
     formDataWithImage.append('namecategorie', formData.namecategorie);
     formDataWithImage.append('namesubcategorie', formData.namesubcategorie);
+    formDataWithImage.append('namesubsubcategorie', formData.namesubsubcategorie);
     formDataWithImage.append('brand', formData.brand);
     formDataWithImage.append('price', formData.price);
     formDataWithImage.append('reference', formData.reference);
     formDataWithImage.append('description', formData.description);
-
+  
     try {
       let response;
       if (id) {
@@ -118,59 +176,91 @@ const FormulaireProduit = () => {
       setImageUrl(imageUrl); // Mettre à jour l'URL de l'image dans l'état
     } catch (error) {
       console.error('Error submitting form data:', error);
+      console.log('Full Axios error object:', error);
     }
   };
-
   return (
+    <div>
+            <div className='home'>
+                <SidBar/>
+                <div className='formulaire-containeres'>
+                <Nav/>
     <div className="formulaire-container">
-      <h2>{id ? 'Modifier' : 'Ajouter'} un produit</h2>
+      <h2 className=''>{id ? 'Modifier' : 'Ajouter'} un produit</h2>
       <form onSubmit={handleSubmit} className="formulaire">
-        <label>Nom du produit:</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+  <label>Nom du produit:</label>
+  <input type="text" name="name" value={formData.name} onChange={handleChange} required />
 
-        <label>Catégorie:</label>
-        <select
-          name="namecategorie" // Modifier pour correspondre au nouveau nom
-          value={formData.namecategorie}
-          onChange={handleCategoryChange}
-          required
-        >
-          <option value="">Sélectionnez une catégorie</option>
-          {categories.map((categorie) => (
-            <option key={categorie.id} value={categorie.namecategorie}> {/* Utilisez le nouveau nom de catégorie */}
-              {categorie.namecategorie}
-            </option>
-          ))}
-        </select>
+  <label>Catégorie:</label>
+  <select
+    name="namecategorie"
+    value={formData.namecategorie}
+    onChange={handleCategoryChange}
+    required
+  >
+    <option value="">Sélectionnez une catégorie</option>
+    {categories.map((categorie) => (
+      <option key={categorie.id} value={categorie.namecategorie}>
+        {categorie.namecategorie}
+      </option>
+    ))}
+  </select>
 
-        <label>Sous Catégorie:</label>
-        <select
-  name="namesubcategorie"
-  value={formData.namesubcategorie}
-  onChange={handleChange}
-  disabled={!subCategories.length}
->
-  <option value="">Sélectionnez une sous-catégorie</option>
-  {subCategories.map((subcategorie) => (
-    <option key={subcategorie.	idSubCategorie} value={subcategorie.namesubcategorie}>
-      {subcategorie.namesubcategorie}
-    </option>
+  <label>Sous Catégorie:</label>
+  <select
+    name="namesubcategorie"
+    value={formData.namesubcategorie}
+    onChange={handleSubCategoryChange}
+    disabled={!subCategories.length}
+  >
+    <option value="">Sélectionnez une sous-catégorie</option>
+    {subCategories.map((subcategorie) => (
+      <option key={subcategorie.idSubCategorie} value={subcategorie.namesubcategorie}>
+        {subcategorie.namesubcategorie}
+      </option>
+    ))}
+  </select>
+
+  <label>Sub Sous Catégorie:</label>
+  <select
+    name="namesubsubcategorie"
+    value={formData.namesubsubcategorie}
+    onChange={handleChange}
+    disabled={!subSubCategories.length}
+  >
+    <option value="">Sélectionnez une sous sous-catégorie</option>
+    {subSubCategories.map((subsubcategorie) => (
+      <option key={subsubcategorie.idSubSubCategorie} value={subsubcategorie.namesubsubcategorie}>
+        {subsubcategorie.namesubsubcategorie}
+      </option>
+    ))}
+  </select>
+
+  <label>Marque:</label>
+  <input type="text" name="brand" value={formData.brand} onChange={handleChange} required />
+
+  <label>Prix:</label>
+  <input type="number" name="price" value={formData.price} onChange={handleChange} required />
+
+  <label>Référence:</label>
+  <input type="text" name="reference" value={formData.reference} onChange={handleChange} required />
+
+  <label>Description:</label>
+  <input type="text" name="description" value={formData.description} onChange={handleChange} required />
+{!id &&(
+  <>{Array.from({ length: 5 }, (_, index) => (
+    <div key={index}>
+      <label>Image {index + 1}:</label>
+      <input type="file" name="image[]" onChange={(e) => handleImageChange(e, index)} />
+    </div>
   ))}
-</select>
-
-
-        <label>Marque:</label>
-        <input type="text" name="brand" value={formData.brand} onChange={handleChange} required />
-        <label>Prix:</label>
-        <input type="number" name="price" value={formData.price} onChange={handleChange} required />
-        <label>Référence:</label>
-        <input type="text" name="reference" value={formData.reference} onChange={handleChange} required />
-        <label>Description:</label>
-        <input type="text" name="description" value={formData.description} onChange={handleChange} required />
-        <input type="file" name="image" onChange={handleImage} />
-         {imageUrl && <img src={imageUrl} alt="Product" />}
-        <button type="submit">{id ? 'Modifier' : 'Ajouter'} Produit</button>
-      </form>
+  </>
+)}
+  <button type="submit">{id ? 'Modifier' : 'Ajouter'} Produit</button>
+</form>
+    </div>
+    </div>
+    </div>
     </div>
   );
 };

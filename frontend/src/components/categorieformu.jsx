@@ -1,82 +1,173 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useParams, useHistory } from 'react-router-dom';
-import './formulaire.css';
+import './categorieformu.css'; 
+import SidBar from './sidbar';
+import Nav from './nav';
 
-const FormulaireCatégorie = () => {
-  const { id } = useParams();
-  const history = useHistory();
-  const [formData, setFormData] = useState({
-    name: ''
-  });
+function CategorieFormu() {
+  const [namecategorie, setNamecategorie] = useState('');
+  const [subcategories, setSubcategories] = useState([]);
+  const [showSubsubcategorieInput, setShowSubsubcategorieInput] = useState(false);
+  const [subsubcategories, setSubsubcategories] = useState([]);
+  const [selectedSubcategoryIndex, setSelectedSubcategoryIndex] = useState(undefined);
 
-  useEffect(() => {
-    if (id) {
-      fetchCategoryData();
-    }
-  }, [id]);
-
-  const fetchCategoryData = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3002/categories/${id}`);
-      console.log('Category data fetched:', response.data);
-      setFormData(response.data);
-    } catch (error) {
-      console.error('Error fetching category data:', error);
-    }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (formData.name.trim() === '') {
-      console.error('Name field cannot be empty');
-      return;
-    }
-
     try {
-      let response;
-      if (id) {
-        response = await axios.put(`http://localhost:3002/categories/${id}`, formData);
-        console.log('Category updated successfully');
-      } else {
-        response = await axios.post('http://localhost:3002/categories', formData);
-        console.log('Category added successfully');
+      const categoryResponse = await axios.post('http://localhost:3002/categories', {
+        namecategorie,
+      });
+      const categoryId = categoryResponse.data.insertId;
+      const subcategoryPromises = subcategories.map((subcategoryName) =>
+        axios.post('http://localhost:3002/subcategories', {
+          categoryName: namecategorie,
+          namesubcategorie: subcategoryName,
+        })
+      );
+      await Promise.all(subcategoryPromises);
+  
+      if (showSubsubcategorieInput && subsubcategories.length > 0) {
+        const subsubcategoriePromises = subsubcategories.map((subsubcategorieName, index) =>
+          axios.post('http://localhost:3002/subsubcategories', {
+            namecategorie,
+            namesubcategorie: subcategories[selectedSubcategoryIndex],
+            namesubsubcategorie: subsubcategorieName,
+          })
+        );
+        await Promise.all(subsubcategoriePromises);
       }
-      history.push('/categories'); // Rediriger vers la liste des catégories après l'ajout/modification
+  
+      console.log('Category, subcategories, and subsubcategories added');
+      setNamecategorie('');
+      setSubcategories([]);
+      setSubsubcategories([]);
+      setShowSubsubcategorieInput(false);
+      setSelectedSubcategoryIndex(null);
     } catch (error) {
-      console.error('Error submitting form data:', error);
+      console.error('Error adding category and/or subcategories:', error);
     }
   };
+  
 
-  const handleDelete = async () => {
-    if (!window.confirm('Are you sure you want to delete this category?')) {
+  const handleSubcategoryAdd = () => {
+    setSubcategories([...subcategories, '']);
+    setShowSubsubcategorieInput(false);
+    setSelectedSubcategoryIndex(null);
+  };
+  
+  const handleSubcategoryRemove = (index) => {
+    const newSubcategories = [...subcategories];
+    newSubcategories.splice(index, 1);
+    setSubcategories(newSubcategories);
+    setShowSubsubcategorieInput(false);
+    setSelectedSubcategoryIndex(null);
+  };
+  
+  const handleSubcategoryChange = (index, value) => {
+    const newSubcategories = [...subcategories];
+    newSubcategories[index] = value;
+    setSubcategories(newSubcategories);
+    setShowSubsubcategorieInput(false);
+    setSelectedSubcategoryIndex(null);
+  };
+  
+  const handleSubsubcategorieAdd = async () => {
+    if (subsubcategories.includes(namecategorie)) {
+      console.error("Subsubcategorie already exists for this category.");
       return;
     }
-
-    try {
-      await axios.delete(`http://localhost:3002/categories/${id}`);
-      console.log('Category deleted successfully');
-      history.push('/categories'); // Rediriger vers la liste des catégories après la suppression
-    } catch (error) {
-      console.error('Error deleting category:', error);
-    }
+    setShowSubsubcategorieInput(true);
   };
+
+  
+  const handleSubsubcategorieChange = (event) => {
+    const newSubsubcategorie = event.target.value;
+    // Ajoutez directement la sous-sous-catégorie à l'état subsubcategories
+    setSubsubcategories([newSubsubcategorie]);
+  };
+  
+  
+  
 
   return (
-    <div className="formulaire-container">
-      <h2>{id ? 'Modifier' : 'Ajouter'} une Catégorie</h2>
-      <form onSubmit={handleSubmit} className="formulaire">
-        <label>Nom de la catégorie:</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
-        <button type="submit">{id ? 'Modifier' : 'Ajouter'} Catégorie</button>
-        {id && <button type="button" onClick={handleDelete}>Supprimer Catégorie</button>}
-      </form>
+    <div>
+      <div className='home'>
+        <SidBar/>
+          <div className='categorieformu'>
+            <Nav/>
+              <div className='formucategorie'>
+                <form className="categorie-form" onSubmit={handleSubmit}>
+                  <label htmlFor="namecategorie" className="form-label">Category Name:</label>
+                  <input
+                    type="text"
+                    id="namecategorie"
+                    className="form-input"
+                    value={namecategorie}
+                    onChange={(event) => setNamecategorie(event.target.value)}
+                  />
+                  <input
+                    type="checkbox"
+                    className="btn-add"
+                    onChange={handleSubcategoryAdd}
+                    checked={subcategories.length > 0}
+                  />
+                  <label htmlFor="checkbox" className="add-subcategory-label">
+                    Add Subcategory
+                  </label>
+                  {subcategories.map((subcategory, index) => (
+                    <div key={index} className="subcategory">
+                      <input
+                        type="text"
+                        value={subcategory}
+                        onChange={(event) => handleSubcategoryChange(index, event.target.value)}
+                        className="form-input"
+                      />
+                      <button type="button" onClick={() => handleSubcategoryRemove(index)} className="btn-remove">
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  {subcategories.length > 0 && (
+                    <>
+                      <input
+                        type="checkbox"
+                        className="btn-add"
+                        onChange={handleSubsubcategorieAdd}
+                        checked={showSubsubcategorieInput}
+                      />
+                      <label htmlFor="checkbox" className="add-subsubcategorie-label">
+                        Add Subsubcategorie
+                      </label>
+                      {showSubsubcategorieInput && (
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Enter subsubcategorie"
+                        onChange={handleSubsubcategorieChange}
+                        className="form-input"
+                      />
+                      <select
+                        value={selectedSubcategoryIndex}
+                        onChange={(event) => setSelectedSubcategoryIndex(Number(event.target.value))}
+                        className="form-input"
+                      >
+                        <option value={null}>Select Parent Subcategory</option>
+                        {subcategories.map((subcategory, index) => (
+                          <option key={index} value={index}>{subcategory}</option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                    </>
+                  )}
+                  <button type="submit" className="btn-submit">Add Category</button>
+                </form>
+              </div>  
+          </div>
+      </div>
     </div>
   );
-};
+}
 
-export default FormulaireCatégorie;
+export default CategorieFormu;

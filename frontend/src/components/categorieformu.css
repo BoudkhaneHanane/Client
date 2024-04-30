@@ -1,0 +1,93 @@
+.homes {
+  display: flex; 
+  position: relative; 
+}
+.SidBar {
+  flex: 0 0 230px; /* Définir la largeur fixe de la barre latérale */
+}
+.categorieformu{
+  flex: 1;
+  margin-left: 300px;
+  padding: 20px; 
+  margin-top: -30px;
+}
+.formucategorie{
+  flex: 1;
+  margin-left: 30px; 
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.category-form {
+  flex: 1;
+  margin-left: 300px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px ;
+  border-radius: 15px;
+  margin-top: 100px;
+  max-height: 100%;
+}
+
+.form-label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 50%;
+  padding: 8px; /* Réduction de la taille du padding */
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.category-select {
+  margin-bottom: 20px;
+}
+
+.form-button {
+  background-color: #111861;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-button:hover {
+  background-color: #45a;
+}
+
+.form-checkbox {
+  margin-right: 5px;
+}
+
+.subsubcategory-section {
+  margin-top: 10px;
+}
+
+.subsubcategory-input-section {
+  margin-top: 10px;
+}
+
+.subsubcategory-input {
+  width: 100%;
+  padding: 8px; /* Réduction de la taille du padding */
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.btn-remove{
+  background: #B22222;
+  color: white;
+  border: 1px solid #B22222;
+}
+.btn-remove :hover{
+  background: #B22222;
+  color: white;
+  border: 1px solid #B22222;
+}
+

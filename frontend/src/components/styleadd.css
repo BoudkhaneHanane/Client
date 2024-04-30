@@ -1,0 +1,100 @@
+.home {
+  display: flex;
+  position: relative;
+}
+
+.home .homecontainers {
+  flex: 1;
+  margin-left: 300px;
+  padding: 20px;
+  margin-top: 90px;
+  overflow: auto; /* Ajoutez cette ligne pour permettre le défilement si le contenu dépasse */
+}
+.homecontainere{
+  flex: 1;
+  margin-left: 30000px; 
+  padding: 20px;
+  margin-top: 130px;
+}
+.homecontain {
+  flex: 1;
+  margin-left: 30px; 
+  padding: 20px; 
+}
+.search-container {
+  display: flex;
+  margin-right: 20px;
+}
+
+.search-container input[type="text"] {
+  padding: 10px;
+  width: 450px;
+  margin-left: 200px;
+  margin-top:10px;
+  border-radius: 5px;
+  border: 1.7px solid #111861;;
+}
+
+.search-icon {
+  color: #111861;
+  margin-top: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.add-product {
+  margin-bottom: 10px;
+}
+.button-add-productg {
+  background-color: #111861;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  margin-top: 015px;
+  margin-left: 700px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button-add-productg .icon{
+  background-color:#111861;
+  color: white;
+}
+.titr {
+  margin-bottom: 10px;
+  margin-top: 0;
+  color: #111861;
+}
+
+.products-table {
+  width: auto;
+  border-collapse: collapse;
+  margin-top: 10px; /* Ajustez la marge selon vos préférences */
+  max-height: 90%; /* Ajustez la hauteur maximale selon vos préférences */
+  overflow: auto; /* Ajoutez cette ligne pour permettre le défilement si la table dépasse la hauteur maximale */
+}
+.products-table th, .products-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.products-table th {
+  background-color: #f2f2f2;
+}
+.products-table .icons {
+  margin-left: 5px;
+  cursor: pointer;
+  color: #111861;
+}
+.button-add-productg .icon {
+  background-color: #111861;
+  color: white;
+  border: 1px solid #111861;
+}
+.add-product .iconsse{
+  background: #111861;
+  color: #fff;
+}

@@ -1,102 +1,93 @@
-/* Reset des styles par défaut */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 230px;
+  height: 560px;
+  padding: 20px;
+  max-height: 100vh;
+  overflow-x: auto;
+  transition: max-height 0.3s ease;
+  border-top: 3px solid #111861;
+  background-color: #111861; /* Couleur de fond */
+  color: white; /* Couleur du texte */
+}
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 20px;
+  background: #111861;
 }
 
-body {
-    background-color: white;
+
+.textes{
+  font-size: 1em;
+  font-weight: bold;
+  margin-top: 8px;
+  color: white;
+  margin-left: 19px;
+  background: #111861;
+}
+.logo {
+  width: 50px; 
+  height: 50px;
+  margin-right: 10px; 
 }
 
-/* Style de la sidebar */
-.sidbar {
-    flex: 1.3;
-    border-right: 0.5px solid rgb(230, 227, 227);
+.brand-text {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: white;
+  background: #111861;
 }
 
-/* Style du haut de la sidebar */
-.sidbar .top {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.accordion-section {
+  margin-bottom: 20px;
+  color: white;
+  background: #111861;
 }
 
-/* Style du logo */
-.sidbar .top .logo {
-    font-size: 20px;
-    font-weight: bold;
-    color: #9370DB;
+.title {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  color: white;
+  background: #111861;
 }
 
-/* Style du contenu de la sidebar */
-.sidbar .center {
-    padding-left: 15px;
-    margin-top: 20px; 
+.title svg {
+  margin-left: auto;
+  background:#111861;
 }
 
-/* Style de la liste dans la sidebar */
-.sidbar .center ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  color: white;
+  background: #111861;
 }
 
-/* Style du titre de la liste */
-.sidbar .center .title {
-    font-size: 18px;
-    font-weight: bold;
-    color:#87CEFA;
-    margin-top: 15px;
-    margin-bottom: 5px;
+.accordion-content.open {
+  max-height: 900px;
+  background: #111861;
 }
 
-/* Style des éléments de la liste */
-.sidbar .center li {
-    display: flex;
-    align-items: center;
-    padding: 6px;
-    cursor: pointer;
+.sidebar-link {
+  text-decoration: none;
+  color: blue;
+  display: block;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  background: #111861;
 }
 
-/* Style de l'icône */
-.sidbar .center .icon {
-    font-size: 20px;
-    color: #87CEFA;
-    margin-right: 6px;
+.sidebar-link svg {
+  margin-right: 10px;
+  color: white;
+  background: #111861;
 }
-
-/* Style du texte */
-.sidbar .center span {
-    font-size: 14px;
-    marginRight: 20px;
-    font-weight: 550;
-    color: black;
-   
-}
-
-/* Style du bas de la sidebar */
-.sidbar .buttom {
-   display:flex;
-   align-items:center;
-   margin: 10px;
-   margin-top: 20px; 
-   justify-content: center;
-}  
-.sidbar .buttom .colorOption{
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    border: 1px solid black;
-    cursor: pointer;
-    margin-right: 10px;
-}
-.sidbar .buttom .colorOption:nth-child(1) {
-    background: whitesmoke;
-}
-
-.sidbar .buttom .colorOption:nth-child(2) {
-    background: #333;
-}
-

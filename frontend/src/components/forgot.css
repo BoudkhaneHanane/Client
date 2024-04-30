@@ -1,0 +1,57 @@
+.formu {
+    margin-top: 30px;
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}  
+.formu label {
+    margin-top: 20px;
+    display: block;
+    margin-bottom: -25px;
+}
+.formu h2 {
+    margin-top: 20px; 
+    margin-bottom: 20px;
+    font-size: 26px;
+    text-align: center;
+    color: #111861;
+    font-weight: bold;
+}  
+  
+.formu label input[type="email"],
+.formu label input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+.formu button {
+    padding: 10px 20px;
+    border: none;
+    margin-top:35px;
+    border-radius: 3px;
+    background-color: #111861;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+.formu button[type="submit"] {
+    margin-top: 15px;
+  }
+  
+  button[type="submit"]:hover,
+  button[type="button"]:hover {
+    background-color: #0056b3;
+  }
+  
+  p {
+    margin-top: 15px;
+    color: #ff0000;
+  }
+  

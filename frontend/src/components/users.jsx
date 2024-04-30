@@ -3,17 +3,15 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaEye } from 'react-icons/fa';
 import SidBar from './sidbar';
-import NavAdmin from './navadmin';
+import Nav from './nav';
 import './products.css';
 
-const Products = () => {
+const Users = () => {
     const [users, setUsers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
 
-
-
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value);
+    const handleViewDetails = (userId) => {
+        // Redirigez l'utilisateur vers la page de détails de l'utilisateur avec son ID
+        window.location.href = `/profiluser/${userId}`;
     };
 
     useEffect(() => {
@@ -27,14 +25,26 @@ const Products = () => {
         } catch (error) {
             console.error('Erreur lors de la récupération des données :', error);
         }
-    }; 
+    };
+
+    const handleSearch = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredUsers = users.filter(user =>
+            user.nom.toLowerCase().includes(searchTerm) ||
+            user.prenom.toLowerCase().includes(searchTerm) ||
+            user.email.toLowerCase().includes(searchTerm) ||
+            user.type.toLowerCase().includes(searchTerm)
+        );
+        setUsers(filteredUsers);
+    };
 
     return (
-       <div>
-            <div className='home'>
-                <SidBar/>
-                <div className='homecontainer'>
-                    <NavAdmin/>
+        <div>
+            <div className='homes'>
+                <SidBar />
+                <div className='containeres'>
+                  <Nav />
+                <div className='container'>
                     <div className="search-container">
                         <input type="text" placeholder="search a user..." onChange={handleSearch} />
                         <FaSearch className="search-icon" />
@@ -43,7 +53,6 @@ const Products = () => {
                     <table className="products-table">
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
@@ -53,15 +62,14 @@ const Products = () => {
                         </thead>
                         <tbody>
                             {users.map(user => (
-                                <tr key={user.idUtilisateur }>
-                                    <td>{user.idUtilisateur }</td>
+                                <tr key={user.idUtilisateur}>
                                     <td>{user.nom}</td>
                                     <td>{user.prenom}</td>
                                     <td>{user.email}</td>
                                     <td>{user.type}</td>
                                     <td>
-                                        <Link to={'/profiluser'}>
-                                            <FaEye className='icon' onClick={() => handleViewDetails(user.idUtilisateur)} />
+                                        <Link to={`/profiluser/${user.idUtilisateur}`}>
+                                            <FaEye className='icons' onClick={() => handleViewDetails(user.idUtilisateur)} />
                                         </Link>
                                     </td>
                                 </tr>
@@ -69,9 +77,10 @@ const Products = () => {
                         </tbody>
                     </table>
                 </div>
-            </div> 
+            </div>
+        </div>
         </div>
     );
 };
 
-export default Products;
+export default Users;

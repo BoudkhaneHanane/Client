@@ -1,16 +1,27 @@
 import Login from './components/login';
 import ForgotPassword from './components/forgotPassword'; 
 import SignRevendeur from './components/signRevendeur'; 
+import Nav from './components/nav';
 import Products from './components/products';
 import FormulaireProduit from './components/formulaireproduit';
 import AdminHome from './components/adminhome';
 import SidBar from './components/sidbar';
-import NavAdmin from './components/navadmin';
 import Account from './components/account';
 import Users from './components/users';
-import ProfilUser from './components/profileuser';
+import ProfilUser from './components/profiluser';
 import Categorie from './components/categorie';
 import SubCategorie from './components/subcategorie';
+import SubSubCategorie from './components/subsubcategorie';
+import CategorieFormu from './components/categorieformu';
+import Promotions from './components/promotions';
+import PromotionFormu  from './components/promotionformu';
+import SubCategorieFormu from './components/subcategorieformu';
+import SubSubCategorieFormu from './components/subsubcategorieformu';
+import Revendeur from './components/revendeur';
+import ListeBloque from './components/listebloque';
+import Admin from './components/admin';
+import Order from './components/order';
+import DetailOrder from './components/detailorder';
 import './App.css';
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom'
@@ -29,7 +40,7 @@ const router = createBrowserRouter([
     element: <div><SignRevendeur /></div>
   },
   {
-    path: '/products',
+    path: '/products/:id?/:name?',
     element: <div><Products /></div>
   },
   {
@@ -45,11 +56,7 @@ const router = createBrowserRouter([
     element: <div><SidBar/></div>
   },
   {
-    path: '/navadmin',
-    element: <div><NavAdmin/></div>
-  },
-  {
-    path: '/account',
+    path: '/account/:id?',
     element: <div><Account/></div>
   },
   {
@@ -57,7 +64,7 @@ const router = createBrowserRouter([
     element: <div><Users/></div>
   },
   {
-    path: '/profiluser',
+    path: '/profiluser/:userId?', 
     element: <div><ProfilUser/></div>
   },
   {
@@ -65,10 +72,59 @@ const router = createBrowserRouter([
     element: <div><Categorie/></div>
   },
   {
-    path: '/subcategorie/:name?',
+    path: '/subcategorie/:category?',
     element: <div><SubCategorie/></div>
-  }
-  
+  },
+  {
+    path: '/subsubcategorie/:name?',
+    element: <div><SubSubCategorie/></div>
+  },
+  {
+    path: '/categorieformu/:idCategorie?',
+    element: <div><CategorieFormu/></div>
+  },
+  {
+    path: '/promotions/:id?',
+    element: <div><Promotions/></div>
+  },
+  {
+    path: '/promotionformu/:productName?',
+    element: <div><PromotionFormu/></div>
+  },
+  {
+    path: '/subcategorieformu',
+    element: <div><SubCategorieFormu/></div>
+  },
+  {
+    path: '/subsubcategorieformu',
+    element: <div><SubSubCategorieFormu/></div>
+  },
+  {
+    path: '/revendeur/:idDemande',
+    element: <div><Revendeur/></div>
+  },
+  {
+    path: '/listebloque',
+    element: <div><ListeBloque/></div>
+  },
+  {
+    path: '/admin',
+    element: <div><Admin/></div>
+  },
+  {
+    path: '/nav',
+    element: <div><Nav/></div>
+  },
+  {
+    path: '/order',
+    element: <div><Order/></div>
+  },
+  {
+    path: '/detailorder/:orderId?',
+    element: <div><DetailOrder/></div>
+  },
+ 
+ 
 ])
 function App() {
   return (
