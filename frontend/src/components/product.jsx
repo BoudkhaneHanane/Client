@@ -76,8 +76,7 @@ const Product = ({ product, handleClick, addToFavorites }) => {
             <div className="oldPrice">200000.00DA</div>
           </div>
           <Button className="transition" onClick={handleAddToCart}>
-            <ShoppingCartOutlinedIcon />
-            Add
+            Add to <ShoppingCartOutlinedIcon />
           </Button>
         </div>
       </div>

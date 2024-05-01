@@ -1,23 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { FaTrash } from "react-icons/fa";
-import "./favoris.css"; // Assuming the file name is favoris.css
+import "./favoris.css";
 
-const Favoris = ({ handleClick, showWarning, favorites, setFavorites }) => {
-  // Function to remove an item from favorites
-  const removeFromFavorites = (itemId) => {
-    const updatedFavorites = favorites.filter((item) => {
-      return item.id !== itemId;
-    });
-    setFavorites(updatedFavorites);
-  };
-
-  // Function to add item to cart from favorites
-  const addToCart = (item) => {
-    handleClick(item);
-  };
-
+const Favoris = ({ addToFavorites, removeFromFavorites, favorites }) => {
   return (
     <div className="favorites-page">
       <label>Default WishList</label>
@@ -44,7 +31,7 @@ const Favoris = ({ handleClick, showWarning, favorites, setFavorites }) => {
                 </td>
                 <td>{item.price}DA</td>
                 <td>
-                  <button className="icon" onClick={() => addToCart(item)}>
+                  <button className="icon" onClick={() => addToFavorites(item)}>
                     <ShoppingCartIcon />
                   </button>
                   <button

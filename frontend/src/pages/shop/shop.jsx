@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import GridViewIcon from "@mui/icons-material/GridView";
@@ -6,11 +7,26 @@ import Sidebar from "./sidebar";
 import Product from "../../components/product";
 import "./shop.css";
 
-const Shop = () => {
-  const [isOpenDropDown, setIsOpenDropdown] = useState(false);
+const Shop = ({ handleClick }) => {
+  const [productData, setProductData] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/shop");
+        setProductData(response.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+        setError("Failed to fetch data");
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <section className="listingPage">
-      <div className="container-fluid">
+      <div className="">
         <div className="breadcrumb flex-column">
           <h1>Shop</h1>
           <ul className="list list-inline mb-0">
@@ -30,72 +46,28 @@ const Shop = () => {
             <div className="col-md-3 sidebarWrapper">
               <Sidebar />
             </div>
-
             <div className="col-md-6 rightContent homeproducts pt-0">
               <div className="topStrip d-flex align-items-center">
                 <div className="ml-auto d-flex align-items-center">
                   <div className="tab_ mb-2 ml-3 position-relative">
-                    <Button
-                      className="btn_"
-                      onClick={() => setIsOpenDropdown(!isOpenDropDown)}
-                    >
+                    <Button className="btn_">
                       <GridViewIcon />
                       Sort by: Featured
                     </Button>
-                    {isOpenDropDown !== false && (
-                      <ul className="dropdownMenu">
-                        <li>
-                          <Button
-                            className="align-items-center"
-                            onClick={() => setIsOpenDropdown(false)}
-                          >
-                            Sort by: popularity
-                          </Button>
-                        </li>
-                        <li>
-                          <Button
-                            className="align-items-center"
-                            onClick={() => setIsOpenDropdown(false)}
-                          >
-                            Sort by: latest
-                          </Button>
-                        </li>
-                        <li>
-                          <Button
-                            className="align-items-center"
-                            onClick={() => setIsOpenDropdown(false)}
-                          >
-                            Sort by price: low to high
-                          </Button>
-                        </li>
-                        <li>
-                          <Button
-                            className="align-items-center"
-                            onClick={() => setIsOpenDropdown(false)}
-                          >
-                            Sort by price: high to low
-                          </Button>
-                        </li>
-                      </ul>
-                    )}
                   </div>
                 </div>
               </div>
-              <div className="productrow pl-4">
+              <div className="productrow">
                 <div className="item">
-                  <Product />
-                </div>
-                <div className="item">
-                  <Product />
-                </div>
-                <div className="item">
-                  <Product />
-                </div>
-                <div className="item">
-                  <Product />
-                </div>
-                <div className="item">
-                  <Product />
+                  {error && <div>Error: {error}</div>}
+                  {productData.length > 0 &&
+                    productData.map((product) => (
+                      <Product
+                        key={product.idProduit}
+                        product={product}
+                        handleClick={handleClick}
+                      />
+                    ))}
                 </div>
               </div>
             </div>

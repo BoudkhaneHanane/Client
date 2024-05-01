@@ -14,7 +14,7 @@ function Nav() {
             <ul className="list list-inline">
               <li className="list-inline-item">
                 <Button>
-                  <Link>Home</Link>
+                  <Link to="/">Home</Link>
                 </Button>
               </li>
               <li className="list-inline-item">

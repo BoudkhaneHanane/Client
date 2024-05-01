@@ -1,44 +1,37 @@
-.listingPage {
-    width: 100%;
-    height: auto;
-    padding: 45px 0;
+.row {
+    margin-top: 25px;
+    display: flex;
 }
-.breadcrumb {
-    width: 100%;
-    height: auto;
-    padding: 35px 30px;
-    background: #4b4baa50;
-    border-radius: 20px;
-}
-.breadcrumb h1 {
-    color: #000;
-    opacity: 0.8;
-    font-size: 40px;
-    font-weight: bold;
-}
-.breadcrumb ul.list-inline li {
-    margin-right: 15px !important;
-}
-.breadcrumb ul.list-inline li a {
-    color: #000;
-    text-decoration: none;
-    font-size: 18px;
-}
+
 .sidebarWrapper {
-    max-width: 20%;
     flex: 0 0 20%;
 }
+
 .rightContent {
-    max-width: 80%;
     flex: 0 0 80%;
 }
+
+.rightContent .row {
+    margin-top: 15px;
+    flex: 1;
+    position: relative;
+}
+
+.productrow {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
+    grid-gap: 15px;
+}
+
 .sidebarWrapper h4 {
-    font-size: 26px;
+    font-size: 29px;
     font-weight: 600;
     position: relative;
     padding-bottom: 5%;
     margin-bottom: 15px;
 }
+
 .sidebarWrapper h4:after {
     content: "";
     width: 100%;
@@ -48,69 +41,101 @@
     bottom: 0;
     left: 0;
 }
+
 .sidebarWrapper h4:before {
     content: "";
     width: 20%;
     height: 3px;
-    background: #73a4ff;
+    background: #111861;
     position: absolute;
     bottom: 0;
     left: 0;
     z-index: 10;
 }
-.sidebarWrapper .sidebar {
-    position: sticky;
-    top: 10px;
-}
+
 .sidebarWrapper .sidebar .card {
-    padding: 20px;
-    border-radius: 10px !important;
-    margin-bottom: 30px;
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 4px !important;
+    margin: 15px 20px;
 }
+
 .sidebarWrapper .sidebar .card .catList .catItem {
+    display: flex;
+    align-items: center;
     padding: 10px;
     border: 1.3px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
-    margin: 5px 0px;
+    margin: 5px;
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
 }
+
 .sidebarWrapper .sidebar .card .catList .catItem h5 {
     color: #000;
-    font-size: 16px;
+    font-size: 17px;
 }
+
 .sidebarWrapper .sidebar .card .catList .catItem .rounded-circle {
-    background: #88a7ff;
+    background: #111861;
+    color: #fff;
+    border-radius: 50%;
     width: 20px;
     height: 20px;
     margin-left: auto;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .sidebarWrapper .sidebar .card .catList .catItem:hover {
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #1118613f;
 }
+
+.sidebarWrapper .sidebar .card .slider {
+    color: #111861;
+    font-size: 17px;
+}
+
 .priceRange span {
-    font-size: 16px;
+    font-size: 17px;
+    font-weight: 600;
+    display: flex;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
+
+.priceRange span strong {
+    color: #111861;
+    font-size: 18px;
+}
+
 .filters {
     padding: 25px 0px;
 }
-.filters h5 {
+
+.card h5 {
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
 }
+
 .filters ul {
     max-height: 200px;
     overflow-y: scroll;
-    margin-left: -40px;
 }
+
 .filters ul::-webkit-scrollbar {
     width: 10px !important;
 }
+
 .filters ul::-webkit-scrollbar-thumb {
     background: #ccc !important;
 }
+
 .filters ul li {
     width: 100%;
     margin-bottom: 0px;
@@ -118,76 +143,63 @@
     font-size: 16px;
     font-weight: 500;
 }
+
 .sidebarWrapper .sidebar .btn {
-    width: 150px !important;
-}
-.rightContent {
-    width: 100%;
-    padding-top: 0;
-}
-.topStrip {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 20px; /* Add padding to the right for spacing */
-}
-.tab_ {
-    position: relative; /* Reset position to relative */
+    width: 250;
 }
 
-.tab_ button {
+.features {
+    position: relative;
+}
+
+.features button {
+    width: 220px;
+    color: #777676;
+    font-size: 16px;
+    font-weight: 550;
+    background: #fff;
+    border: 0.5px solid #cccccc79;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    background: none;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 7px 10px;
-    text-transform: capitalize;
-    color: rgba(0, 0, 0, 0.8);
-    background: #fff;
-    border-radius: 10px;
-    width: 240px;
-    font-size: 17px;
-    padding-left: 0px;
-    cursor: pointer;
 }
-.tab_ button svg {
-    font-size: 20px;
+
+.features button:focus {
+    outline: none;
 }
-.dropdownMenu {
+
+.features svg {
+    margin-right: 5px;
+}
+
+.features ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     position: absolute;
     top: calc(100% + 5px);
-    left: 0;
+    right: 0;
     background-color: #fff;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 100;
-    padding: 2px;
-    width: 240px;
 }
-.dropdownMenu li {
-    list-style: none;
+
+.features ul li {
+    padding: 0px;
 }
-.dropdownMenu li button {
+
+.features ul li button {
+    background: none;
+    color: #000;
+    border: none;
+    cursor: pointer;
     display: block;
     width: 100%;
-    padding: 5px 15px;
-    margin: auto;
-    background: none;
-    border: none;
     text-align: left;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 0.8);
-    cursor: pointer;
 }
-.productrow {
-    padding-left: 40px;
-    display: flex;
-    flex-wrap: wrap;
-}
-.item {
-    flex: 0 0 50%;
-    max-width: 50% !important;
-    padding: 15px;
-    box-sizing: border-box;
+
+.features ul li button:hover {
+    background-color: #111861a4;
+    color: #fff;
 }

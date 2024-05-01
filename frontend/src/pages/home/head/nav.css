@@ -3,7 +3,7 @@
     text-align: center;
     height: 100px;
     margin: auto;
-    background-color: #fff;
+    background-color: #111861;
 }
 .nav ul {
     list-style-type: none;
@@ -17,13 +17,13 @@
 }
 .nav ul li button {
     text-transform: capitalize !important;
-    padding: 20px 14px !important;
+    padding: 15px 10px !important;
     color: rgba(47, 106, 233, 0.74) !important;
 }
 .nav ul li button a {
     text-decoration: none !important;
-    color: #000 !important;
-    font-size: 17px !important;
+    color: #fff !important;
+    font-size: 16px !important;
 }
 .nav .dropdown_menu {
     position: absolute;
@@ -110,4 +110,7 @@
 }
 .third_menu ul li {
     display: block;
+}
+.nav .dropdown_menu li button a {
+    color: black !important;
 }

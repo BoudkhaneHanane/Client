@@ -45,7 +45,6 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
-
       <div className="card border-0  shadow">
         <h4>Filter by</h4>
         <h5>Price:</h5>
