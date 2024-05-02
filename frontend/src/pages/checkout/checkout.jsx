@@ -404,36 +404,6 @@ const Checkout = ({ cart }) => {
                 onChange={(e) => setOrderNotes(e.target.value)}
               />
             </div>
-            <div className="delivery-information section">
-              <h2>Delivery Information</h2>
-              <hr />
-              <div className="delivery-option">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={deliveryOption === "Desktop"}
-                    onChange={() => setDeliveryOption("Desktop")}
-                  />
-                  To Desktop
-                </label>
-              </div>
-              <div className="delivery-option">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={deliveryOption === "Home"}
-                    onChange={() => setDeliveryOption("Home")}
-                  />
-                  To Home
-                </label>
-              </div>
-              <p>
-                Delivery Cost: {deliveryOption === "Desktop" ? "500" : "700"}DA
-              </p>
-              <p>
-                Livraison to {wilaya}, {commune}
-              </p>
-            </div>
           </div>
           <div className="checkright">
             <div className="order-details section">
@@ -469,6 +439,36 @@ const Checkout = ({ cart }) => {
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <div className="delivery-information section">
+              <h2>Delivery Information</h2>
+              <hr />
+              <div className="delivery-option">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={deliveryOption === "Desktop"}
+                    onChange={() => setDeliveryOption("Desktop")}
+                  />
+                  To Desktop
+                </label>
+              </div>
+              <div className="delivery-option">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={deliveryOption === "Home"}
+                    onChange={() => setDeliveryOption("Home")}
+                  />
+                  To Home
+                </label>
+              </div>
+              <p>
+                Delivery Cost: {deliveryOption === "Desktop" ? "500" : "700"}DA
+              </p>
+              <p>
+                Livraison to {wilaya}, {commune}
+              </p>
             </div>
             <div className="payment-section section">
               <h2>Payment</h2>

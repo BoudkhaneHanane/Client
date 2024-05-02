@@ -38,11 +38,6 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
     addToFavorites(product);
   };
 
-  const handleDeleteItem = (productId) => {
-    // Remove the item from favorites
-    setProductData(productData.filter((item) => item.idProduit !== productId));
-  };
-
   const productes = {
     photos: [
       "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/4-25.png",
@@ -124,7 +119,8 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
             <p>{product.description}</p>
             <hr />
             <p>
-              Categories: {product.namecategorie},{product.namesubcategorie}
+              Categories: {product.namecategorie},{product.namesubcategorie},
+              {product.namesubsubcategorie}
             </p>
             <button onClick={handleAddToCart}>
               Add To <ShoppingCartOutlinedIcon />
