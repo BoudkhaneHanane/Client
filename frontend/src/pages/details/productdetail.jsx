@@ -144,6 +144,9 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
           {error && <div>Error: {error}</div>}
           {productData.length > 0 &&
             productData
+              .filter(
+                (relatedProduct) => relatedProduct.idProduit !== parseInt(id)
+              )
               .slice(0, 4)
               .map((product) => (
                 <Product
