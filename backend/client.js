@@ -44,7 +44,7 @@ app.post("/checkout", (req, res) => {
   const fullAddress = `${streetAddress}, ${commune}, ${wilaya}, Algeria`;
 
   // Calculate total order price
-  const totalOrderPrice = cart.reduce((total, product) => total + product.quantity * product.price, 0) + deliveryCost;
+  const totalOrderPrice = cart.reduce((total, product) => total + product.quantity * product.price, 700) + deliveryCost;
 
   // Insert into Orders table
   const orderQuery = "INSERT INTO Orders (nom, prenom, address, numTele, versement, note, typeLivraison, totalOrderPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -55,12 +55,16 @@ app.post("/checkout", (req, res) => {
     }
     
     const orderId = orderResult.insertId;
-
 // Prepare data for insertion into OrderLine table
-const orderLineValues = cart.map(product => [orderId, product.idProduit, product.quantity, product.name, product.totalPrice]); // Ensure totalPrice is included
-
+const orderLineValues = cart.map(product => [
+  orderId,
+  product.idProduit,
+  product.quantity,
+  product.quantity * product.price, // Calculate totalPrice for each product separately
+  product.name
+]);
 // Insert into OrderLine table
-const orderLineQuery = "INSERT INTO OrderLine (idOrder, idProduit, quantity, productName, totalPrice) VALUES ?";
+const orderLineQuery = "INSERT INTO OrderLine (idOrder, idProduit, quantity, totalPrice, productName) VALUES ?";
 db.query(orderLineQuery, [orderLineValues], (err) => {
   if (err) {
     console.error(err);

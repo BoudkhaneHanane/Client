@@ -10,15 +10,14 @@ const Alert = ({ message, onClose }) => {
       <div className="alert warning">
         <FaExclamationTriangle className="icon" />
         <span className="message">{message}</span>
-        <button className="close-btn" onClick={onClose}>
-          Close
-        </button>
       </div>
     </div>
   );
 };
 
 const Checkout = ({ cart }) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
   // Define wilayas and communes data
   const wilayas = [
     {
@@ -288,10 +287,11 @@ const Checkout = ({ cart }) => {
       !wilaya ||
       !commune
     ) {
-      setFormData({
-        ...formData,
-        error: "Please fill in all required fields.",
-      });
+      setErrorMessage("Please fill in all required fields.");
+      // Clear error message after 2 seconds
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 2000);
       return;
     }
 
@@ -322,7 +322,11 @@ const Checkout = ({ cart }) => {
         "Error processing order:",
         error.response ? error.response.data : error.message
       );
-      // Handle error
+      setErrorMessage("Error processing order. Please try again.");
+      // Clear error message after 2 seconds
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 2000);
     }
   };
 
@@ -448,9 +452,7 @@ const Checkout = ({ cart }) => {
                   ))}
                   <tr>
                     <td className="title">Subtotal (excluding delivery)</td>
-                    <td className="money">
-                      {calculateSubtotal(cart.quantity, cart.price)} DA
-                    </td>
+                    <td className="money">{calculateTotal(cart) - 700}DA</td>
                   </tr>
                   <tr>
                     <td className="title">Total</td>
@@ -535,12 +537,10 @@ const Checkout = ({ cart }) => {
             <Link to="/">terms and conditions</Link>
           </label>
         </div>
-        {formData.error && (
-          <Alert
-            message={formData.error}
-            onClose={() => setFormData({ ...formData, error: "" })}
-          />
+        {errorMessage && (
+          <Alert message={errorMessage} onClose={() => setErrorMessage("")} />
         )}
+
         <button type="submit" className="place-order-button">
           Place Order
         </button>
