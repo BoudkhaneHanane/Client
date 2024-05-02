@@ -52,18 +52,22 @@ app.get("/products/:id", (req, res) => {
   });
 });
 
-// Add a new route to fetch related products by category
 app.get("/products/related/:category", (req, res) => {
   const category = req.params.category;
-  db.query("SELECT * FROM produits WHERE namecategorie = ?", [category], (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Internal Server Error");
-    } else {
-      res.send(result);
+  db.query(
+    "SELECT * FROM produits WHERE namecategorie = ? OR namesubcategorie = ? OR namesubsubcategorie = ?",
+    [category, category, category],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.send(result);
+      }
     }
-  });
+  );
 });
+
 
 app.post("/checkout", (req, res) => {
   const {
