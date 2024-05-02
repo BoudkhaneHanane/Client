@@ -110,7 +110,6 @@ function App() {
             />
           }
         />
-
         <Route
           exact
           path="/checkout"

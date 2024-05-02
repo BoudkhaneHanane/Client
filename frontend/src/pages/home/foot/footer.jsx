@@ -102,14 +102,12 @@ const Footer = () => {
             <label>Email us on:</label>
             <br />
             <p>
-              <MdOutlineAttachEmail />
-              CHINFROMATIQUE@YAHOO.FR
+              <MdOutlineAttachEmail /> CHINFROMATIQUE@YAHOO.FR
             </p>
             <label>Or Call us on:</label>
             <br />
             <p>
-              <FiPhoneCall />
-              (+213) 023 34 80 86
+              <FiPhoneCall /> (+213) 023 34 80 86
             </p>
           </div>
           <div className="row d-flex align-items-center media">

@@ -77,13 +77,13 @@ header {
 .headerTabs li span .badge {
   width: 18px;
   height: 18px;
-  line-height: 15px;
+  line-height: 20px;
   color: #fff;
-  font-weight: 400;
+  font-weight: 550;
   position: absolute;
-  top: 10%;
-  transform: translateY(-80%);
-  left: 13px;
+  top: 5%;
+  transform: translateY(-85%);
+  left: 15px;
   background-color: #ff0000cb;
   border-radius: 50%;
   text-align: center;

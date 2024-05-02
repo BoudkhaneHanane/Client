@@ -6,7 +6,7 @@
     border-radius: 5px;
   }
   
-  .top {
+  .checktop {
     margin-top: 40px;
     margin-bottom: 30px;
     text-align: center;
@@ -16,15 +16,15 @@
     display: flex;
   }
   
-  .left,
-  .right {
+  .checkleft,
+  .checkright {
     flex: 1;
     display: flex;
     flex-direction: column;
   }
   
   .section {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     padding: 20px 40px;
   }
   
@@ -108,10 +108,10 @@
   
   .order-details th,
   .order-details td {
-    border: 1px solid #cccccc17;
+    border: 1px solid #cccccc1f;
     padding: 10px;
     text-align: left;
-    color: #0000008f;
+    color: #000000b7;
     font-weight: 500;
   }
   .order-details .money{
@@ -130,9 +130,8 @@
     border-radius: 5px;
   }
 .payment-method {
-    margin-bottom: 15px; /* Spacing between payment methods */
+    margin-bottom: 0px; /* Spacing between payment methods */
   }
-  
   .payment-method label {
     display: flex;
     align-items: center;
@@ -146,20 +145,25 @@
     margin-top: 15px; /* Spacing between labels */
   }
   .copyRights{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    text-align: center;
   }
   .copyRights p , .copyRights label{
     font-size: 16px;
   }
-.place-order-button {
+  .place-order-button {
     background-color: #111681;
-    width: 100%;
+    width: 50%; /* Set the width to a medium size */
     height: 55px;
     font-size: 17px;
     font-weight: 550;
     text-transform: uppercase;
+    display: flex;
+    justify-content: center; /* Horizontally center the button */
+    align-items: center; /* Vertically center the button */
+    color: #fff;
+    margin: 0 auto; /* Center the button horizontally */
   }
-  
   h2 {
     text-transform: uppercase;
     font-size: 17px;
@@ -179,4 +183,32 @@
     border-top: 2px solid #080a3db4;
     margin: 20px 0;
   }
+  .alert-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff6a6;
+    color: #f57c00;
+    padding: 15px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+  }
   
+  .alert {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #f57c00;
+  }
+  .message{
+    font-size: 18px;
+    font-weight: 400;
+  }

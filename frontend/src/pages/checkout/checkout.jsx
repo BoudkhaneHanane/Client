@@ -1,8 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
-//import "./checkout.css";
+import { FaExclamationTriangle } from "react-icons/fa";
+import "./checkout.css";
 
-const Checkout = ({ cart, setCart }) => {
+const Alert = ({ message, onClose }) => {
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      onClose();
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [onClose]);
+
+  return (
+    <div className="alert-container">
+      <div className="alert warning">
+        <FaExclamationTriangle className="icon" />
+        <span className="message">
+          <strong>Warning: </strong>
+          {message}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const Checkout = ({ cart }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
@@ -13,6 +37,7 @@ const Checkout = ({ cart, setCart }) => {
   const [wilaya, setWilaya] = useState("");
   const [commune, setCommune] = useState("");
   const [deliveryCost, setDeliveryCost] = useState(0);
+  const [error, setError] = useState("");
 
   // Define wilayas and communes data
   const wilayas = [
@@ -227,200 +252,275 @@ const Checkout = ({ cart, setCart }) => {
       setCommune(selectedWilaya.communes[0]); // Set the first commune by default
     }
   };
+
   // Calculate subtotal for each product
   const calculateSubtotal = (quantity, price) => {
     return quantity * price;
   };
 
-  // Calculate total for all products ordered
+  // Calculate total for all products ordered including delivery cost
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((product) => {
       total += product.quantity * product.price;
     });
-    return total;
+    return total + deliveryCost;
+  };
+
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      !firstName ||
+      !lastName ||
+      !streetAddress ||
+      !phone ||
+      !wilaya ||
+      !commune
+    ) {
+      displayError("Please fill in all required fields.");
+      return;
+    }
+
+    // Calculate total order price
+    const totalOrderPrice = calculateTotal();
+
+    // Make POST request to /checkout endpoint
+    axios
+      .post("http://localhost:3001/checkout", {
+        firstName,
+        lastName,
+        streetAddress,
+        phone,
+        wilaya,
+        commune,
+        orderNotes,
+        deliveryOption,
+        paymentMethod,
+        cart,
+        deliveryCost,
+        totalOrderPrice, // Include totalOrderPrice in the request payload
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  // Function to display error message
+  const displayError = (errorMessage) => {
+    setError(errorMessage);
+  };
+
+  // Function to clear error message
+  const clearError = () => {
+    setError("");
   };
 
   return (
     <div className="checkout-container">
-      <div className="top">
-        <hr />
-        <p>
-          RETURNING CUSTOMER? <Link>CLICK HERE TO LOGIN</Link>
-        </p>
-        <hr />
-      </div>
-      <div className="content">
-        <div className="left">
-          <div className="billing-details section">
-            <h2>Billing Details</h2>
-            <hr />
-            <label>First Name</label>
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <label>Last Name</label>
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <label>Country: Algeria</label>
-            <label>Wilaya</label>
-            <select
-              value={wilaya}
-              onChange={(e) => {
-                setWilaya(e.target.value);
-                handleWilayaChange(e.target.value);
-              }}
-            >
-              {wilayas.map((wilaya) => (
-                <option key={wilaya.name} value={wilaya.name}>
-                  {wilaya.name}
+      <form onSubmit={handleSubmit}>
+        <div className="checktop">
+          <hr />
+          <p>
+            RETURNING CUSTOMER? <Link to="/">CLICK HERE TO LOGIN</Link>
+          </p>
+          <hr />
+        </div>
+        <div className="checkcontent row">
+          <div className="checkleft">
+            <div className="billing-details section">
+              <h2>Billing Details</h2>
+              <hr />
+              <label>First Name</label>
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <label>Last Name</label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <label>Country: Algeria</label>
+              <label>Wilaya</label>
+              <select
+                value={wilaya}
+                onChange={(e) => {
+                  setWilaya(e.target.value);
+                  handleWilayaChange(e.target.value);
+                }}
+              >
+                <option value="" disabled>
+                  Select your Wilaya
                 </option>
-              ))}
-            </select>
-            <label>Commune</label>
-            <select
-              value={commune}
-              onChange={(e) => setCommune(e.target.value)}
-            >
-              {wilayas
-                .find((w) => w.name === wilaya)
-                ?.communes.map((commune) => (
-                  <option key={commune} value={commune}>
-                    {commune}
+                {wilayas.map((wilaya) => (
+                  <option key={wilaya.name} value={wilaya.name}>
+                    {wilaya.name}
                   </option>
                 ))}
-            </select>
-            <label>Street Address</label>
-            <input
-              placeholder="House number and street name"
-              type="text"
-              value={streetAddress}
-              onChange={(e) => setStreetAddress(e.target.value)}
-            />
-            <label>Phone</label>
-            <input
-              type="text"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-          </div>
-          <div className="additional-information section">
-            <h2>Additional Information</h2>
-            <hr />
-            <label>Order Notes (optional)</label>
-            <textarea
-              placeholder="Notes about your order, e.g special notes for delivery."
-              value={orderNotes}
-              onChange={(e) => setOrderNotes(e.target.value)}
-            />
-          </div>
-          <div className="delivery-information section">
-            <h2>Delivery Information</h2>
-            <hr />
-            <div className="delivery-option">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={deliveryOption === "Desktop"}
-                  onChange={() => setDeliveryOption("Desktop")}
-                />
-                To Desktop
-              </label>
+              </select>
+              <label>Commune</label>
+              <select
+                value={commune}
+                onChange={(e) => setCommune(e.target.value)}
+              >
+                <option value="" disabled>
+                  Select your Commune
+                </option>
+                {wilayas
+                  .find((w) => w.name === wilaya)
+                  ?.communes.map((commune) => (
+                    <option key={commune} value={commune}>
+                      {commune}
+                    </option>
+                  ))}
+              </select>
+              <label>Street Address</label>
+              <input
+                placeholder="House number and street name"
+                type="text"
+                value={streetAddress}
+                onChange={(e) => setStreetAddress(e.target.value)}
+              />
+              <label>Phone</label>
+              <input
+                type="text"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
             </div>
-            <div className="delivery-option">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={deliveryOption === "Home"}
-                  onChange={() => setDeliveryOption("Home")}
-                />
-                To Home
-              </label>
+            <div className="additional-information section">
+              <h2>Additional Information</h2>
+              <hr />
+              <label>Order Notes (optional)</label>
+              <textarea
+                placeholder="Notes about your order, e.g special notes for delivery."
+                value={orderNotes}
+                onChange={(e) => setOrderNotes(e.target.value)}
+              />
             </div>
-            {/* Show delivery cost based on the selected option */}
-            <p>Delivery Cost: {deliveryOption === "Desktop" ? "$5" : "$10"}</p>
-            <p>
-              Livraison to {wilaya}, {commune}
-            </p>
+            <div className="delivery-information section">
+              <h2>Delivery Information</h2>
+              <hr />
+              <div className="delivery-option">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={deliveryOption === "Desktop"}
+                    onChange={() => setDeliveryOption("Desktop")}
+                  />
+                  To Desktop
+                </label>
+              </div>
+              <div className="delivery-option">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={deliveryOption === "Home"}
+                    onChange={() => setDeliveryOption("Home")}
+                  />
+                  To Home
+                </label>
+              </div>
+              <p>
+                Delivery Cost: {deliveryOption === "Desktop" ? "500" : "700"}DA
+              </p>
+              <p>
+                Livraison to {wilaya}, {commune}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="right">
-          <div className="order-details section">
-            <h2>Order Details</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cart.map((product) => (
-                  <tr key={product.idProduit}>
-                    <td>
-                      {product.name} x{product.quantity}
-                    </td>
-                    <td>
-                      {calculateSubtotal(product.quantity, product.price)}
+          <div className="checkright">
+            <div className="order-details section">
+              <h2>Order Details</h2>
+              <hr />
+              <table>
+                <thead>
+                  <tr>
+                    <th className="title">Product</th>
+                    <th className="title">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cart.map((product) => (
+                    <tr key={product.idProduit}>
+                      <td>
+                        {product.name} x{product.quantity}
+                      </td>
+                      <td className="money">
+                        {calculateSubtotal(product.quantity, product.price)} DA
+                      </td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td className="title">Subtotal (excluding delivery)</td>
+                    <td className="money">
+                      {calculateTotal() - deliveryCost}DA
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <p>Total: {calculateTotal()}</p>
-          </div>
-          <div className="payment-section section">
-            <h2>Payment</h2>
-            <hr />
-            <div className="payment-method">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={paymentMethod === "Cash on Delivery"}
-                  onChange={() => setPaymentMethod("Cash on Delivery")}
-                />
-                Cash on Delivery
-              </label>
+                  <tr>
+                    <td className="title">Total</td>
+                    <td className="money">{calculateTotal()}DA</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div className="payment-method">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={paymentMethod === "Online"}
-                  onChange={() => setPaymentMethod("Online")}
-                />
-                Online
-              </label>
-            </div>
-            {paymentMethod === "Online" && (
-              <div className="online-payment-form">
-                {/* Show online payment form */}
-                <p>Online Payment Form Goes Here</p>
+            <div className="payment-section section">
+              <h2>Payment</h2>
+              <hr />
+              <div className="payment-method">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={paymentMethod === "Cash on Delivery"}
+                    onChange={() => setPaymentMethod("Cash on Delivery")}
+                  />
+                  Cash on Delivery
+                </label>
               </div>
-            )}{" "}
-            <hr />
-            <p>
-              Veiller nous appeler via 0555 58 89 44 / 0555 58 89 45 pour plus
-              d’informations
-            </p>
-            <p>
-              Your personal data will be used to process your order, support
-              your experience throughout this website, and for other purposes
-              described in our privacy policy.
-            </p>
-            <label>
-              <input type="checkbox" />I have read and agree to the website{" "}
-              <Link>terms and conditions</Link>
-            </label>
+              <div className="payment-method">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={paymentMethod === "Online"}
+                    onChange={() => setPaymentMethod("Online")}
+                  />
+                  Online
+                </label>
+              </div>
+              {paymentMethod === "Online" && (
+                <div className="online-payment-form">
+                  <p>Online Payment Form Goes Here</p>
+                </div>
+              )}
+            </div>
           </div>
-          <button className="place-order-button">Place Order</button>
         </div>
-      </div>
+        <div className="copyRights">
+          <p>
+            Veiller nous appeler via 0555 58 89 44 / 0555 58 89 45 pour plus
+            d’informations
+          </p>
+          <p>
+            Your personal data will be used to process your order, support your
+            experience throughout this website, and for other purposes described
+            in our privacy policy.
+          </p>
+          <label>
+            <input type="checkbox" />I have read and agree to the website{" "}
+            <Link to="/">terms and conditions</Link>
+          </label>
+        </div>
+        <button type="submit" className="place-order-button">
+          Place Order
+        </button>
+        {error && <Alert message={error} onClose={clearError} />}
+      </form>
     </div>
   );
 };

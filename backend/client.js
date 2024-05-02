@@ -65,8 +65,52 @@ app.get("/products/related/:category", (req, res) => {
   });
 });
 
+app.post("/checkout", (req, res) => {
+  const {
+    firstName,
+    lastName,
+    streetAddress,
+    phone,
+    wilaya,
+    commune,
+    orderNotes,
+    deliveryOption,
+    paymentMethod,
+    cart,
+    deliveryCost,
+    totalOrderPrice, // Ensure totalOrderPrice is included in the destructuring of req.body
+  } = req.body;
+
+  // Verify that totalOrderPrice is defined and valid
+  if (typeof totalOrderPrice !== 'number' || isNaN(totalOrderPrice)) {
+    return res.status(400).send("Invalid total order price.");
+  }
+
+  // Insert order information into the Orders table
+  const orderQuery = "INSERT INTO Orders (nom, prenom, address, numTele, wilaya, commune, note, typeLivraison, versement, totalOrderPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  db.query(orderQuery, [lastName, firstName, streetAddress, phone, wilaya, commune, orderNotes, deliveryOption, deliveryCost, totalOrderPrice], (err, result) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error processing order. Please try again.");
+    } else {
+      // Insert order line items into the OrderLine table
+      const orderId = result.insertId;
+      const orderLineValues = cart.map(product => [orderId, product.idProduit, product.quantity, product.totalPrice]);
+      const orderLineQuery = "INSERT INTO OrderLine (idOrder, idProduit, quantity, totalPrice) VALUES ?";
+      db.query(orderLineQuery, [orderLineValues], (err, result) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("Error processing order. Please try again.");
+        } else {
+          return res.status(200).send("Order successfully processed.");
+        }
+      });
+    }
+  });
+});
 
 
+// Start the server
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

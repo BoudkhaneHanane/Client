@@ -1,16 +1,18 @@
 footer {
-    padding: 25px 15px;
-    margin: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #111861;
-  }
+  padding: 25px 15px;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #111861;
+  min-height: 40vh; /* Set minimum height to viewport height */
+  flex-direction: column; /* Stack children vertically */
+}
   
   footer .footer {
     display: flex;
     justify-content: space-between;
+    flex-grow: 1; /* Expand to fill available space */
   }
   
   footer .part1 {
@@ -83,7 +85,7 @@ footer {
     flex: 0 0 30%;
     display: flex;
     flex-direction: column;
-    margin-left: 300px;
+    margin-left: 250px;
   }
   
   footer .part3 label {
@@ -118,7 +120,7 @@ footer {
   
   footer .part3 ul li {
     list-style: none;
-    margin-right: 10px;
+    margin-right: 0px;
   }
   
   footer .part3 ul li:last-child {
@@ -151,26 +153,3 @@ footer {
     height: auto;
     margin: 0px;
   }
-  @media screen and (max-width: 768px) {
-    footer .footer {
-      flex-direction: column;
-      align-items: flex-start;
-      overflow-x: hidden; /* Add this line to hide horizontal overflow */
-    }
-    
-    footer .part1 {
-      flex: 0 0 100%; /* Set to full width */
-      margin-bottom: 20px;
-    }
-  
-    footer .part2 {
-      margin-left: 0;
-      flex: 0 0 100%; /* Set to full width */
-    }
-    
-    footer .part3 {
-      margin-left: 0;
-      flex: 0 0 100%; /* Set to full width */
-    }
-  }
-  
