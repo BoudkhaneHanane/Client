@@ -4,7 +4,19 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { FaTrash } from "react-icons/fa";
 import "./favoris.css";
 
-const Favoris = ({ addToFavorites, removeFromFavorites, favorites }) => {
+const Favoris = ({ handleClick, favorites, setFavorites }) => {
+  const handleAddToCart = (product) => {
+    handleClick(product); // Call addToCart function with the selected product
+  };
+
+  const handleDeleteItem = (productId) => {
+    // Remove the item from favorites
+    const updatedWishlist = favorites.filter(
+      (item) => item.idProduit !== productId
+    );
+    setFavorites(updatedWishlist);
+  };
+
   return (
     <div className="favorites-page">
       <label>Default WishList</label>
@@ -22,21 +34,24 @@ const Favoris = ({ addToFavorites, removeFromFavorites, favorites }) => {
           </thead>
           <tbody>
             {favorites.map((item) => (
-              <tr key={item.id}>
+              <tr key={item.idProduit}>
                 <td>
                   <img src={item.image} alt={item.name} />
                 </td>
                 <td>
-                  <Link to={`/products/${item.id}`}>{item.name}</Link>
+                  <Link to={`/detail/${item.idProduit}`}>{item.name}</Link>
                 </td>
                 <td>{item.price}DA</td>
                 <td>
-                  <button className="icon" onClick={() => addToFavorites(item)}>
+                  <button
+                    className="icon"
+                    onClick={() => handleAddToCart(item)}
+                  >
                     <ShoppingCartIcon />
                   </button>
                   <button
                     className="icon"
-                    onClick={() => removeFromFavorites(item.id)}
+                    onClick={() => handleDeleteItem(item.idProduit)}
                   >
                     <FaTrash />
                   </button>

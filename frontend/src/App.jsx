@@ -69,7 +69,13 @@ function App() {
         <Route
           exact
           path="/"
-          element={<Home handleClick={handleClick} showWarning={showWarning} />}
+          element={
+            <Home
+              addToFavorites={addToFavorites}
+              handleClick={handleClick}
+              showWarning={showWarning}
+            />
+          }
         />
         <Route
           exact

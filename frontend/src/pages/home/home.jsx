@@ -12,7 +12,7 @@ import Asus from "../../assets/asus.webp";
 import { FaArrowRight } from "react-icons/fa";
 import "./home.css";
 
-function Home({ handleClick, showWarning }) {
+function Home({ handleClick, showWarning, addToFavorites }) {
   const slides = [
     {
       id: 1,
@@ -123,8 +123,9 @@ function Home({ handleClick, showWarning }) {
             {productData.map((product) => (
               <div className="item" key={product.idProduit}>
                 <Product
-                  handleClick={(product) => handleClick(product)}
+                  handleClick={handleClick}
                   showWarning={showWarning}
+                  addToFavorites={addToFavorites}
                   product={product}
                 />
               </div>

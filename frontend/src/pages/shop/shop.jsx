@@ -7,7 +7,7 @@ import Sidebar from "./sidebar";
 import Product from "../../components/product";
 import "./shop.css";
 
-const Shop = ({ handleClick }) => {
+const Shop = ({ handleClick, addToFavorites }) => {
   const [productData, setProductData] = useState([]);
   const [error, setError] = useState(null);
 
@@ -66,6 +66,7 @@ const Shop = ({ handleClick }) => {
                         key={product.idProduit}
                         product={product}
                         handleClick={handleClick}
+                        addToFavorites={addToFavorites}
                       />
                     ))}
                 </div>
