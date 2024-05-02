@@ -13,12 +13,12 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
   const [quantity, setQuantity] = useState(1);
   const [productData, setProductData] = useState([]);
   const [error, setError] = useState(null);
-
   const [clickedImage, setClickedImage] = useState(null);
 
   const handleImageClick = (photo) => {
     setClickedImage(photo);
   };
+
   const handleAddToCart = () => {
     if (!product || !product.idProduit) {
       console.error("Invalid product:", product);
@@ -36,6 +36,11 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
     }
 
     addToFavorites(product);
+  };
+
+  const handleDeleteItem = (productId) => {
+    // Remove the item from favorites
+    setProductData(productData.filter((item) => item.idProduit !== productId));
   };
 
   const productes = {
@@ -90,7 +95,7 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
 
   useEffect(() => {
     fetchRelatedProducts();
-  }, [product.namecategorie]);
+  }, [product?.namecategorie]);
 
   return (
     <div className="single-product-page">
@@ -138,15 +143,17 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
         <div className="productrow">
           {error && <div>Error: {error}</div>}
           {productData.length > 0 &&
-            productData.map((product) => (
-              <Product
-                key={product.idProduit}
-                product={product}
-                handleClick={handleClick}
-                addToFavorites={addToFavorites}
-                cart={cart}
-              />
-            ))}
+            productData
+              .slice(0, 4)
+              .map((product) => (
+                <Product
+                  key={product.idProduit}
+                  product={product}
+                  handleClick={handleClick}
+                  addToFavorites={addToFavorites}
+                  cart={cart}
+                />
+              ))}
         </div>
       </div>
     </div>
