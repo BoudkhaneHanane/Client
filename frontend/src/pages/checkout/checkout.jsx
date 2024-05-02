@@ -1,44 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaExclamationTriangle } from "react-icons/fa";
 import "./checkout.css";
 
 const Alert = ({ message, onClose }) => {
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      onClose();
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, [onClose]);
-
   return (
     <div className="alert-container">
       <div className="alert warning">
         <FaExclamationTriangle className="icon" />
-        <span className="message">
-          <strong>Warning: </strong>
-          {message}
-        </span>
+        <span className="message">{message}</span>
+        <button className="close-btn" onClick={onClose}>
+          Close
+        </button>
       </div>
     </div>
   );
 };
 
 const Checkout = ({ cart }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [streetAddress, setStreetAddress] = useState("");
-  const [phone, setPhone] = useState("");
-  const [orderNotes, setOrderNotes] = useState("");
-  const [deliveryOption, setDeliveryOption] = useState("Desktop");
-  const [paymentMethod, setPaymentMethod] = useState("Cash on Delivery");
-  const [wilaya, setWilaya] = useState("");
-  const [commune, setCommune] = useState("");
-  const [deliveryCost, setDeliveryCost] = useState(0);
-  const [error, setError] = useState("");
-
   // Define wilayas and communes data
   const wilayas = [
     {
@@ -244,32 +224,62 @@ const Checkout = ({ cart }) => {
       ],
     },
   ];
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    streetAddress: "",
+    phone: "",
+    orderNotes: "",
+    deliveryOption: "Desktop",
+    paymentMethod: "Cash on Delivery",
+    wilaya: "",
+    commune: "",
+    deliveryCost: 0,
+    error: "",
+  });
 
-  // Function to dynamically populate communes based on selected wilaya
-  const handleWilayaChange = (wilayaName) => {
-    const selectedWilaya = wilayas.find((w) => w.name === wilayaName);
-    if (selectedWilaya) {
-      setCommune(selectedWilaya.communes[0]); // Set the first commune by default
-    }
-  };
+  // Define and set state variables for form inputs
+  const {
+    firstName,
+    lastName,
+    streetAddress,
+    phone,
+    orderNotes,
+    deliveryOption,
+    paymentMethod,
+    wilaya,
+    commune,
+  } = formData;
 
-  // Calculate subtotal for each product
-  const calculateSubtotal = (quantity, price) => {
-    return quantity * price;
-  };
+  const setFirstName = (value) =>
+    setFormData({ ...formData, firstName: value });
+  const setLastName = (value) => setFormData({ ...formData, lastName: value });
+  const setStreetAddress = (value) =>
+    setFormData({ ...formData, streetAddress: value });
+  const setPhone = (value) => setFormData({ ...formData, phone: value });
+  const setOrderNotes = (value) =>
+    setFormData({ ...formData, orderNotes: value });
+  const setDeliveryOption = (value) =>
+    setFormData({ ...formData, deliveryOption: value });
+  const setPaymentMethod = (value) =>
+    setFormData({ ...formData, paymentMethod: value });
+  const setWilaya = (value) => setFormData({ ...formData, wilaya: value });
+  const setCommune = (value) => setFormData({ ...formData, commune: value });
 
-  // Calculate total for all products ordered including delivery cost
-  const calculateTotal = () => {
-    let total = 0;
-    cart.forEach((product) => {
-      total += product.quantity * product.price;
-    });
-    return total + deliveryCost;
-  };
-
-  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const {
+      firstName,
+      lastName,
+      streetAddress,
+      phone,
+      wilaya,
+      commune,
+      orderNotes,
+      deliveryOption,
+      paymentMethod,
+    } = formData;
+
     if (
       !firstName ||
       !lastName ||
@@ -278,45 +288,54 @@ const Checkout = ({ cart }) => {
       !wilaya ||
       !commune
     ) {
-      displayError("Please fill in all required fields.");
+      setFormData({
+        ...formData,
+        error: "Please fill in all required fields.",
+      });
       return;
     }
 
-    // Calculate total order price
-    const totalOrderPrice = calculateTotal();
+    // Prepare data to send
+    const orderData = {
+      firstName,
+      lastName,
+      streetAddress,
+      phone,
+      wilaya,
+      commune,
+      orderNotes,
+      deliveryOption,
+      paymentMethod,
+      cart, // Assuming cart is already defined in the component
+      deliveryCost: formData.deliveryCost,
+    };
 
-    // Make POST request to /checkout endpoint
-    axios
-      .post("http://localhost:3001/checkout", {
-        firstName,
-        lastName,
-        streetAddress,
-        phone,
-        wilaya,
-        commune,
-        orderNotes,
-        deliveryOption,
-        paymentMethod,
-        cart,
-        deliveryCost,
-        totalOrderPrice, // Include totalOrderPrice in the request payload
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/checkout",
+        orderData
+      );
+      console.log(response.data);
+      // Handle success
+    } catch (error) {
+      console.error(
+        "Error processing order:",
+        error.response ? error.response.data : error.message
+      );
+      // Handle error
+    }
   };
 
-  // Function to display error message
-  const displayError = (errorMessage) => {
-    setError(errorMessage);
+  const calculateSubtotal = (quantity, price) => {
+    return quantity * price;
   };
 
-  // Function to clear error message
-  const clearError = () => {
-    setError("");
+  const calculateTotal = () => {
+    let total = cart.reduce(
+      (total, product) => total + product.quantity * product.price,
+      700
+    );
+    return total + formData.deliveryCost;
   };
 
   return (
@@ -430,7 +449,7 @@ const Checkout = ({ cart }) => {
                   <tr>
                     <td className="title">Subtotal (excluding delivery)</td>
                     <td className="money">
-                      {calculateTotal() - deliveryCost}DA
+                      {calculateSubtotal(cart.quantity, cart.price)} DA
                     </td>
                   </tr>
                   <tr>
@@ -516,10 +535,15 @@ const Checkout = ({ cart }) => {
             <Link to="/">terms and conditions</Link>
           </label>
         </div>
+        {formData.error && (
+          <Alert
+            message={formData.error}
+            onClose={() => setFormData({ ...formData, error: "" })}
+          />
+        )}
         <button type="submit" className="place-order-button">
           Place Order
         </button>
-        {error && <Alert message={error} onClose={clearError} />}
       </form>
     </div>
   );

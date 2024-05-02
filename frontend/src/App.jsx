@@ -116,11 +116,7 @@ function App() {
             />
           }
         />
-        <Route
-          exact
-          path="/checkout"
-          element={<Checkout cart={cart} setCart={setCart} />}
-        />
+        <Route exact path="/checkout" element={<Checkout cart={cart} />} />
       </Routes>
       <Footer />
     </BrowserRouter>

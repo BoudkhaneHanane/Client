@@ -1,24 +1,88 @@
+// Import required modules
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql");
+
+// Create Express app
 const app = express();
 
 // Create database connection
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: '',
+  password: '', // Password for your MySQL database
   database: 'chinformatiquebdd',
 });
 
 // Allow CORS for all origins
-app.use(cors({
-    origin: 'http://localhost:5173'
-  }));
-  
+app.use(cors());
 
 // Body parser middleware
 app.use(express.json());
+
+// Route for handling checkout
+app.post("/checkout", (req, res) => {
+  const {
+    firstName,
+    lastName,
+    phone,
+    wilaya,
+    commune,
+    streetAddress,
+    orderNotes,
+    deliveryOption,
+    paymentMethod,
+    cart,
+    deliveryCost,
+  } = req.body;
+
+  // Check if required fields are present
+  if (!firstName || !lastName || !streetAddress || !phone || !wilaya || !commune || !Array.isArray(cart)) {
+    return res.status(400).send("Missing or invalid data in the request.");
+  }
+
+  const fullAddress = `${streetAddress}, ${commune}, ${wilaya}, Algeria`;
+
+  // Calculate total order price
+  const totalOrderPrice = cart.reduce((total, product) => total + product.quantity * product.price, 0) + deliveryCost;
+
+  // Insert into Orders table
+  const orderQuery = "INSERT INTO Orders (nom, prenom, address, numTele, versement, note, typeLivraison, totalOrderPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  db.query(orderQuery, [lastName, firstName, fullAddress, phone, deliveryCost, orderNotes, deliveryOption, totalOrderPrice], (err, orderResult) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Error processing order. Please try again.");
+    }
+    
+    const orderId = orderResult.insertId;
+
+// Prepare data for insertion into OrderLine table
+const orderLineValues = cart.map(product => [orderId, product.idProduit, product.quantity, product.name, product.totalPrice]); // Ensure totalPrice is included
+
+// Insert into OrderLine table
+const orderLineQuery = "INSERT INTO OrderLine (idOrder, idProduit, quantity, productName, totalPrice) VALUES ?";
+db.query(orderLineQuery, [orderLineValues], (err) => {
+  if (err) {
+    console.error(err);
+    return res.status(500).send("Error processing order. Please try again.");
+  }
+  
+  return res.status(200).send("Order successfully processed.");
+});
+
+  });
+});
+
+// Start server
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+
+
+
+
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -66,56 +130,4 @@ app.get("/products/related/:category", (req, res) => {
       }
     }
   );
-});
-
-
-app.post("/checkout", (req, res) => {
-  const {
-    firstName,
-    lastName,
-    streetAddress,
-    phone,
-    wilaya,
-    commune,
-    orderNotes,
-    deliveryOption,
-    paymentMethod,
-    cart,
-    deliveryCost,
-    totalOrderPrice, // Ensure totalOrderPrice is included in the destructuring of req.body
-  } = req.body;
-
-  // Verify that totalOrderPrice is defined and valid
-  if (typeof totalOrderPrice !== 'number' || isNaN(totalOrderPrice)) {
-    return res.status(400).send("Invalid total order price.");
-  }
-
-  // Insert order information into the Orders table
-  const orderQuery = "INSERT INTO Orders (nom, prenom, address, numTele, wilaya, commune, note, typeLivraison, versement, totalOrderPrice) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-  db.query(orderQuery, [lastName, firstName, streetAddress, phone, wilaya, commune, orderNotes, deliveryOption, deliveryCost, totalOrderPrice], (err, result) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).send("Error processing order. Please try again.");
-    } else {
-      // Insert order line items into the OrderLine table
-      const orderId = result.insertId;
-      const orderLineValues = cart.map(product => [orderId, product.idProduit, product.quantity, product.totalPrice]);
-      const orderLineQuery = "INSERT INTO OrderLine (idOrder, idProduit, quantity, totalPrice) VALUES ?";
-      db.query(orderLineQuery, [orderLineValues], (err, result) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).send("Error processing order. Please try again.");
-        } else {
-          return res.status(200).send("Order successfully processed.");
-        }
-      });
-    }
-  });
-});
-
-
-// Start the server
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
 });
