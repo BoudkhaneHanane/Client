@@ -129,12 +129,12 @@ app.post('/login', (req, res) => {
     if (userResults.length > 0) {
       const user = userResults[0];
 
-      // Comparer le mot de passe
-      if (user.password === password) {
+      // Comparer le mot de passe haché
+      if (await bcrypt.compare(password, user.mot_de_passe)) {
         // Si les informations d'identification sont valides, retourner un message de succès et rediriger vers /promotion
         res.status(200).json({ success: true, message: 'Login successful', userType: 'user' });
         return;
-      }
+    }
     }
 
     // Si l'utilisateur n'est pas trouvé dans la table 'utilisateur', vérifier dans la table 'admin'
@@ -149,8 +149,8 @@ app.post('/login', (req, res) => {
       if (adminResults.length > 0) {
         const admin = adminResults[0];
 
-        // Comparer le mot de passe
-        if (admin.password === password) {
+        // Comparer le mot de passe haché
+        if (await bcrypt.compare(password, admin.password)) {
           // Si les informations d'identification sont valides, rediriger vers /adminhome
           res.status(200).json({ success: true, message: 'Login successful', userType: 'admin' });
           return;
@@ -162,6 +162,7 @@ app.post('/login', (req, res) => {
     });
   });
 });
+
 
 app.use(express.json()); // Middleware pour parser le corps de la requête en JSON
 

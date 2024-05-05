@@ -32,7 +32,7 @@ const Login = () => {
         window.location.href = "/adminhome";
       } else {
         // Rediriger vers la page de promotion
-        window.location.href = "/promotion";
+        window.location.href = "/";
       }
     } catch (error) {
       console.error("Error:", error.response.data);
