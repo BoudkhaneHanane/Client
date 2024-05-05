@@ -7,6 +7,10 @@ import Favoris from "./pages/favoris/favoris";
 import Shop from "./pages/shop/shop";
 import Detail from "./pages/details/productdetail";
 import Checkout from "./pages/checkout/checkout";
+import Login from "./pages/account/sign/login";
+import Sign from "./pages/account/sign/signRevendeur";
+import History from "./pages/account/history/history";
+import Pswrd from "./pages/account/sign/forgotPassword";
 import Footer from "./pages/home/foot/footer";
 import "./App.css";
 
@@ -77,6 +81,10 @@ function App() {
             />
           }
         />
+        <Route exact path="/settings" element={<Pswrd />} />
+        <Route exact path="/sign" element={<Sign />} />
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/history" element={<History />} />
         <Route
           exact
           path="/cart"

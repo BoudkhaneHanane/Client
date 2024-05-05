@@ -69,14 +69,6 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated }) {
                 </Link>
               </li>
               {isAuthenticated ? (
-                <li className="list-inline-item">
-                  <Link to="/signin">
-                    <span>
-                      <img src={User} alt="User" />
-                    </span>
-                  </Link>
-                </li>
-              ) : (
                 <li className="list-inline-item" ref={dropdownRef}>
                   <span onClick={toggleDropdown}>
                     <img src={User} alt="User" />
@@ -84,27 +76,43 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated }) {
                   {isOpenDropdown && (
                     <ul className="dropDownMenu">
                       <li>
-                        <Button className="align-items-center">
-                          <AccountCircle /> My Account
-                        </Button>
+                        <Link to="">
+                          <Button className="align-items-center">
+                            <AccountCircle /> My Account
+                          </Button>
+                        </Link>
                       </li>
                       <li>
-                        <Button>
-                          <History /> History
-                        </Button>
+                        <Link to="/history">
+                          <Button>
+                            <History /> History
+                          </Button>
+                        </Link>
                       </li>
                       <li>
-                        <Button>
-                          <Settings /> Settings
-                        </Button>
+                        <Link to="">
+                          <Button>
+                            <Settings /> Settings
+                          </Button>
+                        </Link>
                       </li>
                       <li>
-                        <Button>
-                          <ExitToApp /> Log Out
-                        </Button>
+                        <Link to="/">
+                          <Button>
+                            <ExitToApp /> Log Out
+                          </Button>
+                        </Link>
                       </li>
                     </ul>
                   )}
+                </li>
+              ) : (
+                <li className="list-inline-item">
+                  <Link to="/login">
+                    <span>
+                      <img src={User} alt="User" />
+                    </span>
+                  </Link>
                 </li>
               )}
             </ul>

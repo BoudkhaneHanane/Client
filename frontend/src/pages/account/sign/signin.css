@@ -1,0 +1,99 @@
+.sign{
+  height: 100%;
+  weight: 100%;
+}
+.signup-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+  
+.signup-page h2 {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 26px;
+  text-align: center;
+  color: #111861;
+  font-weight: bold;
+}  
+  
+.form-group {
+  margin-bottom: 15px;
+  }
+  
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="date"] {
+  width: 400px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.form-group input[type="checkbox"] {
+  margin-right: 5px;
+}
+  
+.form-group p {
+  margin-top: 5px;
+  color: red;
+}
+  
+.botnn button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #111861;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+  
+.botnn button[type="submit"]:hover {
+  background-color: #45a;
+}
+  
+.ppp {
+  text-align: center;
+  margin-top: 20px;
+  color: #111861;
+}
+  
+.ppp a {
+  color: #111861;
+  text-decoration: none;
+}
+  
+p a:hover {
+  text-decoration: underline;
+  color: #45a;
+}                                                              
+.danger-alert {
+  background-color: #f8d7da; 
+  border: 1px solid #dc3545; 
+  color: #721c24;
+  padding: 10px; 
+  font-family: Arial, sans-serif; 
+  font-weight: bold;
+  border-radius: 5px; 
+}
+  
+.success-alert {
+  background-color: #d4edda; 
+  border: 1px solid #28a745; 
+  color: #000; 
+  padding: 10px;  
+  font-family: Arial, sans-serif; 
+  border-radius: 5px; 
+}
+  

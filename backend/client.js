@@ -1,7 +1,15 @@
-// Import required modules
-const express = require("express");
-const cors = require("cors");
-const mysql = require("mysql");
+const express = require('express');
+const mysql = require('mysql');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+const morgan = require('morgan');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
+const multer = require('multer');
+const path = require('path');
+const router = express.Router();
+const nodemailer = require('nodemailer');
 
 // Create Express app
 const app = express();
@@ -14,11 +22,229 @@ const db = mysql.createConnection({
   database: 'chinformatiquebdd',
 });
 
-// Allow CORS for all origins
-app.use(cors());
 
-// Body parser middleware
+// Middleware
 app.use(express.json());
+app.use(cors());
+app.use(express.static('uploads'));
+app.use(morgan('dev')); // Utilisez morgan pour enregistrer les logs des requêtes HTTP
+app.use(bodyParser.json());
+app.use(session({
+  secret: 'secret', // Clé secrète pour signer les cookies de session
+  resave: false,
+  saveUninitialized: false
+}));
+
+
+// Vérification de la connexion à la base de données
+db.connect((err) => {
+  if (err) {
+    throw err;
+  }
+  console.log('Connected to MySQL database');
+});
+// Endpoint pour vérifier si l'email existe
+app.get('/checkEmail', (req, res) => {
+  const email = req.query.email;
+
+  // Requête SQL pour vérifier si l'email existe déjà dans la base de données
+  const checkEmailSql = 'SELECT COUNT(*) AS count FROM utilisateur WHERE email = ?';
+
+  db.query(checkEmailSql, [email], (err, result) => {
+    if (err) {
+      console.error('Error checking email:', err);
+      res.status(500).send('Error checking email');
+      return;
+    }
+
+    const emailExists = result[0].count > 0;
+    res.json({ exists: emailExists });
+  });
+});
+
+
+// Route pour enregistrer l'utilisateur
+app.post('/utilisateur', async (req, res) => {
+  const formData = req.body;
+
+  // Check if formData contains password
+  if (!formData.password) {
+    return res.status(400).send('Password is required');
+  }
+
+  try {
+    // Hasher le mot de passe
+    const hashedPassword = await bcrypt.hash(formData.password, 10);
+
+    // Requête SQL pour insérer les données de l'utilisateur dans la table "utilisateur"
+    const userSql = 'INSERT INTO utilisateur (nom, prenom, adresse, numero_telephone, email, Date_anniversaire, mot_de_passe, date_creation, date_derniere_connexion, type) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), ?)';
+
+    db.query(userSql, [formData.nom, formData.prenom, formData.adresse, formData.numero_telephone, formData.email, formData.Date_anniversaire, hashedPassword, formData.type], (err, result) => {
+      if (err) {
+        console.error('Error creating user:', err);
+        return res.status(500).send('Error creating user');
+      }
+
+      // Si l'utilisateur est enregistré en tant que revendeur, enregistrer les détails supplémentaires dans la table revendeur_demande
+      if (formData.type === 'Revendeur') {
+        const revendeurSql = 'INSERT INTO revendeur_demande (idUtilisateur, nom_entreprise, business_registration, tax_identification_number, tax_article, registration_number, statut) VALUES (?, ?, ?, ?, ?, ?, ?)';
+        db.query(revendeurSql, [result.insertId, formData.companyName, formData.businessRegistration, formData.taxIdentificationNumber, formData.taxArticle, formData.registrationNumber, 'en attente'], (err) => {
+          if (err) {
+            console.error('Error creating revendeur demande:', err);
+            return res.status(500).send('Error creating revendeur demande');
+          }
+          // Rediriger le revendeur vers la page Profile Page
+          res.status(200).send('Votre demande sera traitée et contactée.');
+        });
+      } else {
+        // Rediriger le client vers la page Profile Page
+        res.status(200).send('Vous êtes inscrit avec succès.');
+      }
+    });
+  } catch (error) {
+    console.error('Error hashing password:', error);
+    return res.status(500).send('Error hashing password');
+  }
+});
+
+//login
+app.post('/login', (req, res) => {
+  console.log('Login route hit');
+  // Récupérer les données d'identification de la requête
+  const { email, password } = req.body;
+
+  // Requête SQL pour récupérer l'utilisateur à partir de l'email dans la table 'utilisateur'
+  const getUserSql = 'SELECT * FROM utilisateur WHERE email = ?';
+  // Requête SQL pour récupérer l'admin à partir de l'email dans la table 'admin'
+  const getAdminSql = 'SELECT * FROM admin WHERE email = ?';
+
+  db.query(getUserSql, [email], async (err, userResults) => {
+    if (err) {
+      console.error('Error retrieving user:', err);
+      res.status(500).send('Error retrieving user');
+      return;
+    }
+
+    // Vérifier si l'utilisateur existe dans la table 'utilisateur'
+    if (userResults.length > 0) {
+      const user = userResults[0];
+
+      // Comparer le mot de passe
+      if (user.password === password) {
+        // Si les informations d'identification sont valides, retourner un message de succès et rediriger vers /promotion
+        res.status(200).json({ success: true, message: 'Login successful', userType: 'user' });
+        return;
+      }
+    }
+
+    // Si l'utilisateur n'est pas trouvé dans la table 'utilisateur', vérifier dans la table 'admin'
+    db.query(getAdminSql, [email], async (err, adminResults) => {
+      if (err) {
+        console.error('Error retrieving admin:', err);
+        res.status(500).send('Error retrieving admin');
+        return;
+      }
+
+      // Vérifier si l'admin existe dans la table 'admin'
+      if (adminResults.length > 0) {
+        const admin = adminResults[0];
+
+        // Comparer le mot de passe
+        if (admin.password === password) {
+          // Si les informations d'identification sont valides, rediriger vers /adminhome
+          res.status(200).json({ success: true, message: 'Login successful', userType: 'admin' });
+          return;
+        }
+      }
+
+      // Si ni l'utilisateur ni l'admin n'ont été trouvés
+      res.status(401).send('Invalid email or password');
+    });
+  });
+});
+
+app.use(express.json()); // Middleware pour parser le corps de la requête en JSON
+
+// Définissez vos routes après avoir configuré la gestion de session
+app.get('/users/checkBlockedStatus', (req, res) => {
+  // Assurez-vous que l'utilisateur est authentifié avant d'accéder à cette route
+  if (!req.session.userId) {
+    return res.status(401).json({ message: 'User is not authenticated' });
+  }
+
+  const userId = req.session.userId; // Récupérez l'ID de l'utilisateur à partir de la session
+
+  // Requête SQL pour récupérer le statut de blocage de l'utilisateur à partir de son ID
+  const query = 'SELECT blocked FROM utilisateur WHERE idUtilisateur = ?';
+
+  db.query(query, [userId], (err, result) => {
+    if (err) {
+      console.error('Erreur lors de la récupération du statut de blocage de l\'utilisateur :', err);
+      return res.status(500).json({ message: 'Erreur lors de la récupération du statut de blocage de l\'utilisateur' });
+    }
+
+    // Vérifiez si l'utilisateur est bloqué ou non
+    const blocked = result[0].blocked === 1 ? true : false;
+
+    // Retournez le statut de blocage de l'utilisateur
+    res.json({ blocked });
+  });
+});
+// Vérifie si l'e-mail existe dans la base de données
+app.post('/check-email', (req, res) => {
+  const { email } = req.body;
+  const query = 'SELECT * FROM utilisateur WHERE email = ?';
+
+  db.query(query, [email], (error, results) => {
+    if (error) {
+      console.error('Erreur de base de données:', error);
+      res.status(500).json({ exists: false, message: 'Erreur de base de données' });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ exists: true });
+    } else {
+      res.json({ exists: false });
+    }
+  });
+});
+// Réinitialise le mot de passe de l'utilisateur de manière hachée
+app.post('/forgot-password', (req, res) => {
+  const { email, newPassword } = req.body;
+
+  bcrypt.genSalt(10, (err, salt) => {
+    if (err) {
+      console.error('Error generating salt:', err);
+      return res.status(500).json({ success: false, message: 'Une erreur est survenue lors de la réinitialisation du mot de passe.' });
+    }
+
+    console.log('Generated salt:', salt); // Log for debugging
+
+    bcrypt.hash(newPassword, salt, async (err, hashedPassword) => {
+      if (err) {
+        console.error('Error hashing password:', err);
+        return res.status(500).json({ success: false, message: 'Une erreur est survenue lors de la réinitialisation du mot de passe.' });
+      }
+
+      console.log('Hashed password:', hashedPassword); // Log for debugging
+
+      const query = 'UPDATE utilisateur SET mot_de_passe = ? WHERE email = ?';
+      db.query(query, [hashedPassword, email], (error, results) => {
+        if (error) {
+          console.error('Database error:', error);
+          return res.status(500).json({ success: false, message: 'Erreur de base de données' });
+        }
+        if (results.affectedRows === 0) {
+          return res.status(404).json({ success: false, message: 'Utilisateur non trouvé' });
+        }
+        res.json({ success: true, message: 'Mot de passe réinitialisé avec succès.' });
+      });
+    });
+  });
+});
+
+
 
 // Route for handling checkout
 app.post("/checkout", (req, res) => {
@@ -76,22 +302,9 @@ db.query(orderLineQuery, [orderLineValues], (err) => {
 
   });
 });
-
-// Start server
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-
-
-
-
-
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
 app.get("/shop", (req, res) => {
   db.query("SELECT * FROM produits", (err, result) => {
     if (err) {
@@ -102,7 +315,6 @@ app.get("/shop", (req, res) => {
     }
   });
 });
-
 /// Fetch details for a specific product by ID
 app.get("/products/:id", (req, res) => {
   const productId = req.params.id;
@@ -119,7 +331,6 @@ app.get("/products/:id", (req, res) => {
     }
   });
 });
-
 app.get("/products/related/:category", (req, res) => {
   const category = req.params.category;
   db.query(
@@ -134,4 +345,9 @@ app.get("/products/related/:category", (req, res) => {
       }
     }
   );
+});
+// Start server
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
