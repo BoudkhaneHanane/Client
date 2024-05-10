@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaEnvelope, FaLock } from "react-icons/fa";
 import "./style.css";
 
-const Login = () => {
+const Login = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState("");
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,11 +29,12 @@ const Login = () => {
       );
       console.log(response.data);
       if (response.data.userType === "admin") {
-        // Rediriger vers la page d'administration
+        // Redirect to the admin page
         window.location.href = "/adminhome";
       } else {
-        // Rediriger vers la page de promotion
-        window.location.href = "/";
+        // Redirect to the home page
+        onLoginSuccess(); // Update authentication state
+        navigate("/"); // Navigate to the home page
       }
     } catch (error) {
       console.error("Error:", error.response.data);
@@ -45,7 +47,8 @@ const Login = () => {
       <div className="loginpage_flex">
         <div className="formDiv">
           <div className="containers">
-            <h2 className="titles"> Login page </h2>
+            <h1>Log In </h1>
+            <hr />
           </div>
           <form onSubmit={handleSubmit} className="fromGrid">
             <div className="inputDev">
@@ -81,20 +84,15 @@ const Login = () => {
             </div>
             {errors && <p className="error danger">{errors}</p>}
             <br />
-            <button type="submit" className="botton">
-              <span className="botton">Login</span>
-            </button>
+            <button type="submit">Login</button>
             <br />
-            <span className="forgot">
-              Forgot your password? <Link to="/settings">Click Here</Link>
-            </span>
           </form>
-          <div className="footerDiv_flex">
-            <span className="texte">Don't have an account?</span>
-            <br />
-            <Link to="/sign">
-              <button className="btn"> Sign Up </button>
-            </Link>
+          <div>
+            <Link to="/settings">Forgot your password ?</Link>
+          </div>
+          <div>
+            Don't have an account?
+            <Link to="/sign"> Sign Up</Link>
           </div>
         </div>
       </div>

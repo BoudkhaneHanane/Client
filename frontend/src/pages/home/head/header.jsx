@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./header.css";
 import { Button } from "@mui/material";
 import {
@@ -14,9 +14,10 @@ import Cart from "../../../assets/cart.png";
 import User from "../../../assets/user.png";
 import Nav from "../head/nav";
 
-function Header({ sizeCart, sizeFavoris, isAuthenticated }) {
+function Header({ sizeCart, sizeFavoris, isAuthenticated, onLogout }) {
   const [isOpenDropdown, setIsOpenDropDown] = useState(false);
   const dropdownRef = useRef();
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsOpenDropDown(!isOpenDropdown);
@@ -69,10 +70,12 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated }) {
                 </Link>
               </li>
               {isAuthenticated ? (
-                <li className="list-inline-item" ref={dropdownRef}>
-                  <span onClick={toggleDropdown}>
-                    <img src={User} alt="User" />
-                  </span>
+                <li className="list-inline-item">
+                  <div onClick={toggleDropdown}>
+                    <span>
+                      <img src={User} alt="user" />
+                    </span>
+                  </div>
                   {isOpenDropdown && (
                     <ul className="dropDownMenu">
                       <li>
@@ -97,11 +100,9 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated }) {
                         </Link>
                       </li>
                       <li>
-                        <Link to="/">
-                          <Button>
-                            <ExitToApp /> Log Out
-                          </Button>
-                        </Link>
+                        <Button onClick={onLogout}>
+                          <ExitToApp /> Log Out
+                        </Button>
                       </li>
                     </ul>
                   )}
@@ -110,7 +111,7 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated }) {
                 <li className="list-inline-item">
                   <Link to="/login">
                     <span>
-                      <img src={User} alt="User" />
+                      <img src={User} alt="user" />
                     </span>
                   </Link>
                 </li>

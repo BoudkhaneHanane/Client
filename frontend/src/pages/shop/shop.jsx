@@ -27,35 +27,31 @@ const Shop = ({ handleClick, addToFavorites }) => {
   return (
     <section className="listingPage">
       <div className="">
-        <div className="breadcrumb flex-column">
-          <h1>Shop</h1>
-          <ul className="list list-inline mb-0">
-            <li className="list-inline-item">
-              <Link to={"/"}>Home</Link>
-            </li>
-            <li className="list-inline-item">
-              <Link to={"/shop"}>Shop</Link>
-            </li>
-            <li className="list-inline-item">
-              <Link to={"/"}>PC</Link>
-            </li>
-          </ul>
-        </div>
         <div className="listingData">
           <div className="row">
-            <div className="col-md-3 sidebarWrapper">
+            <div className="sidebarWrapper">
               <Sidebar />
             </div>
-            <div className="col-md-6 rightContent homeproducts pt-0">
-              <div className="topStrip d-flex align-items-center">
-                <div className="ml-auto d-flex align-items-center">
-                  <div className="tab_ mb-2 ml-3 position-relative">
-                    <Button className="btn_">
-                      <GridViewIcon />
-                      Sort by: Featured
-                    </Button>
-                  </div>
-                </div>
+            <div className="rightContent">
+              <div className="features">
+                <button>
+                  <GridViewIcon />
+                  Sort by: Featured
+                </button>
+                <ul>
+                  <li>
+                    <button>Sort by popularity</button>
+                  </li>
+                  <li>
+                    <button>Sort by latest</button>
+                  </li>
+                  <li>
+                    <button>Sort by price: low to high</button>
+                  </li>
+                  <li>
+                    <button>Sort by price: high to low</button>
+                  </li>
+                </ul>
               </div>
               <div className="productrow">
                 <div className="item">

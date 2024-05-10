@@ -353,7 +353,7 @@ function Nav() {
               </li>
               <li className="list-inline-item">
                 <Button>
-                  <Link>
+                  <Link to="/buildpc">
                     Build PC
                     <KeyboardArrowDownOutlinedIcon />
                   </Link>
@@ -375,7 +375,7 @@ function Nav() {
               </li>
               <li className="list-inline-item">
                 <Button>
-                  <Link>Pre-Built PC</Link>
+                  <Link to="/prebuilt">Pre-Built PC</Link>
                 </Button>
               </li>
             </ul>

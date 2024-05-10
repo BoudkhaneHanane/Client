@@ -29,13 +29,23 @@ const Product = ({ product, handleClick, addToFavorites }) => {
 
     addToFavorites(product); // Ensure addToFavorites is properly used
   };
-
+  const createdAtDate = new Date(product.created_at);
+  const today = new Date();
+  const oneMonthAgo = new Date(today);
+  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
   return (
     <div className="productThumb" key={product.idProduit}>
       {showWarning && (
         <div className="warning">Product is already in the cart!</div>
       )}
-      <span className="badge">New</span>
+      {createdAtDate > oneMonthAgo &&
+        !product.prixPromo &&
+        !product.reduction && <span className="badge">New</span>}
+      {product.prixPromo &&
+        product.reduction &&
+        new Date() <= new Date(product.dateFinPromo) && (
+          <span className="promo">-{product.reduction}%</span>
+        )}
       <div className="imgWrapper">
         <Link to={`/detail/${product.idProduit}`}>
           <img src={img} className="w-100" alt="Product" />
@@ -62,7 +72,7 @@ const Product = ({ product, handleClick, addToFavorites }) => {
         </div>
       </div>
       <div className="info">
-        <span className="d-block categorie">
+        <span className="categorie">
           {product.namecategorie}, {product.namesubcategorie}
         </span>
         <label>
@@ -70,10 +80,21 @@ const Product = ({ product, handleClick, addToFavorites }) => {
         </label>
         <div className="price-wrapper">
           <div className="price-info">
-            <div className="price text-g font-weight-bold">
-              {product.price}DA
-            </div>
-            <div className="oldPrice">200000.00DA</div>
+            {product.prixPromo &&
+              product.reduction &&
+              new Date() <= new Date(product.dateFinPromo) && (
+                <div>
+                  <div className="price text-g font-weight-bold">
+                    {product.prixPromo}DA
+                  </div>
+                  <div className="oldPrice">{product.price}DA</div>
+                </div>
+              )}
+            {!product.prixPromo && !product.reduction && (
+              <div className="price text-g font-weight-bold">
+                {product.price} DA
+              </div>
+            )}
           </div>
           <Button className="transition" onClick={handleAddToCart}>
             Add to <ShoppingCartOutlinedIcon />

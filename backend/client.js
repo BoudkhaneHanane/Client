@@ -307,14 +307,20 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 app.get("/shop", (req, res) => {
-  db.query("SELECT * FROM produits", (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Internal Server Error");
-    } else {
-      res.send(result);
-    }
-  });
+  const sqlQuery = `
+  SELECT p.*, pr.prixPromo, pr.reduction, pr.dateFinPromo
+  FROM produits p
+  LEFT JOIN promotions pr ON p.idProduit = pr.idProduit;  
+`;
+db.query(sqlQuery, (err, result) => {
+  if (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  } else {
+    console.log(result); // Print the result to check the structure and values
+    res.send(result);
+  }
+});
 });
 /// Fetch details for a specific product by ID
 app.get("/products/:id", (req, res) => {

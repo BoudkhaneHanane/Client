@@ -5,6 +5,8 @@ import Home from "./pages/home/home";
 import Cart from "./pages/panier/cart";
 import Favoris from "./pages/favoris/favoris";
 import Shop from "./pages/shop/shop";
+import BuildPC from "./pages/PCBuilder/PCBuilder";
+import PreBuilt from "./pages/prebuild/prebuild";
 import Detail from "./pages/details/productdetail";
 import Checkout from "./pages/checkout/checkout";
 import Login from "./pages/account/sign/login";
@@ -25,6 +27,7 @@ function App() {
   });
 
   const [showWarning, setShowWarning] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Add authentication state
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -33,6 +36,15 @@ function App() {
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
+
+  // Function to handle logout
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
 
   const handleClick = (product) => {
     if (!product || typeof product !== "object" || !product.idProduit) {
@@ -68,7 +80,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header sizeCart={cart.length} sizeFavoris={favorites.length} />
+      <Header
+        sizeCart={cart.length}
+        sizeFavoris={favorites.length}
+        isAuthenticated={isAuthenticated}
+        onLogout={handleLogout}
+      />
       <Routes>
         <Route
           exact
@@ -82,8 +99,16 @@ function App() {
           }
         />
         <Route exact path="/settings" element={<Pswrd />} />
-        <Route exact path="/sign" element={<Sign />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route
+          exact
+          path="/sign"
+          element={<Sign onLoginSuccess={handleLogin} />}
+        />
+        <Route
+          exact
+          path="/login"
+          element={<Login onLoginSuccess={handleLogin} />}
+        />
         <Route exact path="/history" element={<History />} />
         <Route
           exact
@@ -125,6 +150,18 @@ function App() {
           }
         />
         <Route exact path="/checkout" element={<Checkout cart={cart} />} />
+        <Route exact path="/buildpc" element={<BuildPC />} />
+        <Route
+          exact
+          path="/prebuilt"
+          element={
+            <PreBuilt
+              addToFavorites={addToFavorites}
+              handleClick={handleClick}
+              showWarning={showWarning}
+            />
+          }
+        />
       </Routes>
       <Footer />
     </BrowserRouter>

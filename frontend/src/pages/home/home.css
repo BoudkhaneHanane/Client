@@ -42,57 +42,66 @@
   height: 40px;
   margin-right: 10px; /* Add space between icon and paragraph */
 }
-
-/* Plus Boxes Text */
 .plusBoxes p {
   font-weight: 500;
   font-size: 18px;
   text-align: center; /* Center text */
   margin: 0px; /* Reset default margin */
 }
-
-/* Keyframes Animation */
-@keyframes moveLeftAndBack {
-  0% {
-    transform: translateX(0%);
-  }
-  50% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0%);
-  }
+.homeProducts {
+  margin: 20px 40px;
+  padding: 0px;
+  background-color: #fff;
+  border: 2px solid #11186188;
+  border-radius: 5px;
 }
-
-/* Home Products Section */
-.homeProducts label {
-  font-size: 1.2em; /* Adjust font size as needed */
-  font-weight: bold;
+.homeProducts .new{
+  margin-bottom: 0px;
+  padding: 10px 25px;
 }
-
+.homeProducts .new label {
+  font-size: 34px;
+  font-weight: 450;
+  color: #333;
+  margin-top: 10px;
+}
+.homeProducts .pre{
+  background-color: #333;
+  margin-bottom: 0px;
+  padding: 10px 25px;
+}
+.homeProducts .pre label{
+  font-size: 34px;
+  font-weight: 450;
+  color: #ffffff;
+}
+.homeProducts .pre .more{
+  color: aqua;
+}
 .productRow {
+  position: relative;
   display: flex;
-  flex-wrap: nowrap; /* Prevent items from wrapping to the next line */
-  overflow-x: auto; /* Enable horizontal scrolling */
-  padding-bottom: 20px; /* Add padding at the bottom to prevent items from sticking to the edge */
-  justify-content: space-between; /* Distribute items evenly within the row */
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 10px;
 }
-
 .item {
-  flex: 0 0 calc(25% - 10px); /* Adjust item width and margin as needed */
-  margin-right: 10px; /* Adjust margin between items */
+  flex: 0 0 calc(25% - 20px);
+  margin-bottom: 10px;
 }
-
-.item:last-child {
-  margin-right: 0; /* Remove margin from the last item */
-}
-
-/* More Link */
 .more {
-  color: #007bff; /* Link color */
+  color: #0000007a;
   text-decoration: none;
+  font-weight: bold;
+  margin: 0px;
+  padding: 0px 25px;
+  font-size: 23px;
+  font-weight: 400;
+  right: 35px;
+  position: absolute;
+  transition: color 0.3s ease;
 }
-
 .more:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: none;
+  color: #111861;
 }

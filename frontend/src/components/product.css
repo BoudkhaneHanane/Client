@@ -1,16 +1,14 @@
 /* Styles for the product thumbnail container */
 .productThumb {
-  width: 300px;
+  width: 270px;
   height: auto;
   border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 0;
   position: relative;
   transition: all 0.3s ease-in-out;
 }
-
-/* Styles for the "NEW" badge */
 .productThumb .badge {
   position: absolute;
   top: 0px;
@@ -22,35 +20,39 @@
   font-size: 16px;
   font-weight: 700;
   border-bottom-right-radius: 35px;
-  border-top-left-radius: 10px;
+  border-top-left-radius: 6px;
   z-index: 10;
 }
-
-/* Hover effect for product thumbnails */
+.productThumb .promo {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  display: inline-block;
+  background: #0ace0a;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-weight: 700;
+  border-bottom-right-radius: 35px;
+  border-top-left-radius: 6px;
+  z-index: 10;
+}
 .productThumb:hover {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-
-/* Styles for the image wrapper */
 .productThumb .imgWrapper {
   width: 100%;
   overflow: hidden;
   position: relative;
 }
-
-/* Styles for product images */
 .productThumb .imgWrapper img {
   width: 100%;
   height: auto;
   transition: transform 0.3s ease-in-out;
 }
-
-/* Hover effect for product images */
 .productThumb .imgWrapper:hover img {
   transform: scale(1.1);
 }
-
-/* Styles for overlay (e.g., icons) displayed on hover */
 .productThumb .imgWrapper .overlay {
   position: absolute;
   top: 50%;
@@ -59,13 +61,9 @@
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
-
-/* Hover effect for overlay */
 .productThumb:hover .imgWrapper .overlay {
   opacity: 1;
 }
-
-/* Styles for tooltip-like container */
 .productThumb .imgWrapper .overlay ul {
   background: #fff;
   border-radius: 10px;
@@ -75,33 +73,25 @@
   align-items: center;
   list-style: none;
 }
-
-/* Styles for each icon within the tooltip container */
 .productThumb .imgWrapper .overlay ul li {
   padding: 0 3px; /* Adjust padding to create space between icons */
 }
-
-
-/* Styles for icons within the tooltip container */
 .productThumb .imgWrapper .overlay ul li .MuiSvgIcon-root {
   color: #07128b; /* Change icon color to blue */
 }
-
-
-/* Styles for product information container */
 .productThumb .info {
   background-color: #ffffffc7;
-  padding: 16px;
+  padding: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-
-/* Styles for product category */
 .productThumb .categorie {
   color: #6c757d;
   font-size: 14px;
   margin-bottom: 5px;
+  text-align: center;
 }
-
-/* Styles for product name */
 .productThumb label a {
   color: #000;
   font-weight: 650;
@@ -110,32 +100,31 @@
   line-height: 24px; /* Adjust line height for better spacing */
   display: block;
   margin-bottom: 5px;
+  text-align: center;
 }
-
-/* Styles for price wrapper */
 .price-wrapper {
   display: flex;
   align-items: center;
 }
-
-/* Styles for price info container */
 .price-info {
   display: flex;
   align-items: center;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
 
 /* Styles for product price */
 .productThumb .price {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 550;
   color: #050eaa;
 }
 
 /* Styles for old product price */
 .productThumb .oldPrice {
-  font-size: 17px;
-  font-weight: 500;
-  opacity: 0.6;
+  font-size: 16px;
+  font-weight: 540;
+  opacity: 0.8;
   color: #000;
   text-decoration: line-through;
   margin-right: 10px; /* Add margin to separate old price from price */
@@ -143,19 +132,20 @@
 
 /* Styles for add to cart button */
 .productThumb button {
-  font-size: 17px;
+  font-size: 19px;
   color: #fff;
-  padding: 5px 15px;
-  width: 200px;
+  padding: 5px 10px;
+  width: 125px;
+  height: 45px;
   background: #050eaa;
   text-transform: capitalize;
   border: none;
   cursor: pointer;
   transition: background 0.3s ease-in-out;
-  margin-left: auto; /* Push button to the right */
+  margin-left: auto; 
+  margin-top: 5px;
 }
 
-/* Hover effect for add to cart button */
 .productThumb button:hover {
   background: #0808c7a1;
 }

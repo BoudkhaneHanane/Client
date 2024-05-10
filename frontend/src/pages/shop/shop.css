@@ -11,10 +11,11 @@
     flex: 0 0 80%;
 }
 
-.rightContent .row {
+.rightContent{
     margin-top: 15px;
     flex: 1;
     position: relative;
+    display: inline-block;
 }
 
 .productrow {
@@ -29,7 +30,8 @@
     font-weight: 600;
     position: relative;
     padding-bottom: 5%;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    margin-top: 15px;
 }
 
 .sidebarWrapper h4:after {
@@ -55,7 +57,7 @@
 
 .sidebarWrapper .sidebar .card {
     background-color: #fff;
-    padding: 15px 20px;
+    padding: 5px 15px;
     border-radius: 4px !important;
     margin: 15px 20px;
 }
@@ -105,7 +107,7 @@
     font-weight: 600;
     display: flex;
     padding-top: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
 }
 
 .priceRange span strong {
@@ -114,7 +116,7 @@
 }
 
 .filters {
-    padding: 25px 0px;
+    padding: 10px 0px;
 }
 
 .card h5 {
@@ -144,21 +146,17 @@
     font-weight: 500;
 }
 
-.sidebarWrapper .sidebar .btn {
-    width: 250;
-}
-
 .features {
     position: relative;
 }
 
 .features button {
     width: 220px;
-    color: #777676;
+    color: #333;
     font-size: 16px;
     font-weight: 550;
     background: #fff;
-    border: 0.5px solid #cccccc79;
+    border: 0.5px solid #ddd;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -184,11 +182,9 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 100;
 }
-
 .features ul li {
     padding: 0px;
 }
-
 .features ul li button {
     background: none;
     color: #000;
@@ -198,7 +194,6 @@
     width: 100%;
     text-align: left;
 }
-
 .features ul li button:hover {
     background-color: #111861a4;
     color: #fff;

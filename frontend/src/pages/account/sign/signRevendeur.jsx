@@ -319,8 +319,8 @@ const SignRevendeur = () => {
             </>
           )}
 
-          <button className="botnn" type="submit">
-            Sign Up
+          <button type="submit">
+            <Link to="/">Sign Up</Link>
           </button>
         </form>
         <p className="ppp">

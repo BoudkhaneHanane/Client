@@ -81,6 +81,24 @@ function Home({ handleClick, showWarning, addToFavorites }) {
     };
     fetchData();
   }, []);
+  // Filter products with active promotions
+  const specialOfferProducts = productData.filter(
+    (product) => product.prixPromo && product.reduction
+  );
+
+  // Get the date 30 days ago
+  const thirtyDaysAgo = new Date();
+  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+  // Filter new products excluding those with active promotions
+  const newProducts = productData.filter((product) => {
+    const createdAt = new Date(product.created_at);
+    return (
+      createdAt > thirtyDaysAgo &&
+      !specialOfferProducts.some((p) => p.idProduit === product.idProduit)
+    );
+  });
+
   return (
     <>
       <MySlider slides={slides} />
@@ -112,15 +130,15 @@ function Home({ handleClick, showWarning, addToFavorites }) {
       </div>
       <Banner />
       <section className="homeProducts">
-        <div>
-          <div>
+        <div className="new">
+          <div className="section">
             <label>New Products</label>
-            <Link to="/products" className="more">
+            <Link to="/shop" className="more">
               See All <FaArrowRight />
             </Link>
           </div>
           <div className="productRow">
-            {productData.map((product) => (
+            {newProducts.slice(0, 4).map((product) => (
               <div className="item" key={product.idProduit}>
                 <Product
                   handleClick={handleClick}
@@ -130,6 +148,52 @@ function Home({ handleClick, showWarning, addToFavorites }) {
                 />
               </div>
             ))}
+          </div>
+        </div>{" "}
+        <hr />
+        <div className="new">
+          <div className="section">
+            <label>Special Offers</label>
+            <Link to="/shop" className="more">
+              See All <FaArrowRight />
+            </Link>
+          </div>
+          <div className="productRow">
+            {specialOfferProducts.slice(0, 4).map((product) => (
+              <div className="item" key={product.idProduit}>
+                <Product
+                  handleClick={handleClick}
+                  showWarning={showWarning}
+                  addToFavorites={addToFavorites}
+                  product={product}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="pre">
+          <div className="section">
+            <label>Pre-Designed PCs</label>
+            <Link to="/prebuilt" className="more">
+              See All <FaArrowRight />
+            </Link>
+          </div>
+          <div className="productRow">
+            {productData
+              .filter(
+                (product) => product.namecategorie === "Predesigned computers"
+              )
+              .slice(0, 4) // Limit to 4 products
+              .map((product) => (
+                <div className="item" key={product.idProduit}>
+                  <Product
+                    handleClick={handleClick}
+                    showWarning={showWarning}
+                    addToFavorites={addToFavorites}
+                    product={product}
+                  />
+                </div>
+              ))}
           </div>
         </div>
       </section>

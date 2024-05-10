@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "@mui/material/Button";
 import Slider from "@mui/material/Slider";
 import Checkbox from "@mui/material/Checkbox";
 import { FiFilter } from "react-icons/fi";
@@ -84,12 +83,10 @@ const Sidebar = () => {
             </li>
           </ul>
         </div>
-        <div className="d-flex">
-          <button>
-            <FiFilter />
-            Filter
-          </button>
-        </div>
+        <button>
+          <FiFilter />
+          Filter
+        </button>
       </div>
     </div>
   );
