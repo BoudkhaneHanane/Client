@@ -141,7 +141,8 @@ const SignRevendeur = () => {
   return (
     <div className="sign">
       <div className="signup-page">
-        <h2>Sign Up Client</h2>
+        <h2>Sign Up</h2>
+        <hr />
         <form onSubmit={handleSubmit} className="signup-form">
           <div className="form-group">
             <label htmlFor="firstName">First Name</label>
@@ -236,7 +237,6 @@ const SignRevendeur = () => {
             />
             {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
           </div>
-          {/* Option pour devenir revendeur */}
           <div className="form-group">
             <label>
               <input
@@ -248,7 +248,6 @@ const SignRevendeur = () => {
               Become a reseller
             </label>
           </div>
-          {/* Champs supplémentaires pour les revendeurs */}
           {formData.devenirRevendeur && (
             <>
               <div className="form-group">
@@ -318,9 +317,10 @@ const SignRevendeur = () => {
               </div>
             </>
           )}
-
           <button type="submit">
-            <Link to="/">Sign Up</Link>
+            <Link to="/">
+              <span className="signbtn">Sign Up</span>
+            </Link>
           </button>
         </form>
         <p className="ppp">

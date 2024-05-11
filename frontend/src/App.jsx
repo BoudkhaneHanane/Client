@@ -27,8 +27,9 @@ function App() {
   });
 
   const [showWarning, setShowWarning] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // Add authentication state
-
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [nom, setNom] = useState("");
+  const [prenom, setPrenom] = useState("");
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -37,8 +38,10 @@ function App() {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
-  const handleLogin = () => {
+  const handleLogin = (nom, prenom) => {
     setIsAuthenticated(true);
+    setNom(nom); // Assuming you have state variables for nom and prenom
+    setPrenom(prenom);
   };
 
   // Function to handle logout
@@ -109,7 +112,12 @@ function App() {
           path="/login"
           element={<Login onLoginSuccess={handleLogin} />}
         />
-        <Route exact path="/history" element={<History />} />
+        <Route
+          exact
+          path="/history"
+          element={<History nom={nom} prenom={prenom} />}
+        />
+
         <Route
           exact
           path="/cart"

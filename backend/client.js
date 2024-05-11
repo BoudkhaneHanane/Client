@@ -18,7 +18,7 @@ const app = express();
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: '', // Password for your MySQL database
+  password: '', 
   database: 'chinformatiquebdd',
 });
 
@@ -43,6 +43,86 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database');
 });
+// Route for fetching order history
+app.get("/orderhistory/:nom/:prenom", (req, res) => {
+  const { nom, prenom } = req.params;
+  
+  // Query to fetch order history based on user's name and last name
+  const getOrderHistoryQuery = "SELECT * FROM Orders WHERE nom = ? AND prenom = ?";
+  
+  db.query(getOrderHistoryQuery, [nom, prenom], (err, orderHistory) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).send("Error fetching order history.");
+      }
+      res.json(orderHistory);
+  });
+});
+//login
+app.post('/login', (req, res) => {
+  console.log('Login route hit');
+  // Récupérer les données d'identification de la requête
+  const { email, password } = req.body;
+
+  // Requête SQL pour récupérer l'utilisateur à partir de l'email dans la table 'utilisateur'
+  const getUserSql = 'SELECT * FROM utilisateur WHERE email = ?';
+  // Requête SQL pour récupérer l'admin à partir de l'email dans la table 'admin'
+  const getAdminSql = 'SELECT * FROM admin WHERE email = ?';
+
+  db.query(getUserSql, [email], async (err, userResults) => {
+    if (err) {
+      console.error('Error retrieving user:', err);
+      res.status(500).send('Error retrieving user');
+      return;
+    }
+  
+    // Vérifier si l'utilisateur existe dans la table 'utilisateur'
+    if (userResults.length > 0) {
+      const user = userResults[0];
+  
+      // Comparer le mot de passe haché
+      if (await bcrypt.compare(password, user.mot_de_passe)) {
+        // Si les informations d'identification sont valides, retourner un message de succès et rediriger vers /promotion
+        res.status(200).json({
+          success: true,
+          message: 'Login successful',
+          userType: 'user',
+          nom: user.nom,
+          prenom: user.prenom // Replace userData.prenom with user.prenom
+        });
+        return;
+      }
+    }
+    // Si l'utilisateur n'est pas trouvé dans la table 'utilisateur', vérifier dans la table 'admin'
+    db.query(getAdminSql, [email], async (err, adminResults) => {
+      if (err) {
+        console.error('Error retrieving admin:', err);
+        res.status(500).send('Error retrieving admin');
+        return;
+      }
+
+      // Vérifier si l'admin existe dans la table 'admin'
+      if (adminResults.length > 0) {
+        const admin = adminResults[0];
+
+        // Comparer le mot de passe haché
+        if (await bcrypt.compare(password, admin.password)) {
+          // Si les informations d'identification sont valides, rediriger vers /adminhome
+          res.status(200).json({ success: true, message: 'Login successful', userType: 'admin' });
+          return;
+        }
+      }
+
+      // Si ni l'utilisateur ni l'admin n'ont été trouvés
+      res.status(401).send('Invalid email or password');
+    });
+  });
+});
+
+
+
+
+
 // Endpoint pour vérifier si l'email existe
 app.get('/checkEmail', (req, res) => {
   const email = req.query.email;
@@ -61,8 +141,6 @@ app.get('/checkEmail', (req, res) => {
     res.json({ exists: emailExists });
   });
 });
-
-
 // Route pour enregistrer l'utilisateur
 app.post('/utilisateur', async (req, res) => {
   const formData = req.body;
@@ -106,63 +184,6 @@ app.post('/utilisateur', async (req, res) => {
     return res.status(500).send('Error hashing password');
   }
 });
-
-//login
-app.post('/login', (req, res) => {
-  console.log('Login route hit');
-  // Récupérer les données d'identification de la requête
-  const { email, password } = req.body;
-
-  // Requête SQL pour récupérer l'utilisateur à partir de l'email dans la table 'utilisateur'
-  const getUserSql = 'SELECT * FROM utilisateur WHERE email = ?';
-  // Requête SQL pour récupérer l'admin à partir de l'email dans la table 'admin'
-  const getAdminSql = 'SELECT * FROM admin WHERE email = ?';
-
-  db.query(getUserSql, [email], async (err, userResults) => {
-    if (err) {
-      console.error('Error retrieving user:', err);
-      res.status(500).send('Error retrieving user');
-      return;
-    }
-
-    // Vérifier si l'utilisateur existe dans la table 'utilisateur'
-    if (userResults.length > 0) {
-      const user = userResults[0];
-
-      // Comparer le mot de passe haché
-      if (await bcrypt.compare(password, user.mot_de_passe)) {
-        // Si les informations d'identification sont valides, retourner un message de succès et rediriger vers /promotion
-        res.status(200).json({ success: true, message: 'Login successful', userType: 'user' });
-        return;
-    }
-    }
-
-    // Si l'utilisateur n'est pas trouvé dans la table 'utilisateur', vérifier dans la table 'admin'
-    db.query(getAdminSql, [email], async (err, adminResults) => {
-      if (err) {
-        console.error('Error retrieving admin:', err);
-        res.status(500).send('Error retrieving admin');
-        return;
-      }
-
-      // Vérifier si l'admin existe dans la table 'admin'
-      if (adminResults.length > 0) {
-        const admin = adminResults[0];
-
-        // Comparer le mot de passe haché
-        if (await bcrypt.compare(password, admin.password)) {
-          // Si les informations d'identification sont valides, rediriger vers /adminhome
-          res.status(200).json({ success: true, message: 'Login successful', userType: 'admin' });
-          return;
-        }
-      }
-
-      // Si ni l'utilisateur ni l'admin n'ont été trouvés
-      res.status(401).send('Invalid email or password');
-    });
-  });
-});
-
 
 app.use(express.json()); // Middleware pour parser le corps de la requête en JSON
 
@@ -322,7 +343,6 @@ db.query(sqlQuery, (err, result) => {
   }
 });
 });
-/// Fetch details for a specific product by ID
 app.get("/products/:id", (req, res) => {
   const productId = req.params.id;
   db.query("SELECT * FROM produits WHERE idProduit = ?", [productId], (err, result) => {

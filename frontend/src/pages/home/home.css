@@ -82,11 +82,11 @@
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  gap: 25px;
+  gap: 20px;
   padding: 10px;
 }
 .item {
-  flex: 0 0 calc(25% - 20px);
+  flex: 0 0 calc(20% - 20px);
   margin-bottom: 10px;
 }
 .more {

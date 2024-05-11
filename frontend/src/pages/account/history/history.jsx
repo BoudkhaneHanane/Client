@@ -1,38 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const History = () => {
-  // Sample order data
-  const [orders, setOrders] = useState([
-    { id: 1, date: "2024-05-01", total: 100.0, items: ["Item 1", "Item 2"] },
-    { id: 2, date: "2024-04-25", total: 75.0, items: ["Item 3", "Item 4"] },
-    { id: 3, date: "2024-04-20", total: 50.0, items: ["Item 5"] },
-  ]);
+function History({ nom, prenom }) {
+  const [orderHistory, setOrderHistory] = useState([]);
+
+  useEffect(() => {
+    // Fetch order history data from the server
+    const fetchOrderHistory = async () => {
+      try {
+        const response = await axios.get(`/orderhistory/${nom}/${prenom}`);
+        console.log("Order History:", response.data); // Log the fetched data
+        setOrderHistory(response.data);
+      } catch (error) {
+        console.error("Error fetching order history:", error);
+      }
+    };
+
+    fetchOrderHistory();
+  }, [nom, prenom]);
 
   return (
     <div>
-      <h1>Order History</h1>
+      <h2>Order History</h2>
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            <th>Order ID</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
             <th>Date</th>
-            <th>Total</th>
-            <th>Items</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.date}</td>
-              <td>${order.total.toFixed(2)}</td>
-              <td>{order.items.join(", ")}</td>
+          {orderHistory.map((order) => (
+            <tr key={order.idOrder}>
+              <td>{order.nom}</td>
+              <td>{order.prenom}</td>
+              <td>{order.numTele}</td>
+              <td>{order.address}</td>
+              <td>{order.note}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
-};
+}
 
 export default History;
