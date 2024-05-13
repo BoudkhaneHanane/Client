@@ -145,26 +145,26 @@ const SignRevendeur = () => {
         <hr />
         <form onSubmit={handleSubmit} className="signup-form">
           <div className="form-group">
-            <label htmlFor="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="nom"
-              value={formData.nom}
-              onChange={handleChange}
-              placeholder="Enter your first name"
-            />
-            {errors.nom && <p>{errors.nom}</p>}
-          </div>
-          <div className="form-group">
             <label htmlFor="lastName">Last Name</label>
             <input
               type="text"
               id="lastName"
+              name="nom"
+              value={formData.nom}
+              onChange={handleChange}
+              placeholder="Enter your Last name"
+            />
+            {errors.nom && <p>{errors.nom}</p>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="firstName">First Name</label>
+            <input
+              type="text"
+              id="firstName"
               name="prenom"
               value={formData.prenom}
               onChange={handleChange}
-              placeholder="Enter your last name"
+              placeholder="Enter your First name"
             />
             {errors.prenom && <p>{errors.prenom}</p>}
           </div>

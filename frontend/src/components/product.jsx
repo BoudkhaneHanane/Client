@@ -26,8 +26,7 @@ const Product = ({ product, handleClick, addToFavorites }) => {
       console.error("Invalid product:", product);
       return;
     }
-
-    addToFavorites(product); // Ensure addToFavorites is properly used
+    addToFavorites(product);
   };
   const createdAtDate = new Date(product.created_at);
   const today = new Date();

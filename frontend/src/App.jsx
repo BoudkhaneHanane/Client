@@ -6,6 +6,7 @@ import Cart from "./pages/panier/cart";
 import Favoris from "./pages/favoris/favoris";
 import Shop from "./pages/shop/shop";
 import BuildPC from "./pages/PCBuilder/PCBuilder";
+import ListBuild from "./pages/PCBuilder/listbuild";
 import PreBuilt from "./pages/prebuild/prebuild";
 import Detail from "./pages/details/productdetail";
 import Checkout from "./pages/checkout/checkout";
@@ -79,6 +80,11 @@ function App() {
     if (!isAlreadyFavorite) {
       setFavorites([...favorites, { ...product }]);
     }
+  };
+  const [selectedProcessor, setSelectedProcessor] = useState(null);
+
+  const handleProcessorSelect = (processor) => {
+    setSelectedProcessor(processor);
   };
 
   return (
@@ -158,7 +164,16 @@ function App() {
           }
         />
         <Route exact path="/checkout" element={<Checkout cart={cart} />} />
-        <Route exact path="/buildpc" element={<BuildPC />} />
+        <Route
+          exact
+          path="/buildpc"
+          element={<BuildPC onSelectProcessor={handleProcessorSelect} />}
+        />
+        <Route
+          exact
+          path="/listbuild"
+          element={<ListBuild selectedProcessor={selectedProcessor} />}
+        />
         <Route
           exact
           path="/prebuilt"

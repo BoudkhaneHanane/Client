@@ -115,20 +115,20 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
           <div className="product-details">
             <h1>{product.name}</h1>
             <hr />
-            <p>{product.price}DA</p>
+            <h3>{product.price}DA</h3>
             <p>{product.description}</p>
             <hr />
-            <p>
+            <h2>
               Categories: {product.namecategorie},{product.namesubcategorie},
               {product.namesubsubcategorie}
-            </p>
+            </h2>
+            <div onClick={handleAddToWishlist}>
+              <FavoriteBorderOutlinedIcon />
+              <h2>Add To WishList</h2>
+            </div>
             <button onClick={handleAddToCart}>
               Add To <ShoppingCartOutlinedIcon />
             </button>
-            <div onClick={handleAddToWishlist}>
-              <FavoriteBorderOutlinedIcon />
-              <span>Add To WishList</span>
-            </div>
             <hr />
           </div>
         )}

@@ -43,12 +43,34 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database');
 });
-// Route for fetching order history
+// Endpoint to fetch products based on processor type
+app.get('/listbuild/:processorType', (req, res) => {
+  const processorType = req.params.processorType;
+
+  // Fetch products from the database based on processor type
+  db.query('SELECT * FROM produits WHERE (description LIKE ? OR name LIKE ? OR namecategorie LIKE ?)', [`%${processorType}%`, `%${processorType}%`, `%${processorType}%`], (error, results) => {
+    if (error) {
+      console.error('Error fetching products:', error);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+    res.json({ products: results });
+  });
+});
+
+
+
+// Route for fetching order history including order details
 app.get("/orderhistory/:nom/:prenom", (req, res) => {
   const { nom, prenom } = req.params;
   
-  // Query to fetch order history based on user's name and last name
-  const getOrderHistoryQuery = "SELECT * FROM Orders WHERE nom = ? AND prenom = ?";
+  // Query to fetch order history including order details
+  const getOrderHistoryQuery = `
+    SELECT o.*, ol.idOrderline, ol.idProduit, ol.quantity, ol.totalPrice
+    FROM Orders o
+    LEFT JOIN OrderLine ol ON o.idOrder = ol.idOrder
+    WHERE o.nom = ? AND o.prenom = ?
+  `;
   
   db.query(getOrderHistoryQuery, [nom, prenom], (err, orderHistory) => {
       if (err) {
@@ -118,11 +140,6 @@ app.post('/login', (req, res) => {
     });
   });
 });
-
-
-
-
-
 // Endpoint pour vérifier si l'email existe
 app.get('/checkEmail', (req, res) => {
   const email = req.query.email;

@@ -1,51 +1,59 @@
+// OrderHistory.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function History({ nom, prenom }) {
-  const [orderHistory, setOrderHistory] = useState([]);
+const OrderHistory = ({ nom, prenom }) => {
+  const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch order history data from the server
-    const fetchOrderHistory = async () => {
+    const fetchOrders = async () => {
       try {
-        const response = await axios.get(`/orderhistory/${nom}/${prenom}`);
-        console.log("Order History:", response.data); // Log the fetched data
-        setOrderHistory(response.data);
+        const response = await axios.get(
+          `http://localhost:3001/orderhistory/${nom}/${prenom}`
+        );
+        setOrders(response.data);
       } catch (error) {
-        console.error("Error fetching order history:", error);
+        console.error("Erreur lors de la récupération des commandes :", error);
       }
     };
 
-    fetchOrderHistory();
+    if (nom && prenom) {
+      fetchOrders();
+    }
   }, [nom, prenom]);
+
+  const handleOrderClick = (orderId) => {
+    navigate(`/order/${orderId}`);
+  };
 
   return (
     <div>
-      <h2>Order History</h2>
+      <h2>Historique des commandes</h2>
       <table>
         <thead>
           <tr>
-            <th>Order ID</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>ID de la commande</th>
             <th>Date</th>
+            <th>Prix total</th>
           </tr>
         </thead>
         <tbody>
-          {orderHistory.map((order) => (
-            <tr key={order.idOrder}>
-              <td>{order.nom}</td>
-              <td>{order.prenom}</td>
-              <td>{order.numTele}</td>
-              <td>{order.address}</td>
-              <td>{order.note}</td>
+          {orders.map((order) => (
+            <tr
+              key={order.idOrder}
+              onClick={() => handleOrderClick(order.idOrder)}
+            >
+              <td>{order.idOrder}</td>
+              <td>{order.date}</td>
+              <td>{order.totalOrderPrice}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
   );
-}
+};
 
-export default History;
+export default OrderHistory;

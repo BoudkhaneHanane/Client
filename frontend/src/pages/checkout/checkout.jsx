@@ -191,7 +191,21 @@ const Checkout = ({ cart }) => {
     },
     {
       name: "Alger",
-      communes: ["Algiers", "Hussein Dey", "Kouba" /* Add more communes */],
+      communes: [
+        "Alger Centre",
+        "Hussein Dey",
+        "Kouba",
+        "Sidi M'Hamed",
+        "Reghaia",
+        "bouzareah",
+        "El Biar",
+        "Bordj El Kiffan",
+        "Bab Ezzouar",
+        "El Harrach",
+        "Rouiba",
+        "El Marsa",
+        "Bordj El Bahri",
+      ],
     },
     {
       name: "Djelfa",

@@ -5,11 +5,12 @@ import intel from "../../assets/intel.png";
 import AMD from "../../assets/AMD.png";
 import "./PCBuilder.css"; // Import the CSS file
 
-function PCBuilder() {
-  const [choice, setChoice] = useState(null);
+function PCBuilder({ onSelectProcessor }) {
+  const [redirect, setRedirect] = useState(false); // State to control redirection
 
   const handleChoice = (chosen) => {
-    setChoice(chosen);
+    onSelectProcessor(chosen);
+    setRedirect(true); // Set redirect to true when a processor is chosen
   };
 
   return (
@@ -42,11 +43,8 @@ function PCBuilder() {
             />
             <img src={AMD} alt="AMD" onClick={() => handleChoice("AMD")} />
           </div>
-          {choice && (
-            <Link to={`/nextpage/${choice}`}>
-              <button>Next</button>
-            </Link>
-          )}
+          {/* Conditionally render the Link component based on redirect state */}
+          {redirect && <Link to={`/listbuild/${selectedProcessor}`}>Next</Link>}
         </div>
       </div>
     </div>
