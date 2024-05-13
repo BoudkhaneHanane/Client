@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust this according to your layout */
+}
+.formu {
+  background-color: #f4f4f4;
+  padding: 30px;
+  border-radius: 5px;
+  width: 400px;
+  margin: 20px 0px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.tete h2 {
+  font-size: 30px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.corps {
+  display: grid;
+  gap: 5px;
+}
+
+.corps label {
+  font-size: 17px;
+  font-weight: 550;
+  color: #000000be;
+}
+
+.formu input[type="email"],
+.formu input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.formu input[type="email"]::placeholder,
+.formu input[type="password"]::placeholder {
+  color: #999;
+}
+
+.formu button {
+  background-color: #111681;
+  width: 80%; /* Set the width to a medium size */
+  height: 45px;
+  display: flex;
+  justify-content: center; /* Horizontally center the button */
+  align-items: center; /* Vertically center the button */
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.formu button:hover {
+  background-color: #0056b3;
+}
+
+.danger-alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.success-alert {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}

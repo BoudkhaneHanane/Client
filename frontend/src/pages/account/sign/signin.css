@@ -44,7 +44,7 @@ hr {
   border-top: 2px solid #080a3db4;
   margin: 20px 0;
 }
-button{
+.sign button{
   background-color: #111681;
     width: 80%; /* Set the width to a medium size */
     height: 45px;

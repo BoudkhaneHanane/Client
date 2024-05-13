@@ -49,20 +49,17 @@ const Login = ({ onLoginSuccess }) => {
     <div className="loginpage_flex">
       <div className="formDiv">
         <div className="containers">
-          <h1>Sign In</h1>
+          <h2>Sign In</h2>
           <hr />
         </div>
         <form onSubmit={handleSubmit} className="fromGrid">
           <div className="inputDev">
             <label htmlFor="email">Email</label>
-            <span>
-              <FaEnvelope className="icon" />
-            </span>
             <input
               type="text"
               id="email"
               name="email"
-              placeholder="Enter email"
+              placeholder="Enter your email"
               value={formData.email}
               onChange={handleInputChange}
               required
@@ -71,14 +68,11 @@ const Login = ({ onLoginSuccess }) => {
           <br />
           <div className="inputDev">
             <label htmlFor="password">Password</label>
-            <span>
-              <FaLock className="icon" />
-            </span>
             <input
               type="password"
               id="password"
               name="password"
-              placeholder="Password"
+              placeholder="Enter your password"
               value={formData.password}
               onChange={handleInputChange}
               required
@@ -89,11 +83,9 @@ const Login = ({ onLoginSuccess }) => {
           <button type="submit">Sign In</button>
           <br />
         </form>
-        <div>
+        <div className="ppp">
           Forgot your password? <Link to="/settings">Click here.</Link>
-        </div>
-        <div>
-          Don't have an account?
+          <br /> Don't have an account?
           <Link to="/sign"> Sign Up</Link>
         </div>
       </div>

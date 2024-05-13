@@ -152,6 +152,7 @@ const SignRevendeur = () => {
               name="nom"
               value={formData.nom}
               onChange={handleChange}
+              placeholder="Enter your first name"
             />
             {errors.nom && <p>{errors.nom}</p>}
           </div>
@@ -163,6 +164,7 @@ const SignRevendeur = () => {
               name="prenom"
               value={formData.prenom}
               onChange={handleChange}
+              placeholder="Enter your last name"
             />
             {errors.prenom && <p>{errors.prenom}</p>}
           </div>
@@ -174,6 +176,7 @@ const SignRevendeur = () => {
               name="adresse"
               value={formData.adresse}
               onChange={handleChange}
+              placeholder="Enter your address"
             />
             {errors.adresse && <p>{errors.adresse}</p>}
           </div>
@@ -185,6 +188,7 @@ const SignRevendeur = () => {
               name="numero_telephone"
               value={formData.numero_telephone}
               onChange={handleChange}
+              placeholder="Enter your phone number"
             />
             {errors.numero_telephone && <p>{errors.numero_telephone}</p>}
           </div>
@@ -197,6 +201,7 @@ const SignRevendeur = () => {
               value={formData.email}
               onChange={handleChange}
               autoComplete="username"
+              placeholder="Enter your email"
             />
             {errors.email && <p>{errors.email}</p>}
           </div>
@@ -208,6 +213,7 @@ const SignRevendeur = () => {
               name="Date_anniversaire"
               value={formData.Date_anniversaire}
               onChange={handleChange}
+              placeholder="Enter your date of birth"
             />
             {errors.Date_anniversaire && <p>{errors.Date_anniversaire}</p>}
           </div>
@@ -221,6 +227,7 @@ const SignRevendeur = () => {
               value={formData.password}
               onChange={handleChange}
               autoComplete="new-password"
+              placeholder="Enter your password"
             />
 
             {errors.password && <p>{errors.password}</p>}
@@ -234,6 +241,7 @@ const SignRevendeur = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               autoComplete="new-password"
+              placeholder="Confirm your password"
             />
             {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
           </div>
@@ -258,6 +266,7 @@ const SignRevendeur = () => {
                   name="companyName"
                   value={formData.companyName}
                   onChange={handleChange}
+                  placeholder="Enter your company name"
                 />
                 {errors.companyName && <p>{errors.companyName}</p>}
               </div>
@@ -271,6 +280,7 @@ const SignRevendeur = () => {
                   name="businessRegistration"
                   value={formData.businessRegistration}
                   onChange={handleChange}
+                  placeholder="Enter your business registration"
                 />
                 {errors.businessRegistration && (
                   <p>{errors.businessRegistration}</p>
@@ -286,6 +296,7 @@ const SignRevendeur = () => {
                   name="taxIdentificationNumber"
                   value={formData.taxIdentificationNumber}
                   onChange={handleChange}
+                  placeholder="Enter your tax identification number"
                 />
                 {errors.taxIdentificationNumber && (
                   <p>{errors.taxIdentificationNumber}</p>
@@ -299,6 +310,7 @@ const SignRevendeur = () => {
                   name="taxArticle"
                   value={formData.taxArticle}
                   onChange={handleChange}
+                  placeholder="Enter your tax article"
                 />
                 {errors.taxArticle && <p>{errors.taxArticle}</p>}
               </div>
@@ -310,6 +322,7 @@ const SignRevendeur = () => {
                   name="registrationNumber"
                   value={formData.registrationNumber}
                   onChange={handleChange}
+                  placeholder="Enter your registration number"
                 />
                 {errors.registrationNumber && (
                   <p>{errors.registrationNumber}</p>
