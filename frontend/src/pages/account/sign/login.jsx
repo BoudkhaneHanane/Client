@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaEnvelope, FaLock } from "react-icons/fa";
 import "./log.css";
 
 const Login = ({ onLoginSuccess }) => {
@@ -33,7 +32,11 @@ const Login = ({ onLoginSuccess }) => {
         navigate("/adminhome");
       } else {
         // Pass nom and prenom upon successful login
-        onLoginSuccess(response.data.nom, response.data.prenom);
+        onLoginSuccess(
+          response.data.nom,
+          response.data.prenom,
+          response.data.idUtilisateur
+        );
         // Navigate to the home page
         navigate("/");
       }

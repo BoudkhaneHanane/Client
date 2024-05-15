@@ -25,53 +25,47 @@ const Shop = ({ handleClick, addToFavorites }) => {
   }, []);
 
   return (
-    <section className="listingPage">
-      <div className="">
-        <div className="listingData">
-          <div className="row">
-            <div className="sidebarWrapper">
-              <Sidebar />
-            </div>
-            <div className="rightContent">
-              <div className="features">
-                <button>
-                  <GridViewIcon />
-                  Sort by: Featured
-                </button>
-                <ul>
-                  <li>
-                    <button>Sort by popularity</button>
-                  </li>
-                  <li>
-                    <button>Sort by latest</button>
-                  </li>
-                  <li>
-                    <button>Sort by price: low to high</button>
-                  </li>
-                  <li>
-                    <button>Sort by price: high to low</button>
-                  </li>
-                </ul>
-              </div>
-              <div className="productrow">
-                <div className="item">
-                  {error && <div>Error: {error}</div>}
-                  {productData.length > 0 &&
-                    productData.map((product) => (
-                      <Product
-                        key={product.idProduit}
-                        product={product}
-                        handleClick={handleClick}
-                        addToFavorites={addToFavorites}
-                      />
-                    ))}
-                </div>
-              </div>
-            </div>
+    <div className="listingData">
+      <div className="row">
+        <div className="sidebarWrapper">
+          <Sidebar />
+        </div>
+        <div className="rightContent">
+          <div className="features">
+            <button>
+              <GridViewIcon />
+              Sort by: Featured
+            </button>
+            <ul>
+              <li>
+                <button>Sort by popularity</button>
+              </li>
+              <li>
+                <button>Sort by latest</button>
+              </li>
+              <li>
+                <button>Sort by price: low to high</button>
+              </li>
+              <li>
+                <button>Sort by price: high to low</button>
+              </li>
+            </ul>
+          </div>
+          <div className="productrow">
+            {error && <div>Error: {error}</div>}
+            {productData.length > 0 &&
+              productData.map((product) => (
+                <Product
+                  key={product.idProduit}
+                  product={product}
+                  handleClick={handleClick}
+                  addToFavorites={addToFavorites}
+                />
+              ))}
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -1,0 +1,65 @@
+/* history.css */
+
+/* Container style */
+.history-container {
+    max-width: 950px;
+    margin: 20px auto; /* Added margin to the top and bottom */
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd; /* Border color matches #111861 */
+    border-radius: 5px;
+  }
+  
+  .history-container h2 {
+    font-size: 25px;
+    font-weight: 500;
+    color: #111861; /* Font color matches #111861 */
+  }
+  
+  /* Table style */
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 2px solid #111861;
+    border-radius: 35px;
+  }
+  
+  /* Table header style */
+  .history-table th {
+    background-color: #f8f9fa;
+    color: #111861; /* Font color matches #111861 */
+    font-weight: bold;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #111861;
+  }
+  
+  /* Table data style */
+  .history-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  /* Table link style */
+  .order-link {
+    color: #111861; /* Link color matches #111861 */
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  /* Table link hover style */
+  .order-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Table row hover style */
+  .history-table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  /* Alternate row background */
+  .history-table tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+  

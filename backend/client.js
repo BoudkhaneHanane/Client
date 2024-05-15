@@ -44,11 +44,20 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 // Endpoint to fetch products based on processor type
-app.get('/listbuild/:processorType', (req, res) => {
-  const processorType = req.params.processorType;
+app.get('/listbuild/:processorType/:component', (req, res) => {
+  const { processorType, component } = req.params;
 
-  // Fetch products from the database based on processor type
-  db.query('SELECT * FROM produits WHERE (description LIKE ? OR name LIKE ? OR namecategorie LIKE ?)', [`%${processorType}%`, `%${processorType}%`, `%${processorType}%`], (error, results) => {
+  const queryString = `
+    SELECT * 
+    FROM produits 
+    WHERE (name LIKE ? OR namecategorie LIKE ? OR namesubcategorie LIKE ? OR namesubsubcategorie LIKE ? OR description LIKE ?) 
+    AND (name LIKE ? OR namecategorie LIKE ? OR namesubcategorie LIKE ? OR namesubsubcategorie LIKE ? OR description LIKE ?)
+  `;
+
+  const queryParams = Array(10).fill(`%${processorType}%`);
+  queryParams.push(`%${component}%`);
+
+  db.query(queryString, queryParams, (error, results) => {
     if (error) {
       console.error('Error fetching products:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -60,26 +69,19 @@ app.get('/listbuild/:processorType', (req, res) => {
 
 
 
-// Route for fetching order history including order details
-app.get("/orderhistory/:nom/:prenom", (req, res) => {
-  const { nom, prenom } = req.params;
-  
-  // Query to fetch order history including order details
-  const getOrderHistoryQuery = `
-    SELECT o.*, ol.idOrderline, ol.idProduit, ol.quantity, ol.totalPrice
-    FROM Orders o
-    LEFT JOIN OrderLine ol ON o.idOrder = ol.idOrder
-    WHERE o.nom = ? AND o.prenom = ?
-  `;
-  
-  db.query(getOrderHistoryQuery, [nom, prenom], (err, orderHistory) => {
-      if (err) {
-          console.error(err);
-          return res.status(500).send("Error fetching order history.");
-      }
-      res.json(orderHistory);
-  });
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
 //login
 app.post('/login', (req, res) => {
   console.log('Login route hit');
@@ -110,7 +112,7 @@ app.post('/login', (req, res) => {
           message: 'Login successful',
           userType: 'user',
           nom: user.nom,
-          prenom: user.prenom // Replace userData.prenom with user.prenom
+          prenom: user.prenom
         });
         return;
       }
@@ -282,9 +284,6 @@ app.post('/forgot-password', (req, res) => {
     });
   });
 });
-
-
-
 // Route for handling checkout
 app.post("/checkout", (req, res) => {
   const {
@@ -389,6 +388,47 @@ app.get("/products/related/:category", (req, res) => {
       }
     }
   );
+});
+// Route for fetching orders based on user's nom and prenom
+app.get('/orders/:nom/:prenom', (req, res) => {
+  const { nom, prenom } = req.params;
+
+  // Query to fetch orders based on nom and prenom
+  const getOrdersQuery = `
+    SELECT *
+    FROM Orders
+    WHERE nom = ? AND prenom = ?
+  `;
+
+  db.query(getOrdersQuery, [nom, prenom], (err, orders) => {
+    if (err) {
+      console.error('Error fetching orders:', err);
+      return res.status(500).send('Error fetching orders');
+    }
+
+    res.json(orders);
+  });
+});
+// Route for fetching order details and order information based on order ID
+app.get('/orderdetails/:orderId', (req, res) => {
+  const orderId = req.params.orderId;
+
+  // Query to fetch order details and order information based on order ID
+  const getOrderDetailsQuery = `
+    SELECT o.*, ol.*
+    FROM Orders o
+    INNER JOIN OrderLine ol ON o.idOrder = ol.idOrder
+    WHERE o.idOrder = ?
+  `;
+
+  db.query(getOrderDetailsQuery, [orderId], (err, orderDetails) => {
+    if (err) {
+      console.error('Error fetching order details:', err);
+      return res.status(500).send('Error fetching order details');
+    }
+
+    res.json(orderDetails);
+  });
 });
 // Start server
 const PORT = process.env.PORT || 3001;

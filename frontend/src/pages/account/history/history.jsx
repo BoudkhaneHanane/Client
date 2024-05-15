@@ -1,53 +1,49 @@
-// OrderHistory.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "./history.css";
 
-const OrderHistory = ({ nom, prenom }) => {
+const History = ({ nom, prenom }) => {
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/orderhistory/${nom}/${prenom}`
+          `http://localhost:3001/orders/${nom}/${prenom}`
         );
+        console.log("Orders:", response.data);
         setOrders(response.data);
       } catch (error) {
-        console.error("Erreur lors de la récupération des commandes :", error);
+        console.error("Error fetching orders:", error);
       }
     };
 
-    if (nom && prenom) {
-      fetchOrders();
-    }
+    fetchOrders();
   }, [nom, prenom]);
 
-  const handleOrderClick = (orderId) => {
-    navigate(`/order/${orderId}`);
-  };
-
   return (
-    <div>
-      <h2>Historique des commandes</h2>
-      <table>
+    <div className="history-container">
+      <h2>History of Your Orders</h2>
+      <table className="history-table">
         <thead>
           <tr>
-            <th>ID de la commande</th>
-            <th>Date</th>
-            <th>Prix total</th>
+            <th>ID</th>
+            <th>Total Price</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
-            <tr
-              key={order.idOrder}
-              onClick={() => handleOrderClick(order.idOrder)}
-            >
-              <td>{order.idOrder}</td>
-              <td>{order.date}</td>
-              <td>{order.totalOrderPrice}</td>
+          {orders.map((order, index) => (
+            <tr key={order.idOrder}>
+              <td>
+                <Link
+                  to={`/orderdetail/${order.idOrder}`}
+                  className="order-link"
+                >{`Order ${index + 1}`}</Link>
+              </td>
+              <td>{order.totalOrderPrice}DA</td>
+              <td>{order.status}</td>
             </tr>
           ))}
         </tbody>
@@ -56,4 +52,4 @@ const OrderHistory = ({ nom, prenom }) => {
   );
 };
 
-export default OrderHistory;
+export default History;

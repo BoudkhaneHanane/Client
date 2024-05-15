@@ -13,6 +13,7 @@ import Checkout from "./pages/checkout/checkout";
 import Login from "./pages/account/sign/login";
 import Sign from "./pages/account/sign/signRevendeur";
 import History from "./pages/account/history/history";
+import OrderDetail from "./pages/account/history/orderdetails";
 import Pswrd from "./pages/account/sign/forgotPassword";
 import Footer from "./pages/home/foot/footer";
 import "./App.css";
@@ -39,7 +40,7 @@ function App() {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
-  const handleLogin = (nom, prenom) => {
+  const handleLogin = (nom, prenom, id) => {
     setIsAuthenticated(true);
     setNom(nom); // Assuming you have state variables for nom and prenom
     setPrenom(prenom);
@@ -84,6 +85,8 @@ function App() {
   const [selectedProcessor, setSelectedProcessor] = useState(null);
 
   const handleProcessorSelect = (processor) => {
+    console.log("Selected processor:", processor);
+    // Pass the selected processor to the ListBuild component
     setSelectedProcessor(processor);
   };
 
@@ -123,7 +126,7 @@ function App() {
           path="/history"
           element={<History nom={nom} prenom={prenom} />}
         />
-
+        <Route exact path="/orderdetail/:orderId" element={<OrderDetail />} />
         <Route
           exact
           path="/cart"
@@ -169,11 +172,7 @@ function App() {
           path="/buildpc"
           element={<BuildPC onSelectProcessor={handleProcessorSelect} />}
         />
-        <Route
-          exact
-          path="/listbuild"
-          element={<ListBuild selectedProcessor={selectedProcessor} />}
-        />
+        <Route exact path="/listbuild/:processorType" element={<ListBuild />} />
         <Route
           exact
           path="/prebuilt"

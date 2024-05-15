@@ -1,11 +1,17 @@
 /* General Styles */
-.plusBoxes, .homeProducts {
+.plusBoxes,
+.homeProducts {
   padding: 20px 0; /* Add padding as needed */
 }
 
 /* Plus Boxes Section */
 .plusBoxes {
-  background-color: #111861; /* Blue color */
+  border: 1px solid #111861;
+  padding: 20px;
+  background-color: #6d6c6c48; /* Blue color */
+  margin: 20px;
+  left: auto;
+  right: auto;
   color: #fff; /* Text color */
   padding: 15px; /* Add padding as needed */
   display: flex;
@@ -14,46 +20,51 @@
 }
 
 .plusBoxes .row {
-  margin-top: 10px; /* Add margin to separate from other sections */
+  
+  margin-top: 0px; /* Add margin to separate from other sections */
 }
 
 .plusBoxes .col {
+
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap */
   justify-content: center; /* Center items horizontally */
-  gap: 20px; /* Add space between columns */
-  animation: moveLeftAndBack 35s linear infinite alternate; /* Adjust the duration and timing function as needed */
+  gap: 0px; /* Add space between columns */
 }
 
 .plusBoxes .col > div {
-  flex: 1; /* Distribute space evenly among columns */
-  margin-bottom: 10px; /* Add space between divs */
-}
+  margin: 0;
+  padding: 0px; /* Add padding as needed */
 
-.plusBoxes div {
+  flex: 1; /* Distribute space evenly among columns */
+  margin-bottom: 0px; 
   display: flex; /* Ensure images and paragraphs are in a row */
   align-items: center; /* Align items vertically */
 }
 
 /* Plus Boxes Images */
 .plusBoxes img {
-  filter: brightness(0) invert(1); /* Make images white */
-  width: 40px; /* Adjust icon size as needed */
-  height: 40px;
+  filter: brightness(0) invert(0); /* Make images white */
+
+  max-width: 50px;
+  max-height: 50px;
   margin-right: 10px; /* Add space between icon and paragraph */
 }
 .plusBoxes p {
-  font-weight: 500;
+  font-weight: 450;
   font-size: 18px;
-  text-align: center; /* Center text */
+  color: #333;
   margin: 0px; /* Reset default margin */
 }
+
 .homeProducts {
   margin: 20px 40px;
   padding: 0px;
   background-color: #fff;
-  border: 2px solid #11186188;
+  border: 1px solid #3333337c;
   border-radius: 5px;
+  border-bottom: none;
+  margin-bottom: 0;
 }
 .homeProducts .new{
   margin-bottom: 0px;

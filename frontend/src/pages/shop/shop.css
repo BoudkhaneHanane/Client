@@ -1,40 +1,37 @@
+/* General Styles */
+
 .row {
     margin-top: 25px;
     display: flex;
-}
-
-.sidebarWrapper {
+    margin-bottom: 10px;
+  }
+  
+  .sidebarWrapper {
     flex: 0 0 20%;
-}
-
-.rightContent {
-    flex: 0 0 80%;
-}
-
-.rightContent{
+  }
+  
+  .rightContent {
     margin-top: 15px;
-    flex: 1;
     position: relative;
-    display: inline-block;
-}
-
-.productrow {
-    margin-top: 20px;
+  }
+  .productrow {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
-    grid-gap: 15px;
-}
-
-.sidebarWrapper h4 {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust the minmax value as needed */
+    grid-gap: 15px; /* Adjust the gap between grid items */
+  }
+  
+  /* Sidebar Styles */
+  
+  .sidebarWrapper h4 {
     font-size: 29px;
     font-weight: 600;
     position: relative;
     padding-bottom: 5%;
     margin-bottom: 18px;
     margin-top: 15px;
-}
-
-.sidebarWrapper h4:after {
+  }
+  
+  .sidebarWrapper h4:after {
     content: "";
     width: 100%;
     height: 3px;
@@ -42,9 +39,9 @@
     position: absolute;
     bottom: 0;
     left: 0;
-}
-
-.sidebarWrapper h4:before {
+  }
+  
+  .sidebarWrapper h4:before {
     content: "";
     width: 20%;
     height: 3px;
@@ -53,16 +50,16 @@
     bottom: 0;
     left: 0;
     z-index: 10;
-}
-
-.sidebarWrapper .sidebar .card {
+  }
+  
+  .sidebarWrapper .sidebar .card {
     background-color: #fff;
-    padding: 5px 15px;
-    border-radius: 4px !important;
+    padding: 15px;
+    border-radius: 4px;
     margin: 15px 20px;
-}
-
-.sidebarWrapper .sidebar .card .catList .catItem {
+  }
+  
+  .catItem {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -71,14 +68,19 @@
     margin: 5px;
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
-}
-
-.sidebarWrapper .sidebar .card .catList .catItem h5 {
+  }
+  
+  .catItem:hover {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #1118613f;
+  }
+  
+  .catItem h5 {
     color: #000;
     font-size: 17px;
-}
-
-.sidebarWrapper .sidebar .card .catList .catItem .rounded-circle {
+  }
+  
+  .rounded-circle {
     background: #111861;
     color: #fff;
     border-radius: 50%;
@@ -90,67 +92,64 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.sidebarWrapper .sidebar .card .catList .catItem:hover {
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    background-color: #1118613f;
-}
-
-.sidebarWrapper .sidebar .card .slider {
+  }
+  
+  .card .slider {
     color: #111861;
     font-size: 17px;
-}
-
-.priceRange span {
+  }
+  
+  .priceRange span {
     font-size: 17px;
     font-weight: 600;
     display: flex;
     padding-top: 5px;
     padding-bottom: 0px;
-}
-
-.priceRange span strong {
+  }
+  
+  .priceRange span strong {
     color: #111861;
     font-size: 18px;
-}
-
-.filters {
+  }
+  
+  .filters {
     padding: 10px 0px;
-}
-
-.card h5 {
+  }
+  
+  .card h5 {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 10px;
-}
-
-.filters ul {
+  }
+  
+  .filters ul {
     max-height: 200px;
-    overflow-y: scroll;
-}
-
-.filters ul::-webkit-scrollbar {
+    overflow-y: auto;
+  }
+  
+  .filters ul::-webkit-scrollbar {
     width: 10px !important;
-}
-
-.filters ul::-webkit-scrollbar-thumb {
+  }
+  
+  .filters ul::-webkit-scrollbar-thumb {
     background: #ccc !important;
-}
-
-.filters ul li {
+  }
+  
+  .filters ul li {
     width: 100%;
     margin-bottom: 0px;
     list-style: none;
     font-size: 16px;
     font-weight: 500;
-}
-
-.features {
+  }
+  
+  /* Features Styles */
+  
+  .features {
     position: relative;
-}
-
-.features button {
+  }
+  
+  .features button {
     width: 220px;
     color: #333;
     font-size: 16px;
@@ -160,17 +159,17 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-}
-
-.features button:focus {
+  }
+  
+  .features button:focus {
     outline: none;
-}
-
-.features svg {
+  }
+  
+  .features svg {
     margin-right: 5px;
-}
-
-.features ul {
+  }
+  
+  .features ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -181,11 +180,13 @@
     border: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 100;
-}
-.features ul li {
+  }
+  
+  .features ul li {
     padding: 0px;
-}
-.features ul li button {
+  }
+  
+  .features ul li button {
     background: none;
     color: #000;
     border: none;
@@ -193,8 +194,10 @@
     display: block;
     width: 100%;
     text-align: left;
-}
-.features ul li button:hover {
+  }
+  
+  .features ul li button:hover {
     background-color: #111861a4;
     color: #fff;
-}
+  }
+  
