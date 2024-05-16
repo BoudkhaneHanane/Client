@@ -43,29 +43,33 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database');
 });
-// Endpoint to fetch products based on processor type
-app.get('/listbuild/:processorType/:component', (req, res) => {
-  const { processorType, component } = req.params;
+// Define a route to fetch products based on selected component
+app.get("/listbuild/:selectedComponent", (req, res) => {
+  const { selectedComponent } = req.params;
+  const { selectedProcessor } = req.query; // Extract selectedProcessor from query params
+  let sql;
+  
+  // Handle the condition for CPU selection
+  if (selectedComponent === "CPU") {
+    // Determine the appropriate subsubcategorie based on selectedProcessor
+    const subsubcategorie = selectedProcessor === "AMD" ? "AMD CPUs" : "Intel CPUs";
+    sql = "SELECT * FROM produits WHERE namesubcategorie = 'CPU Processors' AND namesubsubcategorie = ?";
+  } else if (selectedComponent === "Motherboard") {
+    // Adjust the query to filter by both namesubcategorie and namesubsubcategorie
+    sql = "SELECT * FROM produits WHERE namesubcategorie = 'Motherboards' AND namesubsubcategorie = ?";
+  } else {
+    sql = "SELECT * FROM produits WHERE namesubcategorie = ?";
+  }
 
-  const queryString = `
-    SELECT * 
-    FROM produits 
-    WHERE (name LIKE ? OR namecategorie LIKE ? OR namesubcategorie LIKE ? OR namesubsubcategorie LIKE ? OR description LIKE ?) 
-    AND (name LIKE ? OR namecategorie LIKE ? OR namesubcategorie LIKE ? OR namesubsubcategorie LIKE ? OR description LIKE ?)
-  `;
-
-  const queryParams = Array(10).fill(`%${processorType}%`);
-  queryParams.push(`%${component}%`);
-
-  db.query(queryString, queryParams, (error, results) => {
-    if (error) {
-      console.error('Error fetching products:', error);
-      res.status(500).json({ error: 'Internal server error' });
-      return;
+  db.query(sql, [selectedComponent], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: "Database error" });
+    } else {
+      res.json(results);
     }
-    res.json({ products: results });
   });
 });
+
 
 
 

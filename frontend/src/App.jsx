@@ -172,7 +172,11 @@ function App() {
           path="/buildpc"
           element={<BuildPC onSelectProcessor={handleProcessorSelect} />}
         />
-        <Route exact path="/listbuild/:processorType" element={<ListBuild />} />
+        <Route
+          exact
+          path="/listbuild"
+          element={<ListBuild selectedProcessor={selectedProcessor} />}
+        />
         <Route
           exact
           path="/prebuilt"
