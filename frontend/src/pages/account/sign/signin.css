@@ -1,114 +1,125 @@
-/* signin.css */
 .sign {
+  height: 100%;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  margin-left: 40px;
 }
 
 .signup-page {
-  background-color: #f4f4f4;
+  max-width: 900px;
+  width: 90%;
+  margin: 0 auto;
   padding: 30px;
-  border-radius: 5px;
-  width: 400px;
-  margin: 20px 0px;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ddd;
+  background-color: #f9f9f9;
   border-radius: 5px;
 }
 
-.signup-page h2 {
-  font-size: 30px;
-  font-weight: 500;
+.signupformu {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  font-size: 28px;
   text-align: center;
-  margin-bottom: 25px;
-}
-
-.signup-form {
-  display: grid;
-  gap: 5px;
+  color: #111861;
+  font-weight: bold;
+  margin-left: -140px;
 }
 
 .form-group {
-  margin-bottom: 0px;
-  display: grid;
-  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-  font-size: 17px;
-  font-weight: 550;
-  color: #000000be;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 10px;
 }
-hr {
-  border: none;
-  border-top: 2px solid #080a3db4;
-  margin: 20px 0;
-}
-.sign button{
-  background-color: #111681;
-    width: 80%; /* Set the width to a medium size */
-    height: 45px;
-    display: flex;
-    justify-content: center; /* Horizontally center the button */
-    align-items: center; /* Vertically center the button */
-    margin: 0 auto; 
-    margin-top: 15px;
-}
-.signbtn{
-  color: #fff;
-  font-size: 19px;
-  font-weight: 550;
-}
+
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="password"],
 .form-group input[type="date"] {
-  width: 100%;
-  padding: 12px;
-  box-sizing: border-box;
-  border-radius: 5px;
+  width: 200%;
+  max-width: 800px;
+  padding: 10px;
   border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
 }
+
 .form-group input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 15px;
-    height: 15px;
-    padding: 12px;
-    border-radius: 50%; /* Make it a circle */
-    border: 2px solid #111681; /* Blue border color */
-    outline: none;
-    cursor: pointer;
-  }
-  
-  /* Custom style when checkbox is checked */
-.form-group input [type="checkbox"]:checked {
-    background-color: #111681; /* Blue background color */
-    box-shadow: inset 0 0 0 2px #fff; /* Add space inside the circle when checked */
-  }
+  margin-right: 5px;
+}
 
 .form-group p {
+  margin-top: 5px;
   color: red;
 }
 
-.form-group:last-child {
-  margin-bottom: 0;
+.signupbotton {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 12px;
+  border: none;
+  border-radius: 3px;
+  background-color: #111861;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 350px;
 }
-.form-group input[type="checkbox"] {
-  width: auto;
+
+.signupbotton :hover {
+  background-color: #45a;
 }
 
 .ppp {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 26px;
+  font-size: 21px;
+  margin-right: 520px;
+  color: #111861;
 }
 
 .ppp a {
-  color: #111681;
+  color: #111861;
   text-decoration: none;
 }
 
 .ppp a:hover {
   text-decoration: underline;
+  color: #45a;
+}
+
+.danger-alert {
+  background-color: #f8d7da;
+  border: 1px solid #dc3545;
+  color: #721c24;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.success-alert {
+  background-color: #d4edda;
+  border: 1px solid #28a745;
+  color: #000;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  border-radius: 5px;
+}
+/* Styles pour les champs requis vides */
+.form-group input.errors {
+  border: 1px solid red;
+  background-color: #ffeeee;
+}
+
+.form-group p.errors {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
 }

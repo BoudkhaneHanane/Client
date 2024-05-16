@@ -32,6 +32,8 @@ const Cart = ({ cart, setCart }) => {
     setCart(updatedCart);
   };
 
+
+  
   // Function to handle changing quantity of an item in the cart
   const handleChangeQuantity = (id, newQuantity) => {
     // Ensure the new quantity is not negative
@@ -59,7 +61,7 @@ const Cart = ({ cart, setCart }) => {
         </div>
       ) : (
         <div>
-          <table>
+          <table className="cart-table">
             <thead>
               <tr>
                 <th>Product</th>
@@ -75,7 +77,7 @@ const Cart = ({ cart, setCart }) => {
                 <tr key={item.idProduit}>
                   <td>
                     <img
-                      src={`product_images/${item.idProduit}.jpg`}
+                      src={item.imageUrl} // Assurez-vous que la propriété imageUrl est correcte
                       alt={item.name}
                     />
                   </td>

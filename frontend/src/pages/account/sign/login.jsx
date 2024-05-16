@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./log.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
+import './style.css';
 
-const Login = ({ onLoginSuccess }) => {
+const Login = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
-  const [errors, setErrors] = useState("");
-  const navigate = useNavigate(); // Hook for navigation
+  const [errors, setErrors] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,74 +22,75 @@ const Login = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3001/login",
-        formData
-      );
+      const response = await axios.post('http://localhost:3002/login', formData);
       console.log(response.data);
-      if (response.data.userType === "admin") {
-        // Navigate to the admin page
-        navigate("/adminhome");
+      if (response.data.userType === 'admin') {
+        // Rediriger vers la page d'administration
+        window.location.href = '/adminhome';
       } else {
-        // Pass nom and prenom upon successful login
-        onLoginSuccess(
-          response.data.nom,
-          response.data.prenom,
-          response.data.idUtilisateur
-        );
-        // Navigate to the home page
-        navigate("/");
+        // Rediriger vers la page de promotion
+        window.location.href = '/promotion';
       }
     } catch (error) {
-      console.error("Error:", error);
-      // Check if error response exists and set errors accordingly
-      const errorMsg = error.response?.data || "An error occurred";
-      setErrors(errorMsg);
+      console.error('Error:', error.response.data);
+      setErrors(error.response.data);
     }
   };
 
   return (
-    <div className="loginpage_flex">
-      <div className="formDiv">
-        <div className="containers">
-          <h2>Sign In</h2>
-          <hr />
-        </div>
-        <form onSubmit={handleSubmit} className="fromGrid">
-          <div className="inputDev">
-            <label htmlFor="email">Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
+    <div>
+      <div className='loginpage_flex'>
+        <div className='formDiv'>
+          <form onSubmit={handleSubmit} className='fromGrid'>
+          <h2 className='signupformu'> Login page </h2>
+            <div className='inputDev'>
+              <label htmlFor='email'> Email: </label>
+              <span>
+                <FaEnvelope className='icon' />
+              </span>
+              <input
+                type='text'
+                id='email'
+                name='email'
+                placeholder='Enter email'
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <br />
+            <div className='inputDev'>
+              <label htmlFor='password'>Password:</label>
+              <span>
+                <FaLock className='icon' />
+              </span>
+              <input
+                type='password'
+                id='password'
+                name='password'
+                placeholder='Password'
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            {errors && <p className='error danger'>{errors}</p>}
+            <br />
+            <button type='submit' className='bottonsignin'>
+              <span className='bottonsignin'>Sign In</span>
+            </button>
+            <br />
+            <span className='forgot'>
+              Forgot your password? <a  href='/settings'>Click Here</a>
+            </span>
+          </form>
+          <div className='footerDiv_flex'>
+            <span className='texte'>Don't have an account?</span>
+            <br />
+            <Link to={'/sign'}>
+              <button className='btn'> Sign Up </button>
+            </Link>
           </div>
-          <br />
-          <div className="inputDev">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-          {errors && <p className="error danger">{errors}</p>}
-          <br />
-          <button type="submit">Sign In</button>
-          <br />
-        </form>
-        <div className="ppp">
-          Forgot your password? <Link to="/settings">Click here.</Link>
-          <br /> Don't have an account?
-          <Link to="/sign"> Sign Up</Link>
         </div>
       </div>
     </div>

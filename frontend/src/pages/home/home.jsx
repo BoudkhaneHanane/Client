@@ -69,11 +69,16 @@ function Home({ handleClick, showWarning, addToFavorites }) {
 
   const [productData, setProductData] = useState([]);
   const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/shop");
-        setProductData(response.data);
+        const productsWithImageUrl = response.data.map(product => ({
+          ...product,
+          imageUrl: product.image_path1 ? `/uploads/${product.image_path1}` : null
+        }));
+        setProductData(productsWithImageUrl);
       } catch (err) {
         console.error("Error fetching data:", err);
         setError("Failed to fetch data");
@@ -81,6 +86,7 @@ function Home({ handleClick, showWarning, addToFavorites }) {
     };
     fetchData();
   }, []);
+
   // Filter products with active promotions
   const specialOfferProducts = productData.filter(
     (product) => product.prixPromo && product.reduction

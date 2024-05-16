@@ -38,26 +38,22 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
     addToFavorites(product);
   };
 
-  const productes = {
-    photos: [
-      "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/4-25.png",
-      "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/2-27.png",
-      "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/3-26.png",
-      "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/5-24.png",
-      "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/6-23.png",
-      "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/7-21.png",
-      "https://mldrnrb5hiun.i.optimole.com/w:100/h:100/q:mauto/rt:fill/g:ce/f:best/https://www.chinformatique.dz/wp-content/uploads/2022/01/1-31.png",
-    ],
-  };
-
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3001/products/${id}`
-        );
+        const response = await axios.get(`http://localhost:3001/products/${id}`);
         if (response.data) {
-          setProduct(response.data);
+          const product = {
+            ...response.data,
+            imageUrls: [
+              response.data.image_url1,
+              response.data.image_url2,
+              response.data.image_url3,
+              response.data.image_url4,
+              response.data.image_url5
+            ].filter(url => url !== null),
+          };
+          setProduct(product);
           setError(null);
         } else {
           setProduct(null);
@@ -69,7 +65,7 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
         setError("Failed to fetch product");
       }
     };
-
+  
     fetchProduct();
   }, [id]);
 
@@ -82,7 +78,14 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
       const response = await axios.get(
         `http://localhost:3001/products/related/${product.namecategorie}`
       );
-      setProductData(response.data);
+
+      // Modify the response data to include image URLs
+      const productsWithImageUrl = response.data.map(product => ({
+        ...product,
+        imageUrl: product.image_path1 ? `/uploads/${product.image_path1}` : null
+      }));
+
+      setProductData(productsWithImageUrl);
     } catch (err) {
       console.error("Error fetching related products:", err);
     }
@@ -100,12 +103,12 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
             {clickedImage && <img src={clickedImage} alt="Enlarged Product" />}
           </div>
           <div className="product-photos">
-            {productes.photos.map((photo, index) => (
+            {product && product.imageUrls.map((imageUrl, index) => (
               <img
                 key={index}
-                src={photo}
+                src={imageUrl}
                 alt={`Product ${index + 1}`}
-                onClick={() => handleImageClick(photo)}
+                onClick={() => handleImageClick(imageUrl)}
               />
             ))}
           </div>
