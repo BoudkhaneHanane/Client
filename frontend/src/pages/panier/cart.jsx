@@ -115,12 +115,12 @@ const Cart = ({ cart, setCart }) => {
                     DA
                   </td>
                   <td>
-                    <button
+                    <div
                       className="icon"
                       onClick={() => handleDeleteItem(item.idProduit)}
                     >
                       <FaTrash />
-                    </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -131,10 +131,10 @@ const Cart = ({ cart, setCart }) => {
           </p>
           <div className="buttons-container">
             <Link to="/shop">
-              <button>⇤ Continue Shopping</button>
+              <div>⇤ Continue Shopping</div>
             </Link>
             <Link to="/checkout">
-              <button>Checkout ⇥</button>
+              <div>Checkout ⇥</div>
             </Link>
           </div>
         </div>

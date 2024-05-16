@@ -43,25 +43,27 @@ db.connect((err) => {
   }
   console.log('Connected to MySQL database');
 });
-// Define a route to fetch products based on selected component
+
+
 app.get("/listbuild/:selectedComponent", (req, res) => {
   const { selectedComponent } = req.params;
   const { selectedProcessor } = req.query; // Extract selectedProcessor from query params
   let sql;
-  
+  let params = [];
+
   // Handle the condition for CPU selection
-  if (selectedComponent === "CPU") {
+  if (selectedComponent === "Intel CPUs" || selectedComponent === "AMD CPUs") {
+    // No need to specify namesubcategorie for CPU selection
     // Determine the appropriate subsubcategorie based on selectedProcessor
     const subsubcategorie = selectedProcessor === "AMD" ? "AMD CPUs" : "Intel CPUs";
-    sql = "SELECT * FROM produits WHERE namesubcategorie = 'CPU Processors' AND namesubsubcategorie = ?";
-  } else if (selectedComponent === "Motherboard") {
-    // Adjust the query to filter by both namesubcategorie and namesubsubcategorie
-    sql = "SELECT * FROM produits WHERE namesubcategorie = 'Motherboards' AND namesubsubcategorie = ?";
+    sql = "SELECT * FROM produits WHERE namesubsubcategorie = ?";
+    params.push(subsubcategorie);
   } else {
     sql = "SELECT * FROM produits WHERE namesubcategorie = ?";
+    params.push(selectedComponent);
   }
 
-  db.query(sql, [selectedComponent], (err, results) => {
+  db.query(sql, params, (err, results) => {
     if (err) {
       res.status(500).json({ error: "Database error" });
     } else {
@@ -69,6 +71,13 @@ app.get("/listbuild/:selectedComponent", (req, res) => {
     }
   });
 });
+
+
+
+
+
+
+
 
 
 

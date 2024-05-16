@@ -35,19 +35,20 @@ function PCBuilder({ onSelectProcessor }) {
         </p>
         <div>
           <h1 className="choose">Make Your Choice</h1>
-          <div className="choice row">
-            <img
-              src={intel}
-              alt="intel"
-              onClick={() => handleProcessorSelect("Intel")}
-            />
-            <img
-              src={AMD}
-              alt="AMD"
-              onClick={() => handleProcessorSelect("AMD")}
-            />
-          </div>
-          <Link to="/listbuild">Next</Link>
+          <Link to="/listbuild">
+            <div className="choice row">
+              <img
+                src={intel}
+                alt="intel"
+                onClick={() => handleProcessorSelect("Intel")}
+              />
+              <img
+                src={AMD}
+                alt="AMD"
+                onClick={() => handleProcessorSelect("AMD")}
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </div>

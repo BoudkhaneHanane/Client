@@ -7,6 +7,7 @@ import Favoris from "./pages/favoris/favoris";
 import Shop from "./pages/shop/shop";
 import BuildPC from "./pages/PCBuilder/PCBuilder";
 import ListBuild from "./pages/PCBuilder/listbuild";
+import BuiltResult from "./pages/PCBuilder/builtresult";
 import PreBuilt from "./pages/prebuild/prebuild";
 import Detail from "./pages/details/productdetail";
 import Checkout from "./pages/checkout/checkout";
@@ -88,6 +89,19 @@ function App() {
     console.log("Selected processor:", processor);
     // Pass the selected processor to the ListBuild component
     setSelectedProcessor(processor);
+  };
+
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  console.log("Selected products:", selectedProducts);
+
+  const handleMoveAllToCart = () => {
+    // Add default quantity of 1 to each selected product and then add them to the cart
+    const productsWithQuantity = selectedProducts.map((product) => ({
+      ...product,
+      quantity: 1,
+    }));
+    setCart((prevCart) => [...prevCart, ...productsWithQuantity]);
+    setSelectedProducts([]); // Clear the selected products after moving them to the cart
   };
 
   return (
@@ -175,7 +189,23 @@ function App() {
         <Route
           exact
           path="/listbuild"
-          element={<ListBuild selectedProcessor={selectedProcessor} />}
+          element={
+            <ListBuild
+              setSelectedProducts={setSelectedProducts}
+              selectedProducts={selectedProducts}
+              selectedProcessor={selectedProcessor}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/builtresult"
+          element={
+            <BuiltResult
+              selectedProducts={selectedProducts}
+              handleMoveAllToCart={handleMoveAllToCart}
+            />
+          }
         />
         <Route
           exact
