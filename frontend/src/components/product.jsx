@@ -5,7 +5,6 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Tooltip from "@mui/material/Tooltip";
-import img from "../assets/pic1.webp";
 import "./product.css";
 
 const Product = ({ product, handleClick, addToFavorites }) => {
@@ -47,7 +46,7 @@ const Product = ({ product, handleClick, addToFavorites }) => {
         )}
       <div className="imgWrapper">
         <Link to={`/detail/${product.idProduit}`}>
-          <img src={img} className="w-100" alt="Product" />
+          <img src={product.imageUrl} className="w-100" alt="Product" />
         </Link>{" "}
         <div className="overlay">
           <ul className="list list-inline mb-0">

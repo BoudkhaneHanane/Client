@@ -358,9 +358,26 @@ app.get("/", (req, res) => {
 });
 app.get("/shop", (req, res) => {
   const sqlQuery = `
-  SELECT p.*, pr.prixPromo, pr.reduction, pr.dateFinPromo
-  FROM produits p
-  LEFT JOIN promotions pr ON p.idProduit = pr.idProduit;  
+  SELECT 
+    idProduit, 
+    name, 
+    namecategorie, 
+    namesubcategorie, 
+    brand, 
+    price, 
+    reference, 
+    description, 
+    image_path1, 
+    image_path2, 
+    image_path3, 
+    image_path4, 
+    image_path5, 
+    created_at, 
+    updated_at, 
+    namesubsubcategorie 
+FROM 
+    produits;
+
 `;
 db.query(sqlQuery, (err, result) => {
   if (err) {
@@ -374,7 +391,7 @@ db.query(sqlQuery, (err, result) => {
 });
 app.get("/products/:id", (req, res) => {
   const productId = req.params.id;
-  db.query("SELECT * FROM produits WHERE idProduit = ?", [productId], (err, result) => {
+  db.query("SELECT *, CONCAT('/uploads/', image_path1) AS image_url1, CONCAT('/uploads/', image_path2) AS image_url2, CONCAT('/uploads/', image_path3) AS image_url3, CONCAT('/uploads/', image_path4) AS image_url4, CONCAT('/uploads/', image_path5) AS image_url5 FROM produits WHERE idProduit = ?", [productId], (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send("Internal Server Error");
@@ -387,10 +404,11 @@ app.get("/products/:id", (req, res) => {
     }
   });
 });
+
 app.get("/products/related/:category", (req, res) => {
   const category = req.params.category;
   db.query(
-    "SELECT * FROM produits WHERE namecategorie = ? OR namesubcategorie = ? OR namesubsubcategorie = ?",
+    "SELECT *, CONCAT('/uploads/', image_path1) AS image_url1, CONCAT('/uploads/', image_path2) AS image_url2, CONCAT('/uploads/', image_path3) AS image_url3, CONCAT('/uploads/', image_path4) AS image_url4, CONCAT('/uploads/', image_path5) AS image_url5 FROM produits WHERE namecategorie = ? OR namesubcategorie = ? OR namesubsubcategorie = ?",
     [category, category, category],
     (err, result) => {
       if (err) {
@@ -402,6 +420,7 @@ app.get("/products/related/:category", (req, res) => {
     }
   );
 });
+
 // Route for fetching orders based on user's nom and prenom
 app.get('/orders/:nom/:prenom', (req, res) => {
   const { nom, prenom } = req.params;

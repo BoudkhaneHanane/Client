@@ -12,7 +12,11 @@ const PreBuild = ({ handleClick, showWarning, addToFavorites }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/shop");
-        setProductData(response.data);
+        const productsWithImageUrl = response.data.map(product => ({
+          ...product,
+          imageUrl: product.image_path1 ? `/uploads/${product.image_path1}` : null
+        }));
+        setProductData(productsWithImageUrl);
       } catch (err) {
         console.error("Error fetching data:", err);
         setError("Failed to fetch data");
@@ -28,7 +32,7 @@ const PreBuild = ({ handleClick, showWarning, addToFavorites }) => {
         <div className="product-list">
           {productData
             .filter(
-              (product) => product.namecategorie === "Predesigned computers"
+              (product) => product.namecategorie === "Predesigned Computers"
             )
             .map((product) => (
               <div className="item" key={product.idProduit}>

@@ -19,6 +19,12 @@
     text-align: left;
   }
   
+  .cart-table td img {
+    width: 80px;
+    height: auto;
+    border-radius: 2px;
+  }
+  
   th {
     background-color: #f2f2f2;
   }
