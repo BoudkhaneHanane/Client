@@ -111,6 +111,7 @@ function App() {
         sizeFavoris={favorites.length}
         isAuthenticated={isAuthenticated}
         onLogout={handleLogout}
+        selectedProcessor={selectedProcessor}
       />
       <Routes>
         <Route

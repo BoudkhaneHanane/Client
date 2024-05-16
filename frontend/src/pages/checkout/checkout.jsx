@@ -575,6 +575,15 @@ const Checkout = ({ cart }) => {
             total: calculateTotal(),
             items: cart, // Pass the entire cart array
           }}
+          firstName={firstName}
+          lastName={lastName}
+          streetAddress={streetAddress}
+          phone={phone}
+          wilaya={wilaya}
+          commune={commune}
+          orderNotes={orderNotes}
+          deliveryOption={deliveryOption}
+          paymentMethod={paymentMethod}
         />
       )}
     </div>

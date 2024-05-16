@@ -11,13 +11,18 @@ import Star from "../../assets/star.webp";
 import Asus from "../../assets/asus.webp";
 import { FaArrowRight } from "react-icons/fa";
 import "./home.css";
+import slide1 from "../../assets/photo_2024-05-16_20-12-14.jpg";
+import slide2 from "../../assets/photo_2024-05-16_20-12-22.jpg";
+import slide3 from "../../assets/photo_2024-05-16_20-12-26.jpg";
+import slide4 from "../../assets/photo_2024-05-16_20-12-31.jpg";
+import slide5 from "../../assets/photo_2024-05-16_20-12-35.jpg";
+import slide6 from "../../assets/photo_2024-05-16_20-12-42.jpg";
 
 function Home({ handleClick, showWarning, addToFavorites }) {
   const slides = [
     {
       id: 1,
-      image:
-        "https://static.wikia.nocookie.net/17f47e48-c000-4093-a628-1b213383db3b/scale-to-width-down/800",
+      image: slide1,
       title: "Hi",
       description: "Description for Slide 1",
       button: {
@@ -29,8 +34,7 @@ function Home({ handleClick, showWarning, addToFavorites }) {
     },
     {
       id: 2,
-      image:
-        "https://technoroll.org/wp-content/uploads/2021/01/Perfect-Gaming-Setup-.jpg",
+      image: slide2,
       title: "Hello",
       description: "Description for Slide 2",
       button: {
@@ -42,7 +46,7 @@ function Home({ handleClick, showWarning, addToFavorites }) {
     },
     {
       id: 3,
-      image: "https://via.placeholder.com/800x400?text=Slide+3",
+      image: slide3,
       title: "Greetings",
       description: "Description for Slide 3",
       button: {
@@ -54,7 +58,7 @@ function Home({ handleClick, showWarning, addToFavorites }) {
     },
     {
       id: 4,
-      image: "https://via.placeholder.com/800x400?text=Slide+4",
+      image: slide4,
       title: "Hola",
       description: "Description for Slide 4",
       button: {
@@ -64,7 +68,30 @@ function Home({ handleClick, showWarning, addToFavorites }) {
         },
       },
     },
-    // Add more slides as needed
+    {
+      id: 5,
+      image: slide5,
+      title: "Hola",
+      description: "Description for Slide 4",
+      button: {
+        label: "Button 4",
+        onClick: () => {
+          console.log("Button 4 clicked!");
+        },
+      },
+    },
+    {
+      id: 6,
+      image: slide6,
+      title: "Hola",
+      description: "Description for Slide 4",
+      button: {
+        label: "Button 4",
+        onClick: () => {
+          console.log("Button 4 clicked!");
+        },
+      },
+    },
   ];
 
   const [productData, setProductData] = useState([]);
@@ -74,9 +101,11 @@ function Home({ handleClick, showWarning, addToFavorites }) {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/shop");
-        const productsWithImageUrl = response.data.map(product => ({
+        const productsWithImageUrl = response.data.map((product) => ({
           ...product,
-          imageUrl: product.image_path1 ? `/uploads/${product.image_path1}` : null
+          imageUrl: product.image_path1
+            ? `/uploads/${product.image_path1}`
+            : null,
         }));
         setProductData(productsWithImageUrl);
       } catch (err) {

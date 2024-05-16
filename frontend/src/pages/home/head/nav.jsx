@@ -362,12 +362,12 @@ function Nav() {
                   <ul>
                     <li>
                       <Button>
-                        <Link to="/">INTEL Configurator</Link>
+                        <Link to="/listbuild">INTEL Configurator</Link>
                       </Button>
                     </li>
                     <li>
                       <Button>
-                        <Link to="/">AMD Configurator</Link>
+                        <Link to="/listbuild">AMD Configurator</Link>
                       </Button>
                     </li>
                   </ul>
