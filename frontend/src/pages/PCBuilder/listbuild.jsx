@@ -113,25 +113,23 @@ function ListBuild({ selectedProcessor, setSelectedProducts }) {
                 <ul>
                   {products.map((product, index) => (
                     <li key={index}>
-                      <Link
-                        to={`/detail/${product.idProduit}`}
-                        className="link-no-underline"
-                      >
-                        <div className="row">
-                          <img src={product.image_path1} alt={product.name} />
-                          <div className="col">
+                      <div className="row">
+                        <img src={product.image_path1} alt={product.name} />
+                        <div className="col">
+                          <Link
+                            to={`/detail/${product.idProduit}`}
+                            className="link-no-underline"
+                          >
                             <h2>{product.name}</h2>
                             <p>{product.description}</p>
-                            <button
-                              onClick={() => handleProductSelect(product)}
-                            >
-                              Select
-                            </button>
-                          </div>
-                          <h3>{product.PrixRevendeur}DA</h3>
-                          <h3> {product.price}DA</h3>
+                          </Link>{" "}
+                          <button onClick={() => handleProductSelect(product)}>
+                            Select
+                          </button>
                         </div>
-                      </Link>{" "}
+                        <h3>{product.PrixRevendeur}DA</h3>
+                        <h3> {product.price}DA</h3>
+                      </div>
                     </li>
                   ))}
                 </ul>
