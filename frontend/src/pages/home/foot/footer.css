@@ -22,6 +22,7 @@ footer {
   }
   
   footer .part1 label {
+    color: #fff;
     display: block;
     margin: 5px 0;
     font-weight: 600;
@@ -89,6 +90,7 @@ footer {
   }
   
   footer .part3 label {
+    color: #fff;
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 5px;

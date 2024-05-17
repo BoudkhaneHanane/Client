@@ -22,6 +22,15 @@ const History = ({ nom, prenom }) => {
     fetchOrders();
   }, [nom, prenom]);
 
+  const getStatusColor = (status) => {
+    if (status === "confirmed") {
+      return "green"; // Green color for confirmed status
+    } else if (status === "cancelled") {
+      return "red"; // Red color for cancelled status
+    }
+    return "inherit"; // Default color
+  };
+
   return (
     <div className="history-container">
       <h2>History of Your Orders</h2>
@@ -43,7 +52,9 @@ const History = ({ nom, prenom }) => {
                 >{`Order ${index + 1}`}</Link>
               </td>
               <td>{order.totalOrderPrice}DA</td>
-              <td>{order.status}</td>
+              <td style={{ color: getStatusColor(order.status) }}>
+                {order.status}
+              </td>
             </tr>
           ))}
         </tbody>

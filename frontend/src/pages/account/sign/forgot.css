@@ -1,36 +1,35 @@
 .formu {
-  max-width: 600px;
-  margin: 100px auto;
-  padding: 30px;
-  margin-top: 30px;
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px 25px;
   background-color: #fff;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
 }
 
 .formu h2 {
   text-align: center;
   color: #111861;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 30px;
+  font-size: 28px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0px;
 }
 
 .formu label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 17px;
+  font-weight: 550;
+  color: #000000be;
 }
 
 .formu input[type="email"],
 .formu input[type="password"] {
-  width: 95%;
+  width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  box-sizing: border-box;
   border-radius: 5px;
   font-size: 16px;
-  margin-bottom: 20px;
+  border: 1px solid #ccc; /* Added to include padding in width calculation */
 }
 
 .formu button {
@@ -44,6 +43,7 @@
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 20px; /* Added margin top */
 }
 
 .formu button:hover {
@@ -55,21 +55,24 @@
   margin-top: 10px;
   text-align: center;
 }
+
 .danger-alert {
-  background-color: #f8d7da; 
-  border: 1px solid #dc3545; 
+  background-color: #f8d7da;
+  border: 1px solid #dc3545;
   color: #721c24;
-  padding: 10px; 
-  font-family: Arial, sans-serif; 
+  padding: 10px;
+  font-family: Arial, sans-serif;
   font-weight: bold;
-  border-radius: 5px; 
+  border-radius: 5px;
+  margin-top: 20px; /* Added margin top */
 }
 
 .success-alert {
-  background-color: #d4edda; 
-  border: 1px solid #28a745; 
-  color: #000; 
-  padding: 10px; 
-  font-family: Arial, sans-serif; 
-  border-radius: 5px; 
+  background-color: #d4edda;
+  border: 1px solid #28a745;
+  color: #000;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  border-radius: 5px;
+  margin-top: 20px; /* Added margin top */
 }

@@ -44,8 +44,8 @@
   
   .quantity-controls button {
     background-color: #fff;
-    color: #808080;
-    border-radius: 5%;
+    color: #000;
+    border-radius: 5px;
     border: 1px solid #ddd;
     width: 30px;
     height: 30px;

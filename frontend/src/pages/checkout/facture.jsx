@@ -11,7 +11,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import logo from "../../../Logo.jpg"; // Import your company logo image here
-import "./facture.jsx";
+//import "./facture.jsx";
 
 const Facture = ({
   orderDetails,
@@ -200,24 +200,47 @@ const Facture = ({
   });
 
   return (
-    <div className="thank-you-page">
-      <div className="save-container">
-        <h1 className="thank-you-header">
+    <div
+      className="thank"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#fff",
+        padding: "90px 30px",
+        border: "1px solid #ddd",
+        borderRadius: "5px",
+        margin: "20px 100px",
+      }}
+    >
+      <div className="save" style={{ textAlign: "center" }}>
+        <div
+          style={{
+            margin: "20px",
+            marginTop: "0px",
+            fontSize: "27px",
+            color: "#111678",
+            fontWeight: "600",
+          }}
+        >
           Thank you for your purchase! Your order is being processed.
-        </h1>{" "}
-        <div className="save">
+        </div>
+        <div>
           <PDFViewer width={700} height={700}>
             <MyDocument />
           </PDFViewer>
         </div>
-      </div>
-      <div>
-        {/* PDFDownloadLink for downloading the PDF */}
-        <PDFDownloadLink document={<MyDocument />} fileName="order_details.pdf">
-          {({ blob, url, loading, error }) =>
-            loading ? "Loading document..." : "Download PDF"
-          }
-        </PDFDownloadLink>
+        <div>
+          <PDFDownloadLink
+            document={<MyDocument />}
+            fileName="order_details.pdf"
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? "Loading document..." : "Download PDF"
+            }
+          </PDFDownloadLink>
+        </div>
       </div>
     </div>
   );

@@ -1,32 +1,22 @@
-.thank-you-page {
-    max-width: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 40px;
-    height: 100%;
-  }
-  
-  .save-container .save {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 20px;
-  }
-  
-  .pdf-viewer-container {
-    margin-right: 0px;
-  }
-  
-  .download-link-container {
-    margin-top: 10px;
-  }
-  
-  .download-link-text {
-    font-size: 14px;
-    color: #2C3E50;
-  }
-  
+/* Styles for the return part of the Facture component */
+.thank {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: yellowgreen;
+}
+
+.save {
+  text-align: center;
+  background-color: red;
+}
+
+.save > div {
+  margin-bottom: 10px;
+}
+
+.save > div:last-child {
+  margin-bottom: 0;
+}
+

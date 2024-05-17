@@ -36,7 +36,7 @@ function PCBuilder({ onSelectProcessor }) {
         <div>
           <h1 className="choose">Make Your Choice</h1>
           <Link to="/listbuild">
-            <div className="choice row">
+            <div className="choice">
               <img
                 src={intel}
                 alt="intel"

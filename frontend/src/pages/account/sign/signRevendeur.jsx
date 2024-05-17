@@ -170,6 +170,7 @@ const SignRevendeur = () => {
       <div className="signup-page">
         <form onSubmit={handleSubmit} className="signup-form">
           <h2 className="signupformu">Sign Up Client</h2>
+          <hr />
           <div className={`form-group ${errors.nom ? "errors" : ""}`}>
             <label htmlFor="lastName">Last Name:</label>
             <input

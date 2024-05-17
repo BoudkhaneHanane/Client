@@ -1,4 +1,3 @@
-/* history.css */
 
 /* Container style */
 .history-container {
@@ -11,9 +10,9 @@
   }
   
   .history-container h2 {
-    font-size: 25px;
+    font-size: 26px;
     font-weight: 500;
-    color: #111861; /* Font color matches #111861 */
+    color: #333; /* Font color matches #111861 */
   }
   
   /* Table style */
@@ -21,24 +20,10 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    border: 2px solid #111861;
-    border-radius: 35px;
-  }
-  
-  /* Table header style */
-  .history-table th {
-    background-color: #f8f9fa;
-    color: #111861; /* Font color matches #111861 */
-    font-weight: bold;
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 2px solid #111861;
-  }
-  
-  /* Table data style */
-  .history-table td {
-    padding: 10px 15px;
-    border-bottom: 1px solid #dee2e6;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    border-right: none;
+    border-left: none;
   }
   
   /* Table link style */
@@ -58,8 +43,14 @@
     background-color: #f8f9fa;
   }
   
-  /* Alternate row background */
-  .history-table tbody tr:nth-child(even) {
-    background-color: #f1f1f1;
+  th {
+    background-color: #f2f2f2;
   }
   
+  th:first-child, td:first-child {
+    padding-left: 20px;
+  }
+  
+  th:last-child, td:last-child {
+    text-align: center;
+  }

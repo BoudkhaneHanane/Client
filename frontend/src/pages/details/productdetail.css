@@ -14,52 +14,46 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-
+  border: none;
 }
-
+/* Container for pics section */
 .pics {
-  width: auto;
   padding: 10px;
-  margin-left: 0px;
+  margin-left: 0;
   margin-right: 45px;
 }
 
 /* Styles for the container of enlarged product image */
 .enlarged-image {
   margin-bottom: 20px;
-  height: 100%;
-  width: 100%;
-  max-width: 400px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
+  width: 100%;
 }
 
+/* Styles for the enlarged product image */
 .enlarged-image img {
-  width: 400px;
-  max-width: 500px;
-  height: 400px;
-  border: 2px solid #0513b1;
+  max-width: 100%; /* Ensures the image is responsive */
+  width: 450px; /* Fixed width for the enlarged image */
+  height: auto;
+  border: 2px solid #ddd;
   border-radius: 5px;
-  margin: 0px;
 }
 
 /* Styles for the container of product photos */
 .product-photos {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Changed 20fr to 1fr */
-  grid-gap: 5px;
-  width: 100px;
-  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
 }
 
 /* Styles for individual product photos */
 .product-photos img {
-  width: 100%;
-  max-width: 100px;
+  margin-top: 25px;
+  max-width: 90px; /* Fixed width for each product photo */
   height: auto;
-  border: 1px solid #0513b163;
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -69,6 +63,7 @@
 .product-photos img:hover {
   transform: scale(1.1);
 }
+
 
 /* Styles for the container of product details */
 .product-details {

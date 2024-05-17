@@ -41,7 +41,9 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/products/${id}`);
+        const response = await axios.get(
+          `http://localhost:3001/products/${id}`
+        );
         if (response.data) {
           const product = {
             ...response.data,
@@ -50,8 +52,8 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
               response.data.image_url2,
               response.data.image_url3,
               response.data.image_url4,
-              response.data.image_url5
-            ].filter(url => url !== null),
+              response.data.image_url5,
+            ].filter((url) => url !== null),
           };
           setProduct(product);
           setError(null);
@@ -65,7 +67,7 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
         setError("Failed to fetch product");
       }
     };
-  
+
     fetchProduct();
   }, [id]);
 
@@ -80,9 +82,11 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
       );
 
       // Modify the response data to include image URLs
-      const productsWithImageUrl = response.data.map(product => ({
+      const productsWithImageUrl = response.data.map((product) => ({
         ...product,
-        imageUrl: product.image_path1 ? `/uploads/${product.image_path1}` : null
+        imageUrl: product.image_path1
+          ? `/uploads/${product.image_path1}`
+          : null,
       }));
 
       setProductData(productsWithImageUrl);
@@ -98,19 +102,20 @@ const ProductDetails = ({ addToFavorites, handleClick, cart }) => {
   return (
     <div className="single-product-page">
       <div className="row">
-        <div className="pics col">
+        <div className="pics">
           <div className="enlarged-image">
             {clickedImage && <img src={clickedImage} alt="Enlarged Product" />}
           </div>
           <div className="product-photos">
-            {product && product.imageUrls.map((imageUrl, index) => (
-              <img
-                key={index}
-                src={imageUrl}
-                alt={`Product ${index + 1}`}
-                onClick={() => handleImageClick(imageUrl)}
-              />
-            ))}
+            {product &&
+              product.imageUrls.map((imageUrl, index) => (
+                <img
+                  key={index}
+                  src={imageUrl}
+                  alt={`Product ${index + 1}`}
+                  onClick={() => handleImageClick(imageUrl)}
+                />
+              ))}
           </div>
         </div>
         {error && <div>Error: {error}</div>}
