@@ -1,15 +1,20 @@
 /* Container */
 .cart-container {
     max-width: 800px;
-    margin: 20px auto; /* Added margin to the top and bottom */
+    margin: 20px auto; 
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
   }
-  
+  .cart-container h2{
+    font-size: 26px;
+    font-weight: 500;
+    color: #333;
+  }
   table {
     width: 100%;
+    margin-top: 10px;
     border-collapse: collapse;
   }
   
@@ -75,8 +80,6 @@
   }
   .icon{
     background-color: transparent;
-    color: #111861;
+    color: #8b0000;
   }
-  .icon:hover svg {
-    color: #2433d67e; /* Adjust color as needed */
-  }
+  
