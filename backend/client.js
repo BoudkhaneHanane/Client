@@ -8,35 +8,30 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const multer = require('multer');
 const path = require('path');
-const router = express.Router();
 const nodemailer = require('nodemailer');
 
-// Create Express app
+dotenv.config();
+
 const app = express();
 
-// Create database connection
 const db = mysql.createConnection({
   user: 'root',
   host: 'localhost',
-  password: '', 
+  password: '',
   database: 'chinformatiquebdd',
 });
 
-
-// Middleware
 app.use(express.json());
 app.use(cors());
 app.use(express.static('uploads'));
-app.use(morgan('dev')); // Utilisez morgan pour enregistrer les logs des requêtes HTTP
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(session({
-  secret: 'secret', // Clé secrète pour signer les cookies de session
+  secret: 'secret',
   resave: false,
   saveUninitialized: false
 }));
 
-
-// Vérification de la connexion à la base de données
 db.connect((err) => {
   if (err) {
     throw err;
@@ -72,38 +67,11 @@ app.get("/listbuild/:selectedComponent", (req, res) => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//login
 app.post('/login', (req, res) => {
   console.log('Login route hit');
-  // Récupérer les données d'identification de la requête
   const { email, password } = req.body;
 
-  // Requête SQL pour récupérer l'utilisateur à partir de l'email dans la table 'utilisateur'
   const getUserSql = 'SELECT * FROM utilisateur WHERE email = ?';
-  // Requête SQL pour récupérer l'admin à partir de l'email dans la table 'admin'
   const getAdminSql = 'SELECT * FROM admin WHERE email = ?';
 
   db.query(getUserSql, [email], async (err, userResults) => {
@@ -112,14 +80,12 @@ app.post('/login', (req, res) => {
       res.status(500).send('Error retrieving user');
       return;
     }
-  
-    // Vérifier si l'utilisateur existe dans la table 'utilisateur'
+
     if (userResults.length > 0) {
       const user = userResults[0];
-  
-      // Comparer le mot de passe haché
-      if (await bcrypt.compare(password, user.mot_de_passe)) {
-        // Si les informations d'identification sont valides, retourner un message de succès et rediriger vers /promotion
+      const match = await bcrypt.compare(password, user.mot_de_passe);
+
+      if (match) {
         res.status(200).json({
           success: true,
           message: 'Login successful',
@@ -130,7 +96,7 @@ app.post('/login', (req, res) => {
         return;
       }
     }
-    // Si l'utilisateur n'est pas trouvé dans la table 'utilisateur', vérifier dans la table 'admin'
+
     db.query(getAdminSql, [email], async (err, adminResults) => {
       if (err) {
         console.error('Error retrieving admin:', err);
@@ -138,19 +104,20 @@ app.post('/login', (req, res) => {
         return;
       }
 
-      // Vérifier si l'admin existe dans la table 'admin'
       if (adminResults.length > 0) {
         const admin = adminResults[0];
+        const match = await bcrypt.compare(password, admin.password);
 
-        // Comparer le mot de passe haché
-        if (await bcrypt.compare(password, admin.password)) {
-          // Si les informations d'identification sont valides, rediriger vers /adminhome
-          res.status(200).json({ success: true, message: 'Login successful', userType: 'admin' });
+        if (match) {
+          res.status(200).json({
+            success: true,
+            message: 'Login successful',
+            userType: 'admin'
+          });
           return;
         }
       }
 
-      // Si ni l'utilisateur ni l'admin n'ont été trouvés
       res.status(401).send('Invalid email or password');
     });
   });
