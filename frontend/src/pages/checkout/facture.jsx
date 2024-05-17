@@ -96,7 +96,7 @@ const Facture = ({
   const styles = StyleSheet.create({
     page: {
       backgroundColor: "#ffffff",
-      padding: 20,
+      padding: 40,
       fontFamily: "Helvetica",
     },
     header: {
@@ -105,34 +105,36 @@ const Facture = ({
       marginBottom: 30,
     },
     logo: {
-      width: 50,
-      height: 50,
-      marginRight: 10,
+      width: 60,
+      height: 55,
+      marginRight: 5,
     },
     companyName: {
-      fontSize: 20,
-      fontWeight: 700,
-      color: "#2C3E50",
+      fontSize: 24,
+      fontWeight: "bold",
+      color: "#000",
       marginRight: "auto",
     },
     date: {
       fontSize: 14,
-      color: "#666666",
+      fontWeight: 700,
+      color: "#333",
     },
     billingInformation: {
+      color: "#000",
       marginBottom: 20,
     },
     shippingInformation: {
       marginBottom: 20,
     },
     sectionTitle: {
-      fontSize: 16,
-      fontWeight: "bold",
+      fontSize: 22,
+      fontWeight: 600,
       marginBottom: 10,
       color: "#333",
     },
     infoText: {
-      fontSize: 12,
+      fontSize: 18,
       marginBottom: 5,
       color: "#34495E",
     },
@@ -140,7 +142,7 @@ const Facture = ({
       borderWidth: 1,
       borderColor: "#111678",
       borderStyle: "solid",
-      marginBottom: 20,
+      marginBottom: 30,
     },
     tableRow: {
       flexDirection: "row",
@@ -170,9 +172,10 @@ const Facture = ({
       marginBottom: 20,
     },
     totalAmount: {
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: "bold",
       color: "#000",
+      marginRight: "auto",
     },
     price: {
       fontWeight: 900,
@@ -199,8 +202,9 @@ const Facture = ({
   return (
     <div className="thank-you-page">
       <div className="save-container">
-        {" "}
-        {/* Add this wrapper */}
+        <h1 className="thank-you-header">
+          Thank you for your purchase! Your order is being processed.
+        </h1>{" "}
         <div className="save">
           <PDFViewer width={700} height={700}>
             <MyDocument />

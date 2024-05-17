@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -10,14 +10,42 @@ import "./shop.css";
 const Shop = ({ handleClick, addToFavorites }) => {
   const [productData, setProductData] = useState([]);
   const [error, setError] = useState(null);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [sortByOption, setSortByOption] = useState("Featured");
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/shop");
-        const productsWithImageUrl = response.data.map(product => ({
+        let response;
+        switch (sortByOption) {
+          case "popularity":
+            response = await axios.get("http://localhost:3001/shop");
+            break;
+          case "latest":
+            response = await axios.get(
+              "http://localhost:3001/shop?sortBy=latest"
+            );
+            break;
+          case "price: low to high":
+            response = await axios.get(
+              "http://localhost:3001/shop?sortBy=priceLowToHigh"
+            );
+            break;
+          case "price: high to low":
+            response = await axios.get(
+              "http://localhost:3001/shop?sortBy=priceHighToLow"
+            );
+            break;
+          default:
+            response = await axios.get("http://localhost:3001/shop");
+        }
+
+        const productsWithImageUrl = response.data.map((product) => ({
           ...product,
-          imageUrl: product.image_path1 ? `/uploads/${product.image_path1}` : null
+          imageUrl: product.image_path1
+            ? `/uploads/${product.image_path1}`
+            : null,
         }));
         setProductData(productsWithImageUrl);
       } catch (err) {
@@ -26,7 +54,29 @@ const Shop = ({ handleClick, addToFavorites }) => {
       }
     };
     fetchData();
+  }, [sortByOption]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleSortBy = (option) => {
+    setSortByOption(option);
+    setDropdownVisible(false); // Close the dropdown after selecting an option
+  };
 
   return (
     <div className="listingData">
@@ -36,24 +86,33 @@ const Shop = ({ handleClick, addToFavorites }) => {
         </div>
         <div className="rightContent">
           <div className="features">
-            <button>
-              <GridViewIcon />
-              Sort by: Featured
-            </button>
-            <ul>
-              <li>
-                <button>Sort by popularity</button>
-              </li>
-              <li>
-                <button>Sort by latest</button>
-              </li>
-              <li>
-                <button>Sort by price: low to high</button>
-              </li>
-              <li>
-                <button>Sort by price: high to low</button>
-              </li>
-            </ul>
+            <Button startIcon={<GridViewIcon />} onClick={toggleDropdown}>
+              Sort by: {sortByOption}
+            </Button>
+            {dropdownVisible && (
+              <ul ref={dropdownRef}>
+                <li>
+                  <Button onClick={() => handleSortBy("popularity")}>
+                    Sort by popularity
+                  </Button>
+                </li>
+                <li>
+                  <Button onClick={() => handleSortBy("latest")}>
+                    Sort by latest
+                  </Button>
+                </li>
+                <li>
+                  <Button onClick={() => handleSortBy("price: low to high")}>
+                    Sort by price: low to high
+                  </Button>
+                </li>
+                <li>
+                  <Button onClick={() => handleSortBy("price: high to low")}>
+                    Sort by price: high to low
+                  </Button>
+                </li>
+              </ul>
+            )}
           </div>
           <div className="productrow">
             {error && <div>Error: {error}</div>}

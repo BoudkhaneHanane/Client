@@ -12,9 +12,11 @@ const PreBuild = ({ handleClick, showWarning, addToFavorites }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/shop");
-        const productsWithImageUrl = response.data.map(product => ({
+        const productsWithImageUrl = response.data.map((product) => ({
           ...product,
-          imageUrl: product.image_path1 ? `/uploads/${product.image_path1}` : null
+          imageUrl: product.image_path1
+            ? `/uploads/${product.image_path1}`
+            : null,
         }));
         setProductData(productsWithImageUrl);
       } catch (err) {
@@ -32,7 +34,7 @@ const PreBuild = ({ handleClick, showWarning, addToFavorites }) => {
         <div className="product-list">
           {productData
             .filter(
-              (product) => product.namecategorie === "Predesigned Computers"
+              (product) => product.namecategorie === "Predesigned computers"
             )
             .map((product) => (
               <div className="item" key={product.idProduit}>
