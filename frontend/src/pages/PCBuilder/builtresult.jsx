@@ -19,7 +19,7 @@ function BuiltResult({ selectedProducts = [], handleMoveAllToCart }) {
             <tr key={product.idProduit}>
               <td>
                 <img
-                  src={product.imageUrl}
+                  src={`/uploads/${product.image_path1}`}
                   alt={product.name}
                   style={{ width: "100px", height: "auto" }} // Adjust dimensions as needed
                 />
