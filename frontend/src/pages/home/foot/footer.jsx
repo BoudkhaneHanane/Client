@@ -110,7 +110,7 @@ const Footer = () => {
               <FiPhoneCall /> (+213) 023 34 80 86
             </p>
           </div>
-          <div className="row d-flex align-items-center media">
+          <div className=" d-flex align-items-center media">
             <label>Follow us on:</label>
             <ul className="list list-inline">
               <li className="list-inline-item">
@@ -135,7 +135,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="row">
+          <div className="">
             <label>Secured Payment Gateways:</label>
             <div className="pay">
               <img src={DzCart} alt="DzCart" />

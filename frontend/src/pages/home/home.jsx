@@ -11,86 +11,28 @@ import Star from "../../assets/star.webp";
 import Asus from "../../assets/asus.webp";
 import { FaArrowRight } from "react-icons/fa";
 import "./home.css";
-import slide1 from "../../assets/photo_2024-05-16_20-12-14.jpg";
-import slide2 from "../../assets/photo_2024-05-16_20-12-22.jpg";
-import slide3 from "../../assets/photo_2024-05-16_20-12-26.jpg";
-import slide4 from "../../assets/photo_2024-05-16_20-12-31.jpg";
-import slide5 from "../../assets/photo_2024-05-16_20-12-35.jpg";
-import slide6 from "../../assets/photo_2024-05-16_20-12-42.jpg";
+import slide1 from "../../assets/slide1.jpg";
+import slide2 from "../../assets/slide2.jpg";
+import slide3 from "../../assets/slide3.jpg";
+import slide4 from "../../assets/slide4.jpg";
 
 function Home({ handleClick, showWarning, addToFavorites }) {
   const slides = [
     {
       id: 1,
       image: slide1,
-      title: "Hi",
-      description: "Description for Slide 1",
-      button: {
-        label: "Button 1",
-        onClick: () => {
-          console.log("Button 1 clicked!");
-        },
-      },
     },
     {
       id: 2,
       image: slide2,
-      title: "Hello",
-      description: "Description for Slide 2",
-      button: {
-        label: "Button 2",
-        onClick: () => {
-          console.log("Button 2 clicked!");
-        },
-      },
     },
     {
       id: 3,
       image: slide3,
-      title: "Greetings",
-      description: "Description for Slide 3",
-      button: {
-        label: "Button 3",
-        onClick: () => {
-          console.log("Button 3 clicked!");
-        },
-      },
     },
     {
       id: 4,
       image: slide4,
-      title: "Hola",
-      description: "Description for Slide 4",
-      button: {
-        label: "Button 4",
-        onClick: () => {
-          console.log("Button 4 clicked!");
-        },
-      },
-    },
-    {
-      id: 5,
-      image: slide5,
-      title: "Hola",
-      description: "Description for Slide 4",
-      button: {
-        label: "Button 4",
-        onClick: () => {
-          console.log("Button 4 clicked!");
-        },
-      },
-    },
-    {
-      id: 6,
-      image: slide6,
-      title: "Hola",
-      description: "Description for Slide 4",
-      button: {
-        label: "Button 4",
-        onClick: () => {
-          console.log("Button 4 clicked!");
-        },
-      },
     },
   ];
 
@@ -138,32 +80,30 @@ function Home({ handleClick, showWarning, addToFavorites }) {
     <>
       <MySlider slides={slides} />
       <div className="plusBoxes">
-        <div className="row">
-          <div className="col">
-            <div>
-              <img src={Truck} alt="" />
-              <p>Fast Delivery</p>
-            </div>
-            <div>
-              <img src={Dollar} alt="" />
-              <p>CCP payment or Bank transfer</p>
-            </div>
-            <div>
-              <img src={Phone} alt="" />
-              <p>Great customer service</p>
-            </div>
-            <div>
-              <img src={Asus} alt="" />
-              <p>Partner of The World Leader ASUS</p>
-            </div>
-            <div>
-              <img src={Star} alt="" />
-              <p>+30 years of expertise at your service</p>
-            </div>
+        <div className="col">
+          <div>
+            <img src={Truck} alt="Fast Delivery" />
+            <p>Fast Delivery</p>
+          </div>
+          <div>
+            <img src={Dollar} alt="CCP payment or Bank transfer" />
+            <p>CCP payment or Bank transfer</p>
+          </div>
+          <div>
+            <img src={Phone} alt="Great customer service" />
+            <p>Great customer service</p>
+          </div>
+          <div>
+            <img src={Asus} alt="Partner of The World Leader ASUS" />
+            <p>Partner of The World Leader ASUS</p>
+          </div>
+          <div>
+            <img src={Star} alt="30 years of expertise at your service" />
+            <p>+30 years of expertise at your service</p>
           </div>
         </div>
       </div>
-      <Banner />
+
       <section className="homeProducts">
         <div className="new">
           <div className="section">
