@@ -390,7 +390,6 @@ const Checkout = ({ cart }) => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
-                <label>Country: Algeria</label>
                 <label>Wilaya</label>
                 <select
                   value={wilaya}

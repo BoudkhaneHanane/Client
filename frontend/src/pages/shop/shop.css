@@ -1,7 +1,14 @@
 /* General Styles */
-
+.listingData{
+  margin: 0;
+  padding: 10px;
+}
 .row {
-    margin-top: 25px;
+    margin: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
     display: flex;
     margin-bottom: 10px;
   }
@@ -11,13 +18,17 @@
   }
   
   .rightContent {
+    flex: 1;
+    box-sizing: border-box;
+    border-left: 2px solid #ddd;
     margin-top: 15px;
+    padding: 15px 25px;
     position: relative;
   }
   .productrow {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust the minmax value as needed */
-    grid-gap: 15px; /* Adjust the gap between grid items */
+    grid-gap: 10px; /* Adjust the gap between grid items */
   }
   
   /* Sidebar Styles */
@@ -143,61 +154,63 @@
     font-weight: 500;
   }
   
-  /* Features Styles */
-  
-  .features {
-    position: relative;
-  }
-  
-  .features button {
-    width: 220px;
-    color: #333;
-    font-size: 16px;
-    font-weight: 550;
-    background: #fff;
-    border: 0.5px solid #ddd;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .features button:focus {
-    outline: none;
-  }
-  
-  .features svg {
-    margin-right: 5px;
-  }
-  
-  .features ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: calc(100% + 5px);
-    right: 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-  }
-  
-  .features ul li {
-    padding: 0px;
-  }
-  
-  .features ul li button {
-    background: none;
-    color: #000;
-    border: none;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    text-align: left;
-  }
-  
-  .features ul li button:hover {
-    background-color: #111861a4;
-    color: #fff;
-  }
-  
+/* Features Styles */
+.features {
+  position: relative;
+}
+
+.features button {
+  margin-bottom: 20px;
+  width: auto;
+  color: #000000e5;
+  font-size: 16px;
+  font-weight: 550;
+  background: #fff;
+  border: 1px solid #33333383;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.features button:focus {
+  outline: none;
+}
+
+.features svg {
+  margin-right: 5px;
+}
+
+.features ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  /* Change the top to 100% */
+  top: calc(90% + 5px); /* Adjust the vertical spacing as needed */
+  /* Set left to 0 to align with the left side of the button */
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.features ul li {
+  padding: 0px;
+}
+
+.features ul li button {
+  background: none;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.features ul li button:hover {
+  background-color: #111861a4;
+  color: #fff;
+}
