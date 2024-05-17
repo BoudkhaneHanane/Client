@@ -39,6 +39,69 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
+app.get("/shop", (req, res) => {
+  let sortBy = req.query.sortBy || ""; // Get the sorting option from the query parameters
+
+  // Define the SQL query based on the sorting option
+  let sqlQuery = `
+    SELECT 
+      idProduit, 
+      name, 
+      namecategorie, 
+      namesubcategorie, 
+      brand, 
+      price, 
+      reference, 
+      description, 
+      image_path1, 
+      image_path2, 
+      image_path3, 
+      image_path4, 
+      image_path5, 
+      created_at, 
+      updated_at, 
+      namesubsubcategorie 
+    FROM 
+      produits
+  `;
+
+  // Add sorting clause based on the sortBy option
+  switch (sortBy) {
+    case "latest":
+      sqlQuery += " ORDER BY created_at DESC"; // Sort by the created_at column in descending order
+      break;
+    case "priceLowToHigh":
+      sqlQuery += " ORDER BY price ASC"; // Sort by price in ascending order
+      break;
+    case "priceHighToLow":
+      sqlQuery += " ORDER BY price DESC"; // Sort by price in descending order
+      break;
+    default:
+      // No sorting specified, use default ordering
+      break;
+  }
+
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Internal Server Error");
+    } else {
+      console.log(result); // Print the result to check the structure and values
+      res.send(result);
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
 
 app.get("/listbuild/:selectedComponent", (req, res) => {
   const { selectedComponent } = req.params;
@@ -323,39 +386,7 @@ db.query(orderLineQuery, [orderLineValues], (err) => {
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-app.get("/shop", (req, res) => {
-  const sqlQuery = `
-  SELECT 
-    idProduit, 
-    name, 
-    namecategorie, 
-    namesubcategorie, 
-    brand, 
-    price, 
-    reference, 
-    description, 
-    image_path1, 
-    image_path2, 
-    image_path3, 
-    image_path4, 
-    image_path5, 
-    created_at, 
-    updated_at, 
-    namesubsubcategorie 
-FROM 
-    produits;
 
-`;
-db.query(sqlQuery, (err, result) => {
-  if (err) {
-    console.log(err);
-    res.status(500).send("Internal Server Error");
-  } else {
-    console.log(result); // Print the result to check the structure and values
-    res.send(result);
-  }
-});
-});
 app.get("/products/:id", (req, res) => {
   const productId = req.params.id;
   db.query("SELECT *, CONCAT('/uploads/', image_path1) AS image_url1, CONCAT('/uploads/', image_path2) AS image_url2, CONCAT('/uploads/', image_path3) AS image_url3, CONCAT('/uploads/', image_path4) AS image_url4, CONCAT('/uploads/', image_path5) AS image_url5 FROM produits WHERE idProduit = ?", [productId], (err, result) => {
