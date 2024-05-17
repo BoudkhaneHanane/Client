@@ -12,15 +12,37 @@ import Logo from "../../../assets/logo.webp";
 import Heart from "../../../assets/heart.png";
 import Cart from "../../../assets/cart.png";
 import User from "../../../assets/user.png";
+import Search from "../../../assets/search.png";
 import Nav from "../head/nav";
 
 function Header({ sizeCart, sizeFavoris, isAuthenticated, onLogout }) {
   const [isOpenDropdown, setIsOpenDropDown] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // State for search bar
+  const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const dropdownRef = useRef();
+  const searchInputRef = useRef(); // Ref for search input
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsOpenDropDown(!isOpenDropdown);
+  };
+
+  const toggleSearch = () => {
+    setIsSearchOpen(!isSearchOpen);
+    if (!isSearchOpen) {
+      setTimeout(() => {
+        searchInputRef.current.focus();
+      }, 0);
+    }
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault(); // Prevent form submission
+    navigate(`/search?q=${searchTerm}`); // Navigate to search results page with the search term
   };
 
   useEffect(() => {
@@ -53,6 +75,28 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated, onLogout }) {
           <Nav />
           <div className="header-actions">
             <ul className="list-inline mb-0 headerTabs">
+              <li
+                className="list-inline-item search-icon"
+                onClick={toggleSearch}
+              >
+                <span>
+                  <img src={Search} alt="Search" />
+                </span>
+                {isSearchOpen && (
+                  <div className="search-bar">
+                    <form onSubmit={handleSearchSubmit}>
+                      <input
+                        type="text"
+                        ref={searchInputRef}
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                      />
+                      <button type="submit">Search</button>
+                    </form>
+                  </div>
+                )}
+              </li>
               <li className="list-inline-item">
                 <Link to="/favoris">
                   <span>
@@ -77,7 +121,7 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated, onLogout }) {
                     </span>
                   </div>
                   {isOpenDropdown && (
-                    <ul className="dropDownMenu">
+                    <ul className="dropDownMenu" ref={dropdownRef}>
                       <li>
                         <Link to="">
                           <Button className="align-items-center">

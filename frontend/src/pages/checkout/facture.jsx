@@ -11,6 +11,7 @@ import {
   Image,
 } from "@react-pdf/renderer";
 import logo from "../../../Logo.jpg"; // Import your company logo image here
+import "./facture.jsx";
 
 const Facture = ({
   orderDetails,
@@ -47,7 +48,6 @@ const Facture = ({
           <Text style={styles.sectionTitle}>Payment & Shipping</Text>
           <Text style={styles.infoText}>Delivery Option: {deliveryOption}</Text>
           <Text style={styles.infoText}>Payment Method: {paymentMethod}</Text>
-          <Text style={styles.infoText}>San Francisco, CA, 94111</Text>
         </View>
         <View style={styles.productServices}>
           <Text style={styles.sectionTitle}>Order Details</Text>
@@ -102,7 +102,7 @@ const Facture = ({
     header: {
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: 20,
+      marginBottom: 30,
     },
     logo: {
       width: 50,
@@ -198,11 +198,14 @@ const Facture = ({
 
   return (
     <div className="thank-you-page">
-      <h1>Thank You for Your Order!</h1>
-      <div>
-        <PDFViewer width={800} height={700}>
-          <MyDocument />
-        </PDFViewer>
+      <div className="save-container">
+        {" "}
+        {/* Add this wrapper */}
+        <div className="save">
+          <PDFViewer width={700} height={700}>
+            <MyDocument />
+          </PDFViewer>
+        </div>
       </div>
       <div>
         {/* PDFDownloadLink for downloading the PDF */}

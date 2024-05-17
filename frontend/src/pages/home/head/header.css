@@ -143,3 +143,56 @@ header {
 .menu nav ul.list li:last-child {
   margin-right: 0;
 }
+/* Search bar */
+.search-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.search-bar {
+  position: absolute;
+  top: calc(100% + 10px); /* Position below the search icon */
+  right: 0;
+  min-width: 200px;
+  width: auto; /* Adjust width as needed */
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.search-bar input[type="text"] {
+  font-size: 17px;
+  font-weight: 550;
+  width: 100%;
+  padding: 13px 15px;
+  border: none;
+  border-radius: 2px;
+  outline: none;
+  box-shadow: none;
+}
+
+/* Adjust the styles below to fit your design */
+.search-bar input[type="text"]:focus {
+  /* Example styles for focus state */
+  border: 1px solid #111861;
+}
+
+.search-bar input[type="text"]::placeholder {
+  /* Example styles for placeholder text */
+  color: #999;
+}
+
+.search-bar input[type="text"]::-webkit-input-placeholder {
+  /* Example styles for placeholder text in Chrome/Safari */
+  color: #999;
+}
+
+.search-bar input[type="text"]:-ms-input-placeholder {
+  /* Example styles for placeholder text in IE */
+  color: #999;
+}
+
+.search-bar input[type="text"]::placeholder {
+  /* Example styles for placeholder text in Firefox */
+  color: #999;
+}
