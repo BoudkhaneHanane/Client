@@ -1,8 +1,9 @@
 /* MySlider.css */
 .home-slider {
   position: relative;
-  padding: 10px; /* Add padding to both sides */
-  width: auto; /* Adjust width to accommodate padding */
+  padding: 0 70px; /* Add padding to both sides */
+  margin: 20px auto; /* Center the slider with auto margins */
+  max-width: 100%;
   overflow: hidden;
   height: 400px; /* Adjust the height as needed */
 }
@@ -14,47 +15,21 @@
 }
 
 .slide {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Adjust the width to fill the slider */
+  height: 100%; /* Adjust the height to fill the slider */
   flex-shrink: 0;
   position: relative;
-  background-size: cover;
-  background-position: center;
+  transition: opacity 0.5s ease; /* Add transition for smoother opacity change */
 }
 
-.content {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  color: #fff;
-}
-
-h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-p {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-button {
-  font-size: 17px;
-  font-weight: 550;
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 4px;
+.slide img {
+  max-width: 100%; /* Ensure the image scales proportionally */
+  max-height: 100%; /* Ensure the image scales proportionally */
   width: auto;
-  background: #1a1a83f6;
-  text-transform: capitalize;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-  margin-left: auto; /* Push button to the right */
-}
-
-button:hover {
-  background: #0808c75e;
+  height: auto;
 }
 
 .prev,
@@ -63,16 +38,18 @@ button:hover {
   top: 50%;
   transform: translateY(-50%);
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for visibility */
+  color: aliceblue;
   border: none;
   cursor: pointer;
   z-index: 1;
+  border-radius: 50%;
 }
 
 .prev {
-  left: 0;
+  left: 10px;
 }
 
 .next {
-  right: 0;
+  right: 10px;
 }

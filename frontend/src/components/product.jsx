@@ -1,14 +1,31 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Tooltip from "@mui/material/Tooltip";
+import axios from "axios";
 import "./product.css";
 
 const Product = ({ product, handleClick, addToFavorites }) => {
   const [showWarning, setShowWarning] = useState(false);
+  const [isInPromotion, setIsInPromotion] = useState(false);
+
+  useEffect(() => {
+    const checkPromotion = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/shop?Produit=${product.idProduit}`
+        );
+        setIsInPromotion(response.data.length > 0);
+      } catch (error) {
+        console.error("Error checking promotion:", error);
+      }
+    };
+
+    checkPromotion();
+  }, [product.idProduit]);
 
   const handleAddToCart = () => {
     if (!product || !product.idProduit) {
@@ -27,10 +44,12 @@ const Product = ({ product, handleClick, addToFavorites }) => {
     }
     addToFavorites(product);
   };
+
   const createdAtDate = new Date(product.created_at);
   const today = new Date();
   const oneMonthAgo = new Date(today);
   oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
   return (
     <div className="productThumb" key={product.idProduit}>
       {showWarning && (
@@ -39,15 +58,13 @@ const Product = ({ product, handleClick, addToFavorites }) => {
       {createdAtDate > oneMonthAgo &&
         !product.prixPromo &&
         !product.reduction && <span className="badge">New</span>}
-      {product.prixPromo &&
-        product.reduction &&
-        new Date() <= new Date(product.dateFinPromo) && (
-          <span className="promo">-{product.reduction}%</span>
-        )}
+      {product.prixPromo && product.reduction && (
+        <span className="promo">-{product.reduction}%</span>
+      )}
       <div className="imgWrapper">
         <Link to={`/detail/${product.idProduit}`}>
           <img src={product.imageUrl} className="w-100" alt="Product" />
-        </Link>{" "}
+        </Link>
         <div className="overlay">
           <ul className="list list-inline mb-0">
             <li className="list-inline-item" onClick={handleAddToFavorites}>
@@ -65,7 +82,7 @@ const Product = ({ product, handleClick, addToFavorites }) => {
                   </span>
                 </Tooltip>
               </li>
-            </Link>{" "}
+            </Link>
           </ul>
         </div>
       </div>
@@ -74,7 +91,7 @@ const Product = ({ product, handleClick, addToFavorites }) => {
           {product.namecategorie}, {product.namesubcategorie}
         </span>
         <label>
-          <Link to={`/detail/${product.idProduit}`}>{product.name}</Link>{" "}
+          <Link to={`/detail/${product.idProduit}`}>{product.name}</Link>
         </label>
         <div className="price-wrapper">
           <div className="price-info">
@@ -90,7 +107,7 @@ const Product = ({ product, handleClick, addToFavorites }) => {
               )}
             {!product.prixPromo && !product.reduction && (
               <div className="price text-g font-weight-bold">
-                {product.price} DA
+                {product.price}DA
               </div>
             )}
           </div>

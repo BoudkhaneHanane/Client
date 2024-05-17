@@ -1,117 +1,126 @@
 /* General Styles */
 .plusBoxes,
 .homeProducts {
-  padding: 20px 0; /* Add padding as needed */
+  padding: 30px 0; /* Add padding as needed */
 }
 
 /* Plus Boxes Section */
 .plusBoxes {
   border: 1px solid #111861;
-  padding: 20px;
-  background-color: #6d6c6c48; /* Blue color */
-  margin: 20px;
-  left: auto;
-  right: auto;
+  padding: 15px 25px;
+  background-color: #33333386; /* Light gray background */
+  margin: 0 30px;
   color: #fff; /* Text color */
-  padding: 15px; /* Add padding as needed */
   display: flex;
-  flex-direction: column; /* Arrange items in one column */
+  flex-direction: column; /* Arrange items in a column */
   align-items: center; /* Align items horizontally */
 }
 
-.plusBoxes .row {
-  
-  margin-top: 0px; /* Add margin to separate from other sections */
-}
-
 .plusBoxes .col {
-
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap */
-  justify-content: center; /* Center items horizontally */
-  gap: 0px; /* Add space between columns */
+  justify-content: space-around; /* Distribute items evenly */
+  gap: 20px; /* Add space between columns */
 }
 
 .plusBoxes .col > div {
-  margin: 0;
-  padding: 0px; /* Add padding as needed */
-
-  flex: 1; /* Distribute space evenly among columns */
-  margin-bottom: 0px; 
   display: flex; /* Ensure images and paragraphs are in a row */
   align-items: center; /* Align items vertically */
+  border-right: 1px solid #333;
+  padding: 10px; /* Add padding as needed */
+  flex: 1; /* Distribute space evenly among columns */
+  min-width: 150px; /* Ensure a minimum width for better layout */
+}
+
+.plusBoxes .col > div:last-child {
+  border-right: none; /* Remove border from the last item */
 }
 
 /* Plus Boxes Images */
 .plusBoxes img {
-  filter: brightness(0) invert(0); /* Make images white */
-
-  max-width: 50px;
-  max-height: 50px;
+  filter: brightness(0) invert(1); /* Make images white */
+  max-width: 65px;
+  max-height: 65px;
   margin-right: 10px; /* Add space between icon and paragraph */
 }
+
 .plusBoxes p {
   font-weight: 450;
   font-size: 18px;
-  color: #333;
-  margin: 0px; /* Reset default margin */
+  color: #fff; /* Text color */
+  margin: 0;
 }
 
+
+/* Home Products Section */
 .homeProducts {
   margin: 20px 40px;
-  padding: 0px;
+  padding: 0;
   background-color: #fff;
   border: 1px solid #3333337c;
   border-radius: 5px;
   border-bottom: none;
   margin-bottom: 0;
 }
-.homeProducts .new{
-  margin-bottom: 0px;
-  padding: 10px 25px;
+
+.homeProducts .new, .homeProducts .pre {
+  margin-bottom: 0;
+  padding: 0px 5px; /* Adjusted padding for better spacing */
 }
+
+.homeProducts .section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .homeProducts .new label {
-  font-size: 34px;
-  font-weight: 450;
-  color: #333;
-  margin-top: 10px;
+  font-size: 30px; /* Adjust font size for better readability */
+  font-weight: 500; /* Updated font weight */
+  color: #000; /* Default text color */
 }
-.homeProducts .pre{
+
+.homeProducts .pre {
   background-color: #333;
-  margin-bottom: 0px;
-  padding: 10px 25px;
 }
-.homeProducts .pre label{
-  font-size: 34px;
-  font-weight: 450;
-  color: #ffffff;
+
+.homeProducts .pre label {
+  font-size: 30px;
+  color: #ffffff; /* White text color for the 'pre' section */
 }
-.homeProducts .pre .more{
+
+.homeProducts .pre .more {
+  font-style: italic;
+  font-size: 17px;
   color: aqua;
 }
+.homeProducts .pre .more:hover {
+  font-style: italic;
+  font-size: 17px;
+  color: #111861;
+}
+
 .productRow {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 10px;
 }
+
 .item {
-  flex: 0 0 calc(20% - 20px);
-  margin-bottom: 10px;
+  flex: 1 1 calc(15% - 20px); /* Ensure 4 items per row */
+  margin-bottom: 0px;
 }
+
 .more {
-  color: #0000007a;
+  color: #000000a2;
   text-decoration: none;
   font-weight: bold;
-  margin: 0px;
-  padding: 0px 25px;
-  font-size: 23px;
-  font-weight: 400;
-  right: 35px;
-  position: absolute;
+  font-size: 16px; /* Adjusted font size for better readability */
   transition: color 0.3s ease;
+  font-style: italic;
+  font-size: 17px;
 }
+
 .more:hover {
   text-decoration: none;
   color: #111861;

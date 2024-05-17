@@ -16,16 +16,12 @@ import Search from "../../../assets/search.png";
 import Nav from "../head/nav";
 
 function Header({ sizeCart, sizeFavoris, isAuthenticated, onLogout }) {
-  const [isOpenDropdown, setIsOpenDropDown] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false); // State for search bar
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown menu
   const dropdownRef = useRef();
   const searchInputRef = useRef(); // Ref for search input
   const navigate = useNavigate();
-
-  const toggleDropdown = () => {
-    setIsOpenDropDown(!isOpenDropdown);
-  };
 
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
@@ -45,23 +41,9 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated, onLogout }) {
     navigate(`/search?q=${searchTerm}`); // Navigate to search results page with the search term
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        isOpenDropdown &&
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
-        setIsOpenDropDown(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [isOpenDropdown]);
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
 
   return (
     <div className="headerWrapper">
@@ -113,53 +95,51 @@ function Header({ sizeCart, sizeFavoris, isAuthenticated, onLogout }) {
                   </span>
                 </Link>
               </li>
-              {isAuthenticated ? (
-                <li className="list-inline-item">
-                  <div onClick={toggleDropdown}>
-                    <span>
+              <li className="list-inline-item">
+                {isAuthenticated ? (
+                  <div>
+                    <span onClick={toggleDropdown}>
                       <img src={User} alt="user" />
                     </span>
+                    {isDropdownOpen && (
+                      <ul className="dropDownMenu" ref={dropdownRef}>
+                        <li>
+                          <Link to="">
+                            <Button className="align-items-center">
+                              <AccountCircle /> My Account
+                            </Button>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="/history">
+                            <Button>
+                              <History /> History
+                            </Button>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link to="">
+                            <Button>
+                              <Settings /> Settings
+                            </Button>
+                          </Link>
+                        </li>
+                        <li>
+                          <Button onClick={onLogout}>
+                            <ExitToApp /> Log Out
+                          </Button>
+                        </li>
+                      </ul>
+                    )}
                   </div>
-                  {isOpenDropdown && (
-                    <ul className="dropDownMenu" ref={dropdownRef}>
-                      <li>
-                        <Link to="">
-                          <Button className="align-items-center">
-                            <AccountCircle /> My Account
-                          </Button>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/history">
-                          <Button>
-                            <History /> History
-                          </Button>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="">
-                          <Button>
-                            <Settings /> Settings
-                          </Button>
-                        </Link>
-                      </li>
-                      <li>
-                        <Button onClick={onLogout}>
-                          <ExitToApp /> Log Out
-                        </Button>
-                      </li>
-                    </ul>
-                  )}
-                </li>
-              ) : (
-                <li className="list-inline-item">
+                ) : (
                   <Link to="/login">
                     <span>
                       <img src={User} alt="user" />
                     </span>
                   </Link>
-                </li>
-              )}
+                )}
+              </li>
             </ul>
           </div>
         </div>

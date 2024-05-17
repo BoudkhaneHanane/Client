@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./myslider.css"; // Import your CSS file
 
 const MySlider = ({ slides }) => {
@@ -20,6 +20,12 @@ const MySlider = ({ slides }) => {
     setCurrentSlideId(nextSlideId);
   };
 
+  // Set interval for automatic slide transition
+  useEffect(() => {
+    const interval = setInterval(goToNextSlide, 3500); // Change slide every 5 seconds
+    return () => clearInterval(interval); // Clean up interval on component unmount
+  }, [currentSlideId]);
+
   return (
     <div className="home-slider">
       <div
@@ -27,29 +33,17 @@ const MySlider = ({ slides }) => {
         style={{ transform: `translateX(-${(currentSlideId - 1) * 100}%)` }}
       >
         {slides.map((slide) => (
-          <div
-            key={slide.id}
-            className="slide"
-            style={{ backgroundImage: `url(${slide.image})` }}
-          >
-            <div className="content">
-              <h2>{slide.title}</h2>
-              <p>{slide.description}</p>
-              {slide.button && (
-                <button onClick={slide.button.onClick}>
-                  {slide.button.label}
-                </button>
-              )}
-            </div>
+          <div key={slide.id} className="slide">
+            <img src={slide.image} alt={slide.alt} />
           </div>
         ))}
       </div>
-      <button className="prev" onClick={goToPrevSlide}>
+      <div className="prev" onClick={goToPrevSlide}>
         &#10094;
-      </button>
-      <button className="next" onClick={goToNextSlide}>
+      </div>
+      <div className="next" onClick={goToNextSlide}>
         &#10095;
-      </button>
+      </div>
     </div>
   );
 };
