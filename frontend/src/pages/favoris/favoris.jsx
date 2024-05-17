@@ -33,33 +33,33 @@ const Favoris = ({ handleClick, favorites, setFavorites }) => {
             </tr>
           </thead>
           <tbody>
-          {favorites.map((item) => (
-  <tr key={item.idProduit}>
-    <td>
-  <img src={item.imageUrl} alt={item.name} /> {/* Afficher l'image */}
-</td>
-
-    <td>
-      <Link to={`/detail/${item.idProduit}`}>{item.name}</Link>
-    </td>
-    <td>{item.price}DA</td>
-    <td>
-      <button
-        className="icon"
-        onClick={() => handleAddToCart(item)}
-      >
-        <ShoppingCartIcon />
-      </button>
-      <button
-        className="icon"
-        onClick={() => handleDeleteItem(item.idProduit)}
-      >
-        <FaTrash />
-      </button>
-    </td>
-  </tr>
-))}
-
+            {favorites.map((item) => (
+              <tr key={item.idProduit}>
+                <td>
+                  <img src={item.imageUrl} alt={item.name} /> {/* Display image */}
+                </td>
+                <td >
+                  <Link className="name" to={`/detail/${item.idProduit}`}>{item.name}</Link>
+                </td>
+                <td>{item.price}DA</td>
+                <td>
+                  <div className="table-icones">
+                    <button
+                      className="icon"
+                      onClick={() => handleAddToCart(item)}
+                    >
+                      <ShoppingCartIcon />
+                    </button>
+                    <button
+                      className="icons"
+                      onClick={() => handleDeleteItem(item.idProduit)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
