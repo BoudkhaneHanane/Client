@@ -32,8 +32,6 @@ const Cart = ({ cart, setCart }) => {
     setCart(updatedCart);
   };
 
-
-  
   // Function to handle changing quantity of an item in the cart
   const handleChangeQuantity = (id, newQuantity) => {
     // Ensure the new quantity is not negative
@@ -133,10 +131,10 @@ const Cart = ({ cart, setCart }) => {
           </p>
           <div className="buttons-container">
             <Link to="/shop">
-              <div>⇤ Continue Shopping</div>
+              <h3>⇤ Continue Shopping</h3>
             </Link>
             <Link to="/checkout">
-              <div>Checkout ⇥</div>
+              <h3>Checkout ⇥</h3>
             </Link>
           </div>
         </div>

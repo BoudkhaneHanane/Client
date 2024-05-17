@@ -42,17 +42,18 @@
   justify-content: space-between;
   margin-top: 20px;
   text-align: right;
+  color: #111861;
 }
-.button div {
+.button h1 {
   padding: 25px 5px;
   background-color: transparent;
-  color: #808080;
+  
   border: none;
-  font-size: 34px;
+  font-size: px;
   font-weight: 500;
   cursor: pointer;
 }
 
-.button- div:hover {
+.button- h1:hover {
   color: #111861;
 }

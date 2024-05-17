@@ -31,9 +31,9 @@ function BuiltResult({ selectedProducts = [], handleMoveAllToCart }) {
         </tbody>
       </table>
       <Link to="/cart">
-        <div className="button" onClick={handleMoveAllToCart}>
+        <h1 className="button" onClick={handleMoveAllToCart}>
           Move All to Cart⇥
-        </div>
+        </h1>
       </Link>
     </div>
   );

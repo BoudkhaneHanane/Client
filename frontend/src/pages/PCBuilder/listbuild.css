@@ -35,7 +35,8 @@
 .mainProcess{
     display: flex;
     margin-top: 10px;
-    padding: 20px 0px;
+    padding: 5px 0px;
+    border: none;
 }
   .main-content {
     margin-left: 10px;
@@ -46,6 +47,9 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
+  }
+  .main-content .row{
+    border: none;
   }
   .link-no-underline {
     text-decoration: none; /* Remove underline */
@@ -88,6 +92,7 @@
   }
   .main-content li img {
     max-width: 100px;
+    margin-right: 10px;
   }
   
   .main-content button {

@@ -114,7 +114,10 @@ function ListBuild({ selectedProcessor, setSelectedProducts }) {
                   {products.map((product, index) => (
                     <li key={index}>
                       <div className="row">
-                        <img src={`/uploads/${product.image_path1}`}  alt={product.name} />
+                        <img
+                          src={`/uploads/${product.image_path1}`}
+                          alt={product.name}
+                        />
                         <div className="col">
                           <Link
                             to={`/detail/${product.idProduit}`}
@@ -127,7 +130,6 @@ function ListBuild({ selectedProcessor, setSelectedProducts }) {
                             Select
                           </button>
                         </div>
-                        <h3>{product.PrixRevendeur}DA</h3>
                         <h3> {product.price}DA</h3>
                       </div>
                     </li>
