@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "@mui/material/Slider";
 import Checkbox from "@mui/material/Checkbox";
 import { FiFilter } from "react-icons/fi";
+import "./shop.css";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -30,28 +31,32 @@ const Sidebar = () => {
     "Uncategorized",
   ];
 
+  // Array of values for each category
+  const categoryValues = [15, 5, 8, 12, 0, 20, 0, 18, 11, 17, 10];
+
   return (
     <div className="sidebar">
       <div className="card border-0  shadow">
         <h4>Category</h4>
+        <hr />
         <div className="catList">
-          {/* Mapping through categories to render each category item */}
           {categories.map((category, index) => (
             <div key={index} className="catItem">
-              <h5>{category}</h5>
-              <span className="rounded-circle">30</span>
+              {category}
+              <div className="rounded-circle">{categoryValues[index]}</div>
             </div>
           ))}
         </div>
       </div>
       <div className="card border-0  shadow">
         <h4>Filter by</h4>
+        <hr />
         <h5>Price:</h5>
         <Slider
           className="slider"
           min={0}
           step={1}
-          max={500000}
+          max={50000}
           getAriaLabel={() => "Temperature range"}
           value={value}
           onChange={handleChange}
@@ -63,7 +68,7 @@ const Sidebar = () => {
             From:<strong className="text-success">{value[0]}DA</strong>
           </span>
           <span className="ml-auto">
-            From:<strong className="text-success">{value[1]}DA</strong>
+            To:<strong className="text-success">{value[1]}DA</strong>
           </span>
         </div>
         <div className="filters">
