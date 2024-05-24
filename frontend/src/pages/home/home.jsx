@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import MySlider from "../../components/myslider";
-import Banner from "../../components/banner";
 import Product from "../../components/product";
 import Truck from "../../assets/truck.webp";
 import Dollar from "../../assets/dollar.webp";

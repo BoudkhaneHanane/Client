@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import "./builtresult.css";
 
 function BuiltResult({ selectedProducts = [], handleMoveAllToCart }) {
+  const handleMoveToCart = () => {
+    handleMoveAllToCart(selectedProducts);
+  };
+
   return (
     <div className="build-result-container">
       <h1>Selected Products</h1>
@@ -21,7 +25,7 @@ function BuiltResult({ selectedProducts = [], handleMoveAllToCart }) {
                 <img
                   src={`/uploads/${product.image_path1}`}
                   alt={product.name}
-                  style={{ width: "100px", height: "auto" }} // Adjust dimensions as needed
+                  style={{ width: "100px", height: "auto" }}
                 />
               </td>
               <td>{product.name}</td>
@@ -31,7 +35,7 @@ function BuiltResult({ selectedProducts = [], handleMoveAllToCart }) {
         </tbody>
       </table>
       <Link to="/cart">
-        <h1 className="button" onClick={handleMoveAllToCart}>
+        <h1 className="button" onClick={handleMoveToCart}>
           Move All to Cart⇥
         </h1>
       </Link>

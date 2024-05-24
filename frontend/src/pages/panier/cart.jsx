@@ -49,7 +49,7 @@ const Cart = ({ cart, setCart }) => {
 
   return (
     <div className="cart-container">
-      <h2 >Cart</h2>
+      <h2>Cart</h2>
       {cart.length === 0 ? (
         <div>
           <p className="empty">Your cart is empty</p>
@@ -75,7 +75,7 @@ const Cart = ({ cart, setCart }) => {
                 <tr key={item.idProduit}>
                   <td>
                     <img
-                      src={item.imageUrl} 
+                      src={`/uploads/${item.image_path1}`} 
                       alt={item.name}
                     />
                   </td>

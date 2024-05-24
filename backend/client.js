@@ -98,19 +98,6 @@ app.get("/shop", (req, res) => {
     }
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.get("/listbuild/:selectedComponent", (req, res) => {
   const { selectedComponent } = req.params;
   const { selectedProcessor } = req.query; // Extract selectedProcessor from query params
